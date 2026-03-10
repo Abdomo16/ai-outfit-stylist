@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'bottom_nav_bar.dart';
+import '../features/wardrobe/screens/wardrobe_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -13,7 +14,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
 
   final List<Widget> _screens = [
     const Center(child: Text('Home Dashboard')),
-    const Center(child: Text('My Wardrobe')),
+    const WardrobeScreen(),
     const Center(child: Text('Generate Outfit')),
     const Center(child: Text('Saved Outfits')),
     const Center(child: Text('Profile')),
