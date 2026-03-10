@@ -32,4 +32,20 @@ class ClothingItemModel {
       'color': color,
     };
   }
+
+  ClothingItemModel copyWith({
+    String? id,
+    String? imageUrl,
+    String? name,
+    String? category,
+    String? color,
+  }) {
+    return ClothingItemModel(
+      id: id ?? this.id,
+      imageUrl: imageUrl ?? this.imageUrl,
+      name: name ?? this.name,
+      category: category ?? this.category,
+      color: color ?? this.color,
+    );
+  }
 }
