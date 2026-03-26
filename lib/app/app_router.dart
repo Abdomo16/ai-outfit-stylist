@@ -4,6 +4,8 @@ import '../navigation/main_navigation_screen.dart';
 import '../features/auth/screens/welcome_screen.dart';
 import '../features/auth/screens/login_screen.dart';
 import '../features/auth/screens/register_screen.dart';
+import '../features/profile/screens/profile_screen.dart';
+import '../features/profile/screens/settings_screen.dart';
 import '../core/widgets/error_view.dart';
 
 class AppRouter {
@@ -17,6 +19,15 @@ class AppRouter {
         return MaterialPageRoute(builder: (_) => const RegisterScreen());
       case RouteNames.mainNavigation:
         return MaterialPageRoute(builder: (_) => const MainNavigationScreen());
+      case RouteNames.profile:
+        return MaterialPageRoute(builder: (_) => const ProfileScreen());
+      case RouteNames.settings:
+        return MaterialPageRoute(builder: (_) => const SettingsScreen());
+      case RouteNames.wardrobe:
+        // Placeholder or actual depending on project
+        return MaterialPageRoute(
+          builder: (_) => const Scaffold(body: Center(child: Text("Wardrobe"))),
+        );
       // Add other routes here as they are implemented
       default:
         return MaterialPageRoute(

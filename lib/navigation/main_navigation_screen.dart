@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'bottom_nav_bar.dart';
 import '../features/wardrobe/screens/wardrobe_screen.dart';
+import '../features/home/screens/home_dashboard_screen.dart';
+import '../features/outfit_generator/screens/outfit_generator_screen.dart';
+import '../features/profile/screens/profile_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -13,11 +16,11 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
 
   final List<Widget> _screens = [
-    const Center(child: Text('Home Dashboard')),
+    const HomeDashboardScreen(),
     const WardrobeScreen(),
-    const Center(child: Text('Generate Outfit')),
+    const OutfitGeneratorScreen(),
     const Center(child: Text('Saved Outfits')),
-    const Center(child: Text('Profile')),
+    const ProfileScreen(),
   ];
 
   void _onTabTapped(int index) {
