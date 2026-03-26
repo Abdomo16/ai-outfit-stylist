@@ -12,4 +12,6 @@ class RouteNames {
   static const String shareOutfit = '/share-outfit';
   static const String savedOutfits = '/saved-outfits';
   static const String settings = '/settings';
+  static const String profile = '/profile';
+  static const String wardrobe = '/wardrobe';
 }
