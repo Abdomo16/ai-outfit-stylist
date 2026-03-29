@@ -15,10 +15,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileCubit(
-        repository:
-            ProfileRepository(), // Create inside provider or via get_it, assuming new instance is fine since auth repository does same
-      )..loadProfile(),
+      create: (context) =>
+          ProfileCubit(repository: ProfileRepository())..loadProfile(),
       child: const ProfileView(),
     );
   }

@@ -6,7 +6,7 @@ class ProfileRepository {
   final SupabaseClient _supabaseClient;
 
   ProfileRepository({SupabaseClient? client})
-      : _supabaseClient = client ?? SupabaseConfig.client;
+    : _supabaseClient = client ?? SupabaseConfig.client;
 
   Future<ProfileModel> getUserProfile() async {
     try {
@@ -25,12 +25,13 @@ class ProfileRepository {
         return ProfileModel.fromMap(response);
       } on PostgrestException catch (e) {
         if (e.code == 'PGRST205') {
-          // Table 'users' does not exist yet. Return fallback data to keep UI functional.
           return ProfileModel(
             id: user.id,
             name: user.userMetadata?['username'] ?? 'User',
             email: user.email ?? '',
-            avatarUrl: user.userMetadata?['avatar_url'] ?? user.userMetadata?['profilePhotoUrl'],
+            avatarUrl:
+                user.userMetadata?['avatar_url'] ??
+                user.userMetadata?['profilePhotoUrl'],
             isPremium: false,
           );
         }
