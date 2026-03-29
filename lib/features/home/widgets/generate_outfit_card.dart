@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_colors.dart';
 
 class GenerateOutfitCard extends StatelessWidget {
   const GenerateOutfitCard({super.key});
@@ -9,23 +8,23 @@ class GenerateOutfitCard extends StatelessWidget {
     final theme = Theme.of(context);
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.all(24.0),
+      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 40.0),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
           colors: [
-            Color(0xFF9000FF), // Lighter purple
-            AppColors.primary, // Primary purple
-            Color(0xFF5A189A), // Darker purple
+            Color(0xFFFF007F), // Vivid Pink
+            Color(0xFF7F00FF), // Deep Purple
           ],
-          begin: Alignment.topLeft,
+          begin: Alignment.topCenter,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(24.0),
+        borderRadius: BorderRadius.circular(36.0),
         boxShadow: [
           BoxShadow(
-            color: AppColors.primary.withOpacity(0.3),
-            blurRadius: 20,
-            offset: const Offset(0, 10),
+            color: const Color(0xFFFF007F).withOpacity(0.4),
+            blurRadius: 32,
+            spreadRadius: 8,
+            offset: const Offset(0, 16),
           ),
         ],
       ),
@@ -33,12 +32,12 @@ class GenerateOutfitCard extends StatelessWidget {
         children: [
           // Background Icon
           Positioned(
-            right: -20,
-            bottom: -20,
+            right: -40,
+            bottom: -40,
             child: Icon(
-              Icons.checkroom,
-              size: 150,
-              color: Colors.white.withOpacity(0.1),
+              Icons.auto_awesome,
+              size: 240,
+              color: Colors.white.withOpacity(0.15),
             ),
           ),
           Column(
@@ -46,46 +45,65 @@ class GenerateOutfitCard extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  const Icon(Icons.auto_awesome, color: Colors.white, size: 16),
-                  const SizedBox(width: 8),
-                  Text(
-                    'DAILY PICK',
-                    style: theme.textTheme.labelSmall?.copyWith(
-                      color: Colors.white,
-                      letterSpacing: 1.2,
-                      fontWeight: FontWeight.bold,
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white.withOpacity(0.2),
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(color: Colors.white.withOpacity(0.5)),
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(Icons.star, color: Colors.amber, size: 16),
+                        const SizedBox(width: 6),
+                        Text(
+                          'PREMIUM AI',
+                          style: theme.textTheme.labelSmall?.copyWith(
+                            color: Colors.white,
+                            letterSpacing: 1.5,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
+              const SizedBox(height: 24),
               Text(
-                'Generate Outfit',
-                style: theme.textTheme.headlineMedium?.copyWith(
+                'Generate\nYour Outfit',
+                style: theme.textTheme.displaySmall?.copyWith(
                   color: Colors.white,
-                  fontWeight: FontWeight.bold,
+                  fontWeight: FontWeight.w900,
+                  height: 1.1,
+                  letterSpacing: -1.0,
                 ),
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 16),
               Text(
                 'AI curated look based on\ntoday\'s weather: 22°C Sunny.',
-                style: theme.textTheme.bodyMedium?.copyWith(
-                  color: Colors.white.withOpacity(0.8),
-                  height: 1.5,
+                style: theme.textTheme.titleMedium?.copyWith(
+                  color: Colors.white.withOpacity(0.9),
+                  height: 1.4,
+                  fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(height: 24),
+              const SizedBox(height: 40),
               ElevatedButton(
                 onPressed: () {},
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
-                  foregroundColor: AppColors.primary,
+                  foregroundColor: const Color(0xFF7F00FF),
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 24,
-                    vertical: 12,
+                    horizontal: 32,
+                    vertical: 20,
                   ),
+                  elevation: 12,
+                  shadowColor: Colors.black38,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ),
                 child: const Row(
@@ -93,10 +111,14 @@ class GenerateOutfitCard extends StatelessWidget {
                   children: [
                     Text(
                       'Style Me Now',
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        letterSpacing: 1.2,
+                      ),
                     ),
-                    SizedBox(width: 8),
-                    Icon(Icons.arrow_forward, size: 16),
+                    SizedBox(width: 12),
+                    Icon(Icons.auto_awesome, size: 22),
                   ],
                 ),
               ),
