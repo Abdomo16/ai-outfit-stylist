@@ -87,10 +87,10 @@ class ProfileView extends StatelessWidget {
                         },
                       ),
                       ProfileMenuItem(
-                        icon: Icons.favorite,
-                        title: 'Saved Outfits',
+                        icon: Icons.star_rate_outlined,
+                        title: 'Rate Outfit',
                         onTap: () {
-                          Navigator.pushNamed(context, RouteNames.savedOutfits);
+                          Navigator.pushNamed(context, RouteNames.rateOutfit);
                         },
                       ),
                       ProfileMenuItem(
