@@ -10,7 +10,7 @@ class RouteNames {
   static const String clothingDetail = '/clothing-detail';
   static const String readMyOutfit = '/read-my-outfit';
   static const String shareOutfit = '/share-outfit';
-  static const String savedOutfits = '/saved-outfits';
+  static const String rateOutfit = '/rate-outfit';
   static const String settings = '/settings';
   static const String profile = '/profile';
   static const String wardrobe = '/wardrobe';
