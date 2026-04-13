@@ -15,10 +15,8 @@ class ProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => ProfileCubit(
-        repository:
-            ProfileRepository(), // Create inside provider or via get_it, assuming new instance is fine since auth repository does same
-      )..loadProfile(),
+      create: (context) =>
+          ProfileCubit(repository: ProfileRepository())..loadProfile(),
       child: const ProfileView(),
     );
   }
@@ -89,10 +87,10 @@ class ProfileView extends StatelessWidget {
                         },
                       ),
                       ProfileMenuItem(
-                        icon: Icons.favorite,
-                        title: 'Saved Outfits',
+                        icon: Icons.star_rate_outlined,
+                        title: 'Rate Outfit',
                         onTap: () {
-                          Navigator.pushNamed(context, RouteNames.savedOutfits);
+                          Navigator.pushNamed(context, RouteNames.rateOutfit);
                         },
                       ),
                       ProfileMenuItem(

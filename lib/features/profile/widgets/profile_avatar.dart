@@ -5,11 +5,7 @@ class ProfileAvatar extends StatelessWidget {
   final String? imageUrl;
   final VoidCallback? onEdit;
 
-  const ProfileAvatar({
-    super.key,
-    this.imageUrl,
-    this.onEdit,
-  });
+  const ProfileAvatar({super.key, this.imageUrl, this.onEdit});
 
   @override
   Widget build(BuildContext context) {
@@ -17,11 +13,11 @@ class ProfileAvatar extends StatelessWidget {
       alignment: Alignment.bottomRight,
       children: [
         Container(
-          padding: const EdgeInsets.all(3), // For the purple border
+          padding: const EdgeInsets.all(3),
           decoration: BoxDecoration(
             shape: BoxShape.circle,
             gradient: const LinearGradient(
-              colors: [AppColors.primary, Color(0xFF5E17EB)], // Purple gradient
+              colors: [AppColors.primary, Color(0xFF5E17EB)],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
@@ -31,7 +27,11 @@ class ProfileAvatar extends StatelessWidget {
             backgroundColor: AppColors.background,
             backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
             child: imageUrl == null
-                ? const Icon(Icons.person, size: 50, color: AppColors.textSecondary)
+                ? const Icon(
+                    Icons.person,
+                    size: 50,
+                    color: AppColors.textSecondary,
+                  )
                 : null,
           ),
         ),
@@ -45,11 +45,7 @@ class ProfileAvatar extends StatelessWidget {
                 shape: BoxShape.circle,
                 border: Border.all(color: AppColors.background, width: 3),
               ),
-              child: const Icon(
-                Icons.edit,
-                color: Colors.white,
-                size: 16,
-              ),
+              child: const Icon(Icons.edit, color: Colors.white, size: 16),
             ),
           ),
       ],

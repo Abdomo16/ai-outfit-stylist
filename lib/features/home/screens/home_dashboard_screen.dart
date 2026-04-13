@@ -16,9 +16,9 @@ class HomeDashboardScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              HomeHeader(),
-              SizedBox(height: 32.0),
               GenerateOutfitCard(),
+              SizedBox(height: 40.0),
+              HomeHeader(),
               SizedBox(height: 32.0),
               QuickActionsSection(),
               SizedBox(height: 32.0),
