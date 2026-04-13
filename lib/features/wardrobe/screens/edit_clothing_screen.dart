@@ -389,7 +389,9 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    Navigator.pop(context);
+                    context.read<WardrobeCubit>().deleteClothingItem(widget.item.id);
+                    Navigator.pop(context); // Pop edit screen
+                    Navigator.pop(context); // Pop detail screen to go back to wardrobe
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
