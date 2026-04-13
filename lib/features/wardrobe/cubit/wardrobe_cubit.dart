@@ -11,65 +11,10 @@ class WardrobeCubit extends Cubit<WardrobeState> {
   WardrobeCubit(this._repository) : super(WardrobeInitial());
 
   Future<void> loadWardrobeItems() async {
-    // T Replace mock data with repository call when backend is ready
     emit(WardrobeLoading());
     try {
-      // Temporarily bypass repository and return mock items for UI preview
-      List<ClothingItemModel> mockItems = [
-        ClothingItemModel(
-          id: "1",
-          imageUrl:
-              "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", // White Tee
-          category: "Shirts",
-          color: "White",
-          name: "Essential White Tee",
-        ),
-        ClothingItemModel(
-          id: "2",
-          imageUrl:
-              "https://images.unsplash.com/photo-1542272604-780c96859332?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", // Blue Jeans
-          category: "Pants",
-          color: "Indigo",
-          name: "Classic Indigo Denim",
-        ),
-        ClothingItemModel(
-          id: "3",
-          imageUrl:
-              "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", // Red Sneakers
-          category: "Shoes",
-          color: "Red",
-          name: "Rush Runners",
-        ),
-        ClothingItemModel(
-          id: "4",
-          imageUrl:
-              "https://images.unsplash.com/photo-1591047139829-d91aecb6caea?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", // Trench Coat
-          category: "Jackets",
-          color: "Beige",
-          name: "Autumn Trench Coat",
-        ),
-        ClothingItemModel(
-          id: "5",
-          imageUrl:
-              "https://images.unsplash.com/photo-1598032895397-b9472444bf93?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", // Floral Shirt
-          category: "Shirts",
-          color: "Pattern",
-          name: "Floral Vacation Shirt",
-        ),
-        ClothingItemModel(
-          id: "6",
-          imageUrl:
-              "https://images.unsplash.com/photo-1594633312681-425c7b97ccd1?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60", // Tailored Trousers
-          category: "Pants",
-          color: "Black",
-          name: "Tailored Trousers",
-        ),
-      ];
-
-      // Simulate network delay
-      await Future.delayed(const Duration(milliseconds: 800));
-
-      emit(WardrobeLoaded(mockItems));
+      final items = await _repository.getClothingItems();
+      emit(WardrobeLoaded(items));
     } catch (e) {
       emit(WardrobeError(e.toString()));
     }
@@ -112,12 +57,7 @@ class WardrobeCubit extends Cubit<WardrobeState> {
   Future<void> updateClothingItem(ClothingItemModel updatedItem) async {
     try {
       emit(WardrobeLoading());
-
-      // Temporarily bypass repository and update the state locally
-      // (Normally this would await _repository.updateClothingItem(updatedItem) then loadWardrobeItems)
-
-      // We will pretend there's a backend call here:
-      await Future.delayed(const Duration(milliseconds: 500));
+      await _repository.updateClothingItem(updatedItem);
 
       // Here we just fetch the items again so it looks like it updated
       await loadWardrobeItems();
