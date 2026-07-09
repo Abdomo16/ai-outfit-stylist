@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../outfit_generator/screens/outfit_generator_screen.dart';
 
 class GenerateOutfitCard extends StatelessWidget {
   const GenerateOutfitCard({super.key});
@@ -46,7 +47,10 @@ class GenerateOutfitCard extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
+                    ),
                     decoration: BoxDecoration(
                       color: Colors.white.withOpacity(0.2),
                       borderRadius: BorderRadius.circular(20),
@@ -92,7 +96,14 @@ class GenerateOutfitCard extends StatelessWidget {
               ),
               const SizedBox(height: 40),
               ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OutfitGeneratorScreen(),
+                    ),
+                  );
+                },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.white,
                   foregroundColor: const Color(0xFF7F00FF),
