@@ -11,10 +11,10 @@ class HomeHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final authState = context.watch<AuthCubit>().state;
-    
+
     String username = 'User';
     String? photoUrl;
-    
+
     if (authState is Authenticated) {
       username = authState.user.username;
       photoUrl = authState.user.profilePhotoUrl;
@@ -26,10 +26,7 @@ class HomeHeader extends StatelessWidget {
         Row(
           children: [
             if (photoUrl != null && photoUrl.isNotEmpty)
-              CircleAvatar(
-                radius: 24,
-                backgroundImage: NetworkImage(photoUrl),
-              )
+              CircleAvatar(radius: 24, backgroundImage: NetworkImage(photoUrl))
             else
               Container(
                 width: 48,
@@ -88,14 +85,28 @@ class HomeHeader extends StatelessWidget {
           ],
         ),
         Container(
-          padding: const EdgeInsets.all(12),
-          decoration: const BoxDecoration(
-            color: AppColors.card,
-            shape: BoxShape.circle,
+          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+          decoration: BoxDecoration(
+            color: AppColors.primary.withOpacity(0.1),
+            borderRadius: BorderRadius.circular(20),
+            border: Border.all(color: AppColors.primary.withOpacity(0.2)),
           ),
-          child: const Icon(
-            Icons.notifications_none,
-            color: AppColors.textPrimary,
+          child: Row(
+            children: [
+              const Icon(
+                Icons.auto_awesome,
+                color: AppColors.primary,
+                size: 16,
+              ),
+              const SizedBox(width: 4),
+              Text(
+                'AI Ready',
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: AppColors.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
         ),
       ],

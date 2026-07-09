@@ -1,24 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../wardrobe/screens/wardrobe_screen.dart';
 import 'saved_outfit_card.dart';
 import '../models/saved_outfit_model.dart';
 import '../cubit/saved_outfits_cubit.dart';
 import '../cubit/saved_outfits_state.dart';
 
-class SavedOutfitsSection extends StatefulWidget {
+class SavedOutfitsSection extends StatelessWidget {
   const SavedOutfitsSection({super.key});
-
-  @override
-  State<SavedOutfitsSection> createState() => _SavedOutfitsSectionState();
-}
-
-class _SavedOutfitsSectionState extends State<SavedOutfitsSection> {
-  @override
-  void initState() {
-    super.initState();
-    context.read<SavedOutfitsCubit>().loadSavedOutfits();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +26,14 @@ class _SavedOutfitsSectionState extends State<SavedOutfitsSection> {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WardrobeScreen(),
+                  ),
+                );
+              },
               child: Text(
                 'View All',
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -58,7 +55,7 @@ class _SavedOutfitsSectionState extends State<SavedOutfitsSection> {
                 ),
               );
             }
-            
+
             if (state is SavedOutfitsError) {
               return Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16),
@@ -96,8 +93,18 @@ class _SavedOutfitsSectionState extends State<SavedOutfitsSection> {
                       imageUrl: outfit.imageUrl,
                       title: outfit.title,
                       savedTime: outfit.savedTime,
-                      onTap: () {},
-                      onFavoriteTap: () {},
+                      onTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Outfit details coming soon!'),
+                          ),
+                        );
+                      },
+                      onFavoriteTap: () {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(content: Text('Added to favorites!')),
+                        );
+                      },
                     );
                   }).toList(),
                 ),
