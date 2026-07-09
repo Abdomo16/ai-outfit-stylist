@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'action_card.dart';
+import '../../wardrobe/screens/wardrobe_screen.dart';
+import '../../rate_outfit/screens/rate_outfit_screen.dart';
+import '../screens/share_style_screen.dart';
+import '../screens/styling_tips_screen.dart';
 
 class QuickActionsSection extends StatelessWidget {
   const QuickActionsSection({super.key});
@@ -29,25 +33,53 @@ class QuickActionsSection extends StatelessWidget {
               icon: Icons.checkroom,
               title: 'My Wardrobe',
               subtitle: '245 Items',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const WardrobeScreen(),
+                  ),
+                );
+              },
             ),
             ActionCard(
               icon: Icons.analytics,
               title: 'Outfit Analysis',
               subtitle: 'Check style score',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RateOutfitScreen(),
+                  ),
+                );
+              },
             ),
             ActionCard(
               icon: Icons.share,
               title: 'Share Style',
               subtitle: 'Community trends',
-              onTap: () {},
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ShareStyleScreen(),
+                  ),
+                );
+              },
             ),
             ActionCard(
-              icon: Icons.quiz,
-              title: 'Style Quiz',
-              subtitle: 'Refine your AI',
-              onTap: () {},
+              icon: Icons.trending_up,
+              title: 'Styling Tips',
+              subtitle: 'Daily Fashion Advice',
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const StylingTipsScreen(),
+                  ),
+                );
+              },
             ),
           ],
         ),
