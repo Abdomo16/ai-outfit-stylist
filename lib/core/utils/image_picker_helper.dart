@@ -1,14 +1,27 @@
+import 'package:image_picker/image_picker.dart';
+
 class ImagePickerHelper {
   ImagePickerHelper._();
 
-  // TODO: Add image_picker dependency and implement methods
+  static final ImagePicker _picker = ImagePicker();
+
   static Future<String?> pickImageFromGallery() async {
-    // Return mock path for now
-    return null;
+    try {
+      final XFile? image = await _picker.pickImage(source: ImageSource.gallery);
+      return image?.path;
+    } catch (e) {
+      print('Error picking image: $e');
+      return null;
+    }
   }
 
   static Future<String?> takePhoto() async {
-    // Return mock path for now
-    return null;
+    try {
+      final XFile? photo = await _picker.pickImage(source: ImageSource.camera);
+      return photo?.path;
+    } catch (e) {
+      print('Error taking photo: $e');
+      return null;
+    }
   }
 }
