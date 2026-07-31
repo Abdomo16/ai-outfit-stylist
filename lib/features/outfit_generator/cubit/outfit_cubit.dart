@@ -1,11 +1,15 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:uuid/uuid.dart';
-import '../../../../data/models/clothing_item_model.dart';
-import '../../../../data/models/outfit_model.dart';
 import 'outfit_state.dart';
 
+import '../../../../data/datasources/ai_service.dart';
+import '../../../../data/repositories/wardrobe_repository.dart';
+
 class OutfitCubit extends Cubit<OutfitState> {
-  OutfitCubit() : super(const OutfitInitial());
+  final WardrobeRepository _wardrobeRepo;
+  final AIService _aiService;
+
+  OutfitCubit(this._wardrobeRepo, this._aiService)
+    : super(const OutfitInitial());
 
   String? selectedOccasion;
   String? selectedStyle;
@@ -38,49 +42,58 @@ class OutfitCubit extends Cubit<OutfitState> {
 
     emit(OutfitLoading());
 
-    // Simulate network delay
-    await Future.delayed(const Duration(seconds: 2));
-
     try {
-      final mockOutfit = _getMockOutfit(selectedOccasion!, selectedStyle!);
-      emit(OutfitGenerated(mockOutfit));
+      final wardrobe = await _wardrobeRepo.getClothingItems();
+      if (wardrobe.isEmpty) {
+        emit(
+          const OutfitError("Your wardrobe is empty. Please add items first."),
+        );
+        return;
+      }
+
+      final recommendation = await _aiService.getRecommendations(
+        wardrobe: wardrobe,
+        occasion: selectedOccasion!.toLowerCase(),
+        weather: _weatherForOccasion(selectedOccasion!),
+        season: _seasonForOccasion(selectedOccasion!),
+      );
+
+      emit(OutfitGenerated(recommendation));
     } catch (e) {
-      emit(OutfitError("Failed to generate outfit: ${e.toString()}"));
+      final msg = e.toString();
+      if (msg.contains('404') || msg.contains('No valid combinations')) {
+        emit(
+          const OutfitError(
+            "No matching outfit found. Try a different occasion or add more clothes to your wardrobe!",
+          ),
+        );
+      } else {
+        emit(OutfitError("Failed to generate outfit: $msg"));
+      }
     }
   }
 
-  OutfitModel _getMockOutfit(String occasion, String style) {
-    // Generate a basic mock outfit based on selection for realism
-    final uuid = const Uuid().v4();
+  String _weatherForOccasion(String occasion) {
+    switch (occasion.toLowerCase()) {
+      case 'gym':
+        return 'warm';
+      case 'party':
+        return 'warm';
+      case 'travel':
+        return 'mild';
+      default:
+        return 'sunny';
+    }
+  }
 
-    return OutfitModel(
-      id: uuid,
-      name: "Clean & Casual $occasion Look",
-      occasion: occasion,
-      stylePreference: style,
-      explanation:
-          "Perfect for $occasion. Comfortable, clean and stylish in a $style way.",
-      top: ClothingItemModel(
-        id: '${uuid}_top',
-        name: "White Oxford Shirt",
-        category: "Shirts",
-        color: "White",
-        imageUrl: "assets/images/clothes_placeholders/shirt.png",
-      ),
-      bottom: ClothingItemModel(
-        id: '${uuid}_bottom',
-        name: "Slim Black Jeans",
-        category: "Pants",
-        color: "Black",
-        imageUrl: "assets/images/clothes_placeholders/pants.png",
-      ),
-      shoes: ClothingItemModel(
-        id: '${uuid}_shoes',
-        name: "Minimal White Sneakers",
-        category: "Shoes",
-        color: "White",
-        imageUrl: "assets/images/clothes_placeholders/shoes.png",
-      ),
-    );
+  String _seasonForOccasion(String occasion) {
+    switch (occasion.toLowerCase()) {
+      case 'gym':
+        return 'summer';
+      case 'travel':
+        return 'all';
+      default:
+        return 'summer';
+    }
   }
 }
