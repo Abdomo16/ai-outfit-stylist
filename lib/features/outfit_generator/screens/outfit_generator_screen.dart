@@ -6,14 +6,19 @@ import '../cubit/outfit_state.dart';
 import '../widgets/occasion_selector.dart';
 import '../widgets/style_selector.dart';
 import 'outfit_result_screen.dart';
+import '../../../../data/repositories/wardrobe_repository_impl.dart';
+import '../../../../data/datasources/ai_service.dart';
 
 class OutfitGeneratorScreen extends StatelessWidget {
   const OutfitGeneratorScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final aiService = AIService();
+    final wardrobeRepo = WardrobeRepositoryImpl(aiService: aiService);
+
     return BlocProvider(
-      create: (context) => OutfitCubit(),
+      create: (context) => OutfitCubit(wardrobeRepo, aiService),
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Create Your Look'),
