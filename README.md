@@ -1,17 +1,38 @@
-# outfit_selctor
+# AI Outfit Stylist
 
-A new Flutter project.
+AI Outfit Stylist is an intelligent, AI-powered mobile application built with Flutter that acts as your personal fashion assistant. By combining a sleek mobile frontend with a powerful AI backend, it seamlessly manages your digital wardrobe, curates stylish outfit recommendations, and provides feedback on your style!
 
-## Getting Started
+## 📱 Features
 
-This project is a starting point for a Flutter application.
+* **Digital Wardrobe Management:** Easily snap photos and upload your clothing. The AI automatically groups and categorizes your clothes by color, pattern, season, and style.
+* **AI Outfit Generator:** Never wonder what to wear again! Give the AI an occasion (e.g., Casual, Formal, Party), the current weather, and the season, and it will instantly build a complete, stylish outfit from the clothes you own.
+* **Outfit Rater:** Upload a picture of your current outfit and let our AI analyze your style, giving you a rating and tips on how to improve your look.
+* **Saved Outfits:** Keep a collection of your favorite AI-generated fits to recreate later. 
 
-A few resources to get you started if this is your first Flutter project:
+## 🏗️ Architecture
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+The project is split into two primary components that communicate seamlessly:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. **Frontend (Flutter):** 
+   * Cross-platform mobile development using Flutter and Dart.
+   * Target Platforms: Android and iOS.
+   * State Management: Cubit / BLoC.
+   * Sleek, modern UI with dynamic, AI-generated components.
+   
+2. **Backend (FastAPI & AI Models):**
+   * Processes image uploads and segments clothing items.
+   * Powers the recommendation engine using computer vision properties (clothing type, color, hex, confidence, etc.).
+
+## 🚀 Getting Started
+
+### Prerequisites
+* Flutter SDK (Targeting Android and iOS)
+* Dart SDK
+* An active instance of the AI Backend running locally or on a server.
+
+### Installation
+
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-username/ai-outfit-stylist.git
+   cd ai-outfit-stylist
