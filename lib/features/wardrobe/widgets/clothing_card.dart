@@ -43,9 +43,9 @@ class ClothingCard extends StatelessWidget {
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
-                    child: item.imageUrl.startsWith('http')
+                    child: (item.imageUrl ?? '').startsWith('http')
                         ? Image.network(
-                            item.imageUrl,
+                            item.imageUrl!,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>
                                 const Icon(
@@ -55,7 +55,7 @@ class ClothingCard extends StatelessWidget {
                                 ),
                           )
                         : Image.file(
-                            File(item.imageUrl),
+                            File(item.imageUrl ?? ''),
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>
                                 const Icon(
