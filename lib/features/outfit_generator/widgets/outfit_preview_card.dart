@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:io';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/outfit_model.dart';
 
@@ -25,40 +26,11 @@ class OutfitPreviewCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          //  static online photo until AI generation is live
+          // Display dynamically generated collage of wardrobe items
           SizedBox(
             height: 350,
             width: double.infinity,
-            child: Image.network(
-              _onlineImageForStyle(outfit.stylePreference),
-              fit: BoxFit.cover,
-              loadingBuilder: (context, child, progress) {
-                if (progress == null) return child;
-                return Container(
-                  color: const Color(0xFFF5F5F5),
-                  child: Center(
-                    child: CircularProgressIndicator(
-                      value: progress.expectedTotalBytes != null
-                          ? progress.cumulativeBytesLoaded /
-                                progress.expectedTotalBytes!
-                          : null,
-                      color: AppColors.primary,
-                      strokeWidth: 2,
-                    ),
-                  ),
-                );
-              },
-              errorBuilder: (context, error, stackTrace) => Container(
-                color: const Color(0xFFF5F5F5),
-                child: Center(
-                  child: Icon(
-                    Icons.checkroom,
-                    size: 80,
-                    color: Colors.grey.withValues(alpha: 0.5),
-                  ),
-                ),
-              ),
-            ),
+            child: _buildItemsCollage(),
           ),
           // Details Bottom Area
           Container(
@@ -124,5 +96,124 @@ class OutfitPreviewCard extends StatelessWidget {
     }
     // default — minimalist / everything else
     return 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=800&fit=crop';
+  }
+
+  Widget _buildItemsCollage() {
+    final itemsWithImage = outfit.items
+        .where((item) => item.imageUrl != null && item.imageUrl!.isNotEmpty)
+        .toList();
+
+    if (itemsWithImage.isEmpty) {
+      if (outfit.imageUrl != null && outfit.imageUrl!.isNotEmpty) {
+        return _buildImage(outfit.imageUrl!);
+      }
+      return _buildImage(_onlineImageForStyle(outfit.stylePreference));
+    }
+
+    if (itemsWithImage.length == 1) {
+      return _buildImage(itemsWithImage[0].imageUrl!);
+    }
+
+    if (itemsWithImage.length == 2) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(child: _buildImage(itemsWithImage[0].imageUrl!)),
+          const SizedBox(width: 2),
+          Expanded(child: _buildImage(itemsWithImage[1].imageUrl!)),
+        ],
+      );
+    }
+
+    if (itemsWithImage.length == 3) {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Expanded(child: _buildImage(itemsWithImage[0].imageUrl!)),
+          const SizedBox(width: 2),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                Expanded(child: _buildImage(itemsWithImage[1].imageUrl!)),
+                const SizedBox(height: 2),
+                Expanded(child: _buildImage(itemsWithImage[2].imageUrl!)),
+              ],
+            ),
+          ),
+        ],
+      );
+    }
+
+    // 4 or more
+    return GridView.builder(
+      physics: const NeverScrollableScrollPhysics(),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+        childAspectRatio: 1,
+        crossAxisSpacing: 2,
+        mainAxisSpacing: 2,
+      ),
+      itemCount: itemsWithImage.length,
+      itemBuilder: (context, index) {
+        return _buildImage(itemsWithImage[index].imageUrl!);
+      },
+    );
+  }
+
+  Widget _buildImage(String url) {
+    if (url.startsWith('http')) {
+      return Container(
+        color: Colors.white,
+        child: Image.network(
+          url,
+          fit: BoxFit.cover,
+          loadingBuilder: (context, child, progress) {
+            if (progress == null) return child;
+            return Container(
+              color: const Color(0xFFF5F5F5),
+              child: Center(
+                child: CircularProgressIndicator(
+                  value: progress.expectedTotalBytes != null
+                      ? progress.cumulativeBytesLoaded /
+                            progress.expectedTotalBytes!
+                      : null,
+                  color: AppColors.primary,
+                  strokeWidth: 2,
+                ),
+              ),
+            );
+          },
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: const Color(0xFFF5F5F5),
+            child: Center(
+              child: Icon(
+                Icons.checkroom,
+                size: 40,
+                color: Colors.grey.withValues(alpha: 0.5),
+              ),
+            ),
+          ),
+        ),
+      );
+    } else {
+      return Container(
+        color: Colors.white,
+        child: Image.file(
+          File(url),
+          fit: BoxFit.cover,
+          errorBuilder: (context, error, stackTrace) => Container(
+            color: const Color(0xFFF5F5F5),
+            child: Center(
+              child: Icon(
+                Icons.checkroom,
+                size: 40,
+                color: Colors.grey.withValues(alpha: 0.5),
+              ),
+            ),
+          ),
+        ),
+      );
+    }
   }
 }

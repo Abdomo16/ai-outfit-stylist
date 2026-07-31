@@ -130,9 +130,10 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(24),
                           image: DecorationImage(
-                            image: widget.item.imageUrl.startsWith('http')
-                                ? NetworkImage(widget.item.imageUrl)
-                                : FileImage(File(widget.item.imageUrl))
+                            image:
+                                (widget.item.imageUrl ?? '').startsWith('http')
+                                ? NetworkImage(widget.item.imageUrl!)
+                                : FileImage(File(widget.item.imageUrl ?? ''))
                                       as ImageProvider,
                             fit: BoxFit.cover,
                           ),
@@ -389,9 +390,13 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                 ),
                 child: MaterialButton(
                   onPressed: () {
-                    context.read<WardrobeCubit>().deleteClothingItem(widget.item.id);
+                    context.read<WardrobeCubit>().deleteClothingItem(
+                      widget.item.id ?? '',
+                    );
                     Navigator.pop(context); // Pop edit screen
-                    Navigator.pop(context); // Pop detail screen to go back to wardrobe
+                    Navigator.pop(
+                      context,
+                    ); // Pop detail screen to go back to wardrobe
                   },
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),

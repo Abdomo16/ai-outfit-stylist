@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class Env {
   Env._();
 
@@ -11,4 +13,10 @@ class Env {
         'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlsbnVzdnJkeG5sanVyeXhoemdwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMwNzEyMDYsImV4cCI6MjA4ODY0NzIwNn0.5Pbiz31f633wpTEUG7un2Gdm__VNwI9AZYQNwzu1JXM',
   );
   static const bool isDevelopment = true;
+
+  // Handles correct localhost IP depending on the running platform (Emulator vs Simulator)
+  static String get aiBackendUrl {
+    if (Platform.isAndroid) return 'http://10.0.2.2:8000';
+    return 'http://127.0.0.1:8000';
+  }
 }

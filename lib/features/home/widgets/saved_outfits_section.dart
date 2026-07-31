@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
-import '../../wardrobe/screens/wardrobe_screen.dart';
 import 'saved_outfit_card.dart';
 import '../models/saved_outfit_model.dart';
 import '../cubit/saved_outfits_cubit.dart';
@@ -26,14 +25,7 @@ class SavedOutfitsSection extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const WardrobeScreen(),
-                  ),
-                );
-              },
+              onPressed: () {},
               child: Text(
                 'View All',
                 style: theme.textTheme.bodyMedium?.copyWith(
@@ -93,18 +85,8 @@ class SavedOutfitsSection extends StatelessWidget {
                       imageUrl: outfit.imageUrl,
                       title: outfit.title,
                       savedTime: outfit.savedTime,
-                      onTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(
-                            content: Text('Outfit details coming soon!'),
-                          ),
-                        );
-                      },
-                      onFavoriteTap: () {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          const SnackBar(content: Text('Added to favorites!')),
-                        );
-                      },
+                      onTap: () {},
+                      onFavoriteTap: () {},
                     );
                   }).toList(),
                 ),

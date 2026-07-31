@@ -41,9 +41,12 @@ class ClothingDetailScreen extends StatelessWidget {
               background: Stack(
                 fit: StackFit.expand,
                 children: [
-                  item.imageUrl.startsWith('http')
-                      ? Image.network(item.imageUrl, fit: BoxFit.cover)
-                      : Image.file(File(item.imageUrl), fit: BoxFit.cover),
+                  (item.imageUrl ?? '').startsWith('http')
+                      ? Image.network(item.imageUrl!, fit: BoxFit.cover)
+                      : Image.file(
+                          File(item.imageUrl ?? ''),
+                          fit: BoxFit.cover,
+                        ),
                   // Gradient overlay at the bottom of the image
                   Positioned(
                     bottom: 0,
@@ -106,7 +109,7 @@ class ClothingDetailScreen extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    'ID: ${item.id.length > 8 ? item.id.substring(0, 8) : item.id} • Added recently',
+                    'ID: ${(item.id ?? '').length > 8 ? (item.id ?? '').substring(0, 8) : (item.id ?? '')} • Added recently',
                     style: const TextStyle(
                       color: AppColors.textSecondary,
                       fontSize: 13,
