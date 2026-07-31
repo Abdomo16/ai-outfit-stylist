@@ -129,7 +129,7 @@ class DetailActionButtons extends StatelessWidget {
             TextButton(
               onPressed: () {
                 Navigator.pop(dialogContext); // Close dialog
-                context.read<WardrobeCubit>().deleteClothingItem(item.id);
+                context.read<WardrobeCubit>().deleteClothingItem(item.id ?? '');
                 Navigator.pop(context); // Go back to Wardrobe screen
               },
               child: const Text(
