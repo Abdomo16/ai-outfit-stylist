@@ -86,13 +86,7 @@ class ProfileView extends StatelessWidget {
                           Navigator.pushNamed(context, RouteNames.wardrobe);
                         },
                       ),
-                      ProfileMenuItem(
-                        icon: Icons.star_rate_outlined,
-                        title: 'Rate Outfit',
-                        onTap: () {
-                          Navigator.pushNamed(context, RouteNames.rateOutfit);
-                        },
-                      ),
+
                       ProfileMenuItem(
                         icon: Icons.settings,
                         title: 'Settings',
