@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'action_card.dart';
 import '../../wardrobe/screens/wardrobe_screen.dart';
-import '../../rate_outfit/screens/rate_outfit_screen.dart';
 import '../screens/share_style_screen.dart';
 import '../screens/styling_tips_screen.dart';
 
@@ -43,16 +42,11 @@ class QuickActionsSection extends StatelessWidget {
               },
             ),
             ActionCard(
-              icon: Icons.analytics,
-              title: 'Outfit Analysis',
-              subtitle: 'Check style score',
+              icon: Icons.favorite,
+              title: 'Saved Outfits',
+              subtitle: 'Your favorite styles',
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const RateOutfitScreen(),
-                  ),
-                );
+                // Will navigate to SavedOutfitsScreen
               },
             ),
             ActionCard(
