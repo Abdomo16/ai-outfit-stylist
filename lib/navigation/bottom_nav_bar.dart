@@ -32,9 +32,9 @@ class BottomNavBar extends StatelessWidget {
           label: 'Generate',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.star_rate_outlined),
-          activeIcon: Icon(Icons.star),
-          label: 'Rate Outfit',
+          icon: Icon(Icons.favorite_border),
+          activeIcon: Icon(Icons.favorite),
+          label: 'Saved',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.person_outline),
