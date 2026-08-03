@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
 import '../../../../core/constants/app_colors.dart';
 
 class SavedOutfitCard extends StatelessWidget {
@@ -77,19 +78,56 @@ class SavedOutfitCard extends StatelessWidget {
                 ),
               ],
             ),
+            // Share button
+            Positioned(
+              top: 0,
+              right: 40,
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () {
+                  final text =
+                      'Check out this outfit I styled: $name'
+                      '${occasion.isNotEmpty ? ' for $occasion' : ''}!';
+                  Share.share(text);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: const BoxDecoration(
+                      color: Colors.black54,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.share,
+                      color: Colors.white,
+                      size: 16,
+                    ),
+                  ),
+                ),
+              ),
+            ),
             // Delete button
             Positioned(
-              top: 6,
-              right: 6,
+              top: 0,
+              right: 0,
               child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
                 onTap: onDelete,
-                child: Container(
-                  padding: const EdgeInsets.all(4),
-                  decoration: const BoxDecoration(
-                    color: Colors.black54,
-                    shape: BoxShape.circle,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    padding: const EdgeInsets.all(6),
+                    decoration: const BoxDecoration(
+                      color: Colors.black54,
+                      shape: BoxShape.circle,
+                    ),
+                    child: const Icon(
+                      Icons.close,
+                      color: Colors.white,
+                      size: 16,
+                    ),
                   ),
-                  child: const Icon(Icons.close, color: Colors.white, size: 14),
                 ),
               ),
             ),
