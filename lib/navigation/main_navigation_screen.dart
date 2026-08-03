@@ -4,7 +4,7 @@ import '../features/wardrobe/screens/wardrobe_screen.dart';
 import '../features/home/screens/home_dashboard_screen.dart';
 import '../features/outfit_generator/screens/outfit_generator_screen.dart';
 import '../features/profile/screens/profile_screen.dart';
-import '../features/rate_outfit/screens/rate_outfit_screen.dart';
+import '../features/saved_outfits/screens/saved_outfits_screen.dart';
 
 class MainNavigationScreen extends StatefulWidget {
   const MainNavigationScreen({super.key});
@@ -20,7 +20,7 @@ class _MainNavigationScreenState extends State<MainNavigationScreen> {
     const HomeDashboardScreen(),
     const WardrobeScreen(),
     const OutfitGeneratorScreen(),
-    const RateOutfitScreen(),
+    const SavedOutfitsScreen(),
     const ProfileScreen(),
   ];
 

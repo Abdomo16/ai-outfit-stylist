@@ -6,15 +6,9 @@ import '../models/outfit_model.dart';
 import '../../config/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
-import '../../features/rate_outfit/models/rate_outfit_result_model.dart';
 
 class AIService {
   final http.Client _client = http.Client();
-
-  Future<RateOutfitResultModel> analyzeOutfitImage(File image) async {
-    // Setup model later
-    throw UnimplementedError('Model setup pending');
-  }
 
   Future<List<ClothingItemModel>> uploadWardrobeImage(File imageFile) async {
     final ext = p.extension(imageFile.path).toLowerCase();

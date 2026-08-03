@@ -5,9 +5,17 @@ import '../cubit/outfit_cubit.dart';
 import '../cubit/outfit_state.dart';
 import '../widgets/outfit_preview_card.dart';
 import '../widgets/regenerate_button.dart';
+import '../../saved_outfits/cubit/saved_outfits_cubit.dart';
 
-class OutfitResultScreen extends StatelessWidget {
+class OutfitResultScreen extends StatefulWidget {
   const OutfitResultScreen({super.key});
+
+  @override
+  State<OutfitResultScreen> createState() => _OutfitResultScreenState();
+}
+
+class _OutfitResultScreenState extends State<OutfitResultScreen> {
+  bool _saved = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,13 +55,32 @@ class OutfitResultScreen extends StatelessWidget {
                 color: AppColors.card.withValues(alpha: 0.5),
                 shape: BoxShape.circle,
               ),
-              child: IconButton(
-                icon: const Icon(
-                  Icons.more_horiz,
-                  color: AppColors.primary,
-                  size: 20,
-                ),
-                onPressed: () {},
+              child: BlocBuilder<OutfitCubit, OutfitState>(
+                builder: (context, state) {
+                  return IconButton(
+                    icon: Icon(
+                      _saved ? Icons.favorite : Icons.favorite_border,
+                      color: _saved ? Colors.redAccent : AppColors.primary,
+                      size: 20,
+                    ),
+                    onPressed: _saved
+                        ? null // prevent double save
+                        : () {
+                            if (state is OutfitGenerated) {
+                              context.read<SavedOutfitsCubit>().saveOutfit(
+                                state.outfit.toJson(),
+                              );
+                              setState(() => _saved = true);
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                  content: Text('Outfit saved! ❤️'),
+                                  duration: Duration(seconds: 2),
+                                ),
+                              );
+                            }
+                          },
+                  );
+                },
               ),
             ),
           ),
@@ -98,8 +125,12 @@ class OutfitResultScreen extends StatelessWidget {
                   OutfitPreviewCard(outfit: outfit),
                   const SizedBox(height: 48),
                   RegenerateButton(
-                    onPressed: () =>
-                        context.read<OutfitCubit>().generateOutfit(),
+                    onPressed: () {
+                      context.read<OutfitCubit>().generateOutfit();
+                      setState(
+                        () => _saved = false,
+                      ); // reset heart on regenerate
+                    },
                     isLoading: state is OutfitLoading,
                   ),
                 ],

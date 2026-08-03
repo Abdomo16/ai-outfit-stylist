@@ -4,8 +4,7 @@ import '../data/repositories/auth_repository.dart';
 import '../features/auth/cubit/auth_cubit.dart';
 import '../data/repositories/wardrobe_repository_impl.dart';
 import '../features/wardrobe/cubit/wardrobe_cubit.dart';
-import '../features/home/repositories/saved_outfits_repository.dart';
-import '../features/home/cubit/saved_outfits_cubit.dart';
+import '../features/saved_outfits/cubit/saved_outfits_cubit.dart';
 import '../data/datasources/ai_service.dart';
 
 class AppProviders extends StatelessWidget {
@@ -25,8 +24,7 @@ class AppProviders extends StatelessWidget {
               WardrobeCubit(WardrobeRepositoryImpl(aiService: AIService())),
         ),
         BlocProvider<SavedOutfitsCubit>(
-          create: (context) =>
-              SavedOutfitsCubit(SavedOutfitsRepository())..loadSavedOutfits(),
+          create: (context) => SavedOutfitsCubit()..fetchSavedOutfits(),
         ),
       ],
       child: child,
