@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../wardrobe/cubit/wardrobe_cubit.dart';
+import '../../wardrobe/cubit/wardrobe_state.dart';
+import '../../saved_outfits/cubit/saved_outfits_cubit.dart';
+import '../../saved_outfits/cubit/saved_outfits_state.dart';
+import 'package:outfit_selctor/features/saved_outfits/screens/saved_outfits_screen.dart';
 import 'action_card.dart';
 import '../../wardrobe/screens/wardrobe_screen.dart';
 import '../screens/share_style_screen.dart';
@@ -28,25 +34,50 @@ class QuickActionsSection extends StatelessWidget {
           crossAxisSpacing: 16,
           childAspectRatio: 1.1,
           children: [
-            ActionCard(
-              icon: Icons.checkroom,
-              title: 'My Wardrobe',
-              subtitle: '245 Items',
-              onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const WardrobeScreen(),
-                  ),
+            BlocBuilder<WardrobeCubit, WardrobeState>(
+              builder: (context, state) {
+                String subtitle = 'Loading...';
+                if (state is WardrobeLoaded) {
+                  subtitle = '${state.items.length} Items';
+                } else if (state is WardrobeInitial) {
+                  subtitle = '0 Items';
+                }
+                return ActionCard(
+                  icon: Icons.checkroom,
+                  title: 'My Wardrobe',
+                  subtitle: subtitle,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const WardrobeScreen(),
+                      ),
+                    );
+                  },
                 );
               },
             ),
-            ActionCard(
-              icon: Icons.favorite,
-              title: 'Saved Outfits',
-              subtitle: 'Your favorite styles',
-              onTap: () {
-                // Will navigate to SavedOutfitsScreen
+            BlocBuilder<SavedOutfitsCubit, SavedOutfitsState>(
+              builder: (context, state) {
+                String subtitle = 'Loading...';
+                if (state is SavedOutfitsLoaded) {
+                  subtitle = '${state.savedOutfits.length} Styles';
+                } else if (state is SavedOutfitsInitial) {
+                  subtitle = '0 Styles';
+                }
+                return ActionCard(
+                  icon: Icons.favorite,
+                  title: 'Saved Outfits',
+                  subtitle: subtitle,
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SavedOutfitsScreen(),
+                      ),
+                    );
+                  },
+                );
               },
             ),
             ActionCard(
