@@ -94,4 +94,17 @@ class OutfitModel {
       accessories: accessories,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'id': id,
+      'name': name,
+      'occasion': occasion,
+      'stylePreference': stylePreference,
+      'explanation': explanation,
+      'score': score,
+      'imageUrl': imageUrl,
+      'items': items.map((i) => i.toJson()).toList(),
+    };
+  }
 }
