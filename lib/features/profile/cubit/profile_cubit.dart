@@ -6,8 +6,8 @@ class ProfileCubit extends Cubit<ProfileState> {
   final ProfileRepository _repository;
 
   ProfileCubit({required ProfileRepository repository})
-      : _repository = repository,
-        super(ProfileInitial());
+    : _repository = repository,
+      super(ProfileInitial());
 
   Future<void> loadProfile() async {
     emit(ProfileLoading());
@@ -26,6 +26,27 @@ class ProfileCubit extends Cubit<ProfileState> {
       emit(ProfileUnauthenticated());
     } catch (e) {
       emit(ProfileError(e.toString()));
+    }
+  }
+
+  Future<void> deleteAccount() async {
+    emit(ProfileLoading());
+    try {
+      await _repository.deleteAccount();
+      emit(ProfileUnauthenticated());
+    } catch (e) {
+      emit(ProfileError(e.toString()));
+    }
+  }
+
+  Future<void> uploadAvatar(String imagePath) async {
+    emit(ProfileLoading());
+    try {
+      await _repository.uploadAvatar(imagePath);
+      await loadProfile();
+    } catch (e) {
+      emit(ProfileError(e.toString()));
+      await loadProfile();
     }
   }
 }
