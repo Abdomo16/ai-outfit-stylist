@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
-import 'saved_outfit_card.dart';
-import '../models/saved_outfit_model.dart';
-import '../cubit/saved_outfits_cubit.dart';
-import '../cubit/saved_outfits_state.dart';
+import '../../saved_outfits/widgets/saved_outfit_card.dart';
+import '../../saved_outfits/cubit/saved_outfits_cubit.dart';
+import '../../saved_outfits/cubit/saved_outfits_state.dart';
 
 class SavedOutfitsSection extends StatelessWidget {
   const SavedOutfitsSection({super.key});
@@ -62,7 +61,7 @@ class SavedOutfitsSection extends StatelessWidget {
             }
 
             if (state is SavedOutfitsLoaded) {
-              if (state.outfits.isEmpty) {
+              if (state.savedOutfits.isEmpty) {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 32),
                   child: Center(
@@ -76,19 +75,33 @@ class SavedOutfitsSection extends StatelessWidget {
                 );
               }
 
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                clipBehavior: Clip.none,
-                child: Row(
-                  children: state.outfits.map((outfit) {
-                    return SavedOutfitCard(
-                      imageUrl: outfit.imageUrl,
-                      title: outfit.title,
-                      savedTime: outfit.savedTime,
-                      onTap: () {},
-                      onFavoriteTap: () {},
-                    );
-                  }).toList(),
+              return SizedBox(
+                height: 220,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: state.savedOutfits.map((outfitData) {
+                      final outfit = outfitData as Map<String, dynamic>;
+                      return SizedBox(
+                        width: 160,
+                        height: 220,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 16.0),
+                          child: SavedOutfitCard(
+                            outfit: outfit,
+                            onTap: () {},
+                            onDelete: () {
+                              context.read<SavedOutfitsCubit>().deleteOutfit(
+                                outfit['id'].toString(),
+                              );
+                            },
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
               );
             }
