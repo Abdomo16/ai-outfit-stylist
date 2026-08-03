@@ -4,6 +4,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../saved_outfits/widgets/saved_outfit_card.dart';
 import '../../saved_outfits/cubit/saved_outfits_cubit.dart';
 import '../../saved_outfits/cubit/saved_outfits_state.dart';
+import '../../saved_outfits/screens/saved_outfits_screen.dart';
 
 class SavedOutfitsSection extends StatelessWidget {
   const SavedOutfitsSection({super.key});
@@ -24,7 +25,14 @@ class SavedOutfitsSection extends StatelessWidget {
               ),
             ),
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const SavedOutfitsScreen(),
+                  ),
+                );
+              },
               child: Text(
                 'View All',
                 style: theme.textTheme.bodyMedium?.copyWith(
