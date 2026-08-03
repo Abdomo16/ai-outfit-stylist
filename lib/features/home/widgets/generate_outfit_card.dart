@@ -87,7 +87,7 @@ class GenerateOutfitCard extends StatelessWidget {
               ),
               const SizedBox(height: 16),
               Text(
-                'AI curated look based on\ntoday\'s weather: 22°C Sunny.',
+                'Discover your perfect look with AI\ntailored to your unique style.',
                 style: theme.textTheme.titleMedium?.copyWith(
                   color: Colors.white.withOpacity(0.9),
                   height: 1.4,
