@@ -32,10 +32,7 @@ class ClothingDetailScreen extends StatelessWidget {
             ),
             centerTitle: true,
             actions: [
-              IconButton(
-                icon: const Icon(Icons.share, size: 20),
-                onPressed: () {},
-              ),
+              // Placeholder for future share icon if needed
             ],
             flexibleSpace: FlexibleSpaceBar(
               background: Stack(
@@ -129,11 +126,22 @@ class ClothingDetailScreen extends StatelessWidget {
                     value: item.color.toUpperCase(),
                   ),
                   const SizedBox(height: 16),
-                  const ItemInfoCard(
-                    icon: Icons.texture,
-                    label: 'MATERIAL',
-                    value: 'Cotton / Blend',
-                  ),
+                  if (item.season != null && item.season!.isNotEmpty)
+                    ItemInfoCard(
+                      icon: Icons.thermostat,
+                      label: 'SEASON',
+                      value: item.season!.toUpperCase(),
+                    ),
+                  if (item.season != null && item.season!.isNotEmpty)
+                    const SizedBox(height: 16),
+                  if (item.pattern != null &&
+                      item.pattern!.isNotEmpty &&
+                      item.pattern!.toLowerCase() != 'solid')
+                    ItemInfoCard(
+                      icon: Icons.texture,
+                      label: 'PATTERN',
+                      value: item.pattern!.toUpperCase(),
+                    ),
 
                   const SizedBox(height: 48),
                   DetailActionButtons(item: item),
