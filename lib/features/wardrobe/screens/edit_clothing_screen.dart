@@ -302,42 +302,6 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                 ),
               ),
 
-              const SizedBox(height: 24),
-
-              const Text(
-                'MATERIAL',
-                style: TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 12,
-                  letterSpacing: 1.2,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-              const SizedBox(height: 8),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.card,
-                  borderRadius: BorderRadius.circular(16),
-                ),
-                child: const Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Genuine Calfskin Leather',
-                      style: TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                    Icon(
-                      Icons.texture,
-                      color: AppColors.textSecondary,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 48),
-
               // Bottom Actions
               Container(
                 width: double.infinity,

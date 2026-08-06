@@ -7,6 +7,7 @@ import '../widgets/clothing_card.dart';
 import '../widgets/add_clothing_button.dart';
 import '../widgets/wardrobe_header.dart';
 import '../widgets/category_tabs.dart';
+import '../utils/category_utils.dart';
 
 class WardrobeScreen extends StatefulWidget {
   const WardrobeScreen({super.key});
@@ -22,7 +23,6 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
     'Shirts',
     'Pants',
     'Shoes',
-    'Jackets',
     'Accessories',
   ];
 
@@ -75,9 +75,10 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                         ? state.items
                         : state.items
                               .where(
-                                (item) =>
-                                    item.category.toLowerCase() ==
-                                    _selectedCategory.toLowerCase(),
+                                (item) => CategoryUtils.matchesCategory(
+                                  item.category,
+                                  _selectedCategory,
+                                ),
                               )
                               .toList();
 
