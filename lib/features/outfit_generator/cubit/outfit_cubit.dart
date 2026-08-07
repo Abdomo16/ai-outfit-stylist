@@ -13,6 +13,7 @@ class OutfitCubit extends Cubit<OutfitState> {
 
   String? selectedOccasion;
   String? selectedStyle;
+  bool _isGenerating = false;
 
   void selectOccasion(String occasion) {
     selectedOccasion = occasion;
@@ -34,19 +35,31 @@ class OutfitCubit extends Cubit<OutfitState> {
     );
   }
 
-  void generateOutfit() async {
+  Future<void> generateOutfit() async {
+    if (_isGenerating) return;
+
     if (selectedOccasion == null || selectedStyle == null) {
       emit(const OutfitError("Please select both an occasion and a style."));
       return;
     }
 
-    emit(OutfitLoading());
+    final previousOutfit = switch (state) {
+      OutfitGenerated(:final outfit) => outfit,
+      OutfitLoading(:final previousOutfit) => previousOutfit,
+      OutfitError(:final previousOutfit) => previousOutfit,
+      _ => null,
+    };
+    _isGenerating = true;
+    emit(OutfitLoading(previousOutfit: previousOutfit));
 
     try {
       final wardrobe = await _wardrobeRepo.getClothingItems();
       if (wardrobe.isEmpty) {
         emit(
-          const OutfitError("Your wardrobe is empty. Please add items first."),
+          OutfitError(
+            "Your wardrobe is empty. Please add items first.",
+            previousOutfit: previousOutfit,
+          ),
         );
         return;
       }
@@ -54,6 +67,7 @@ class OutfitCubit extends Cubit<OutfitState> {
       final recommendation = await _aiService.getRecommendations(
         wardrobe: wardrobe,
         occasion: selectedOccasion!.toLowerCase(),
+        style: selectedStyle!.toLowerCase(),
         weather: _weatherForOccasion(selectedOccasion!),
         season: _seasonForOccasion(selectedOccasion!),
       );
@@ -63,13 +77,21 @@ class OutfitCubit extends Cubit<OutfitState> {
       final msg = e.toString();
       if (msg.contains('404') || msg.contains('No valid combinations')) {
         emit(
-          const OutfitError(
+          OutfitError(
             "No matching outfit found. Try a different occasion or add more clothes to your wardrobe!",
+            previousOutfit: previousOutfit,
           ),
         );
       } else {
-        emit(OutfitError("Failed to generate outfit: $msg"));
+        emit(
+          OutfitError(
+            "Failed to generate outfit. Please check your connection and try again.",
+            previousOutfit: previousOutfit,
+          ),
+        );
       }
+    } finally {
+      _isGenerating = false;
     }
   }
 
