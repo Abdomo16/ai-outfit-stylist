@@ -188,7 +188,7 @@ class SavedOutfitCard extends StatelessWidget {
     return Image.network(
       url,
       fit: BoxFit.cover,
-      errorBuilder: (_, __, ___) => Container(
+      errorBuilder: (_, _, _) => Container(
         color: AppColors.primary.withValues(alpha: 0.1),
         child: const Icon(Icons.checkroom, size: 32, color: AppColors.primary),
       ),
