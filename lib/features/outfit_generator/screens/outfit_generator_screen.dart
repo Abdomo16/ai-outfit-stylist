@@ -10,7 +10,9 @@ import '../../../../data/repositories/wardrobe_repository_impl.dart';
 import '../../../../data/datasources/ai_service.dart';
 
 class OutfitGeneratorScreen extends StatelessWidget {
-  const OutfitGeneratorScreen({super.key});
+  final VoidCallback? onExit;
+
+  const OutfitGeneratorScreen({super.key, this.onExit});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class OutfitGeneratorScreen extends StatelessWidget {
           centerTitle: true,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-            onPressed: () => Navigator.of(context).pop(),
+            onPressed: onExit ?? () => Navigator.of(context).maybePop(),
           ),
           backgroundColor: AppColors.background,
           surfaceTintColor: Colors.transparent,
@@ -34,7 +36,8 @@ class OutfitGeneratorScreen extends StatelessWidget {
         ),
         body: BlocConsumer<OutfitCubit, OutfitState>(
           listener: (context, state) {
-            if (state is OutfitGenerated) {
+            if (state is OutfitGenerated &&
+                (ModalRoute.of(context)?.isCurrent ?? false)) {
               Navigator.push(
                 context,
                 MaterialPageRoute(
@@ -44,7 +47,8 @@ class OutfitGeneratorScreen extends StatelessWidget {
                   ),
                 ),
               );
-            } else if (state is OutfitError) {
+            } else if (state is OutfitError &&
+                (ModalRoute.of(context)?.isCurrent ?? false)) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
                   content: Text(state.message),
