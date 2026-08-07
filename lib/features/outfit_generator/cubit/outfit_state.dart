@@ -18,7 +18,14 @@ class OutfitInitial extends OutfitState {
   List<Object?> get props => [selectedOccasion, selectedStyle];
 }
 
-class OutfitLoading extends OutfitState {}
+class OutfitLoading extends OutfitState {
+  final OutfitModel? previousOutfit;
+
+  const OutfitLoading({this.previousOutfit});
+
+  @override
+  List<Object?> get props => [previousOutfit];
+}
 
 class OutfitGenerated extends OutfitState {
   final OutfitModel outfit;
@@ -31,9 +38,10 @@ class OutfitGenerated extends OutfitState {
 
 class OutfitError extends OutfitState {
   final String message;
+  final OutfitModel? previousOutfit;
 
-  const OutfitError(this.message);
+  const OutfitError(this.message, {this.previousOutfit});
 
   @override
-  List<Object?> get props => [message];
+  List<Object?> get props => [message, previousOutfit];
 }
