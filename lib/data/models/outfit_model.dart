@@ -30,7 +30,10 @@ class OutfitModel {
     this.items = const [],
   });
 
-  factory OutfitModel.fromJson(Map<String, dynamic> json) {
+  factory OutfitModel.fromJson(
+    Map<String, dynamic> json, {
+    String? stylePreference,
+  }) {
     // Backend returns: {"outfit": [...], "score": 0.91, "occasion": "casual"}
     final List<dynamic> rawItems = (json['outfit'] as List<dynamic>?) ?? [];
     final List<ClothingItemModel> parsedItems = rawItems
@@ -84,7 +87,8 @@ class OutfitModel {
       id: const Uuid().v4(),
       name: 'AI Generated Outfit',
       occasion: occasion,
-      stylePreference: occasion,
+      stylePreference:
+          stylePreference ?? (json['style'] as String?) ?? occasion,
       explanation: 'A curated outfit for $occasion.',
       score: (json['score'] as num?)?.toDouble(),
       items: parsedItems,

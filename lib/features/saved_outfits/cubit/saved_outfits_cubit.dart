@@ -20,6 +20,7 @@ class SavedOutfitsCubit extends Cubit<SavedOutfitsState> {
       final data = await _supabase
           .from('saved_outfits')
           .select()
+          .eq('user_id', userId)
           .order('created_at', ascending: false);
 
       emit(SavedOutfitsLoaded(data));
@@ -28,11 +29,11 @@ class SavedOutfitsCubit extends Cubit<SavedOutfitsState> {
     }
   }
 
-  Future<void> saveOutfit(Map<String, dynamic> outfitData) async {
+  Future<bool> saveOutfit(Map<String, dynamic> outfitData) async {
     try {
       final userId = _supabase.auth.currentUser?.id;
       if (userId == null) {
-        return;
+        return false;
       }
 
       await _supabase.from('saved_outfits').insert({
@@ -41,10 +42,11 @@ class SavedOutfitsCubit extends Cubit<SavedOutfitsState> {
       });
 
       // Refetch after saving
-      fetchSavedOutfits();
+      await fetchSavedOutfits();
+      return true;
     } catch (e) {
-      // Handle error gracefully if needed
       emit(SavedOutfitsError(e.toString()));
+      return false;
     }
   }
 

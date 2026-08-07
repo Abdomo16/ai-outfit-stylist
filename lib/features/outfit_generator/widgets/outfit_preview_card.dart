@@ -69,11 +69,15 @@ class OutfitPreviewCard extends StatelessWidget {
     if (outfit.shoes != null) items.add(outfit.shoes!.name);
     if (outfit.accessories != null) items.add(outfit.accessories!.name);
 
-    if (outfit.accessories == null && items.isNotEmpty) {
-      items.add('Silver Watch');
+    if (items.isEmpty) {
+      items.addAll(outfit.items.map((item) => item.name));
     }
 
-    return items.join(' • ');
+    if (items.isNotEmpty) {
+      return items.join(' ${String.fromCharCode(0x2022)} ');
+    }
+
+    return items.isNotEmpty ? items.join(' • ') : outfit.explanation;
   }
 
   /// Maps the chosen style to a curated online outfit photo.
@@ -154,7 +158,7 @@ class OutfitPreviewCard extends StatelessWidget {
         crossAxisSpacing: 2,
         mainAxisSpacing: 2,
       ),
-      itemCount: itemsWithImage.length,
+      itemCount: itemsWithImage.length > 4 ? 4 : itemsWithImage.length,
       itemBuilder: (context, index) {
         return _buildImage(itemsWithImage[index].imageUrl!);
       },

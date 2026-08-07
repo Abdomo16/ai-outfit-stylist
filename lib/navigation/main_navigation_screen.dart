@@ -15,20 +15,27 @@ class MainNavigationScreen extends StatefulWidget {
 
 class _MainNavigationScreenState extends State<MainNavigationScreen> {
   int _currentIndex = 0;
+  late final List<Widget> _screens;
 
-  final List<Widget> _screens = [
-    const HomeDashboardScreen(),
-    const WardrobeScreen(),
-    const OutfitGeneratorScreen(),
-    const SavedOutfitsScreen(),
-    const ProfileScreen(),
-  ];
+  @override
+  void initState() {
+    super.initState();
+    _screens = [
+      const HomeDashboardScreen(),
+      const WardrobeScreen(),
+      OutfitGeneratorScreen(onExit: _exitOutfitGenerator),
+      const SavedOutfitsScreen(),
+      const ProfileScreen(),
+    ];
+  }
 
   void _onTabTapped(int index) {
     setState(() {
       _currentIndex = index;
     });
   }
+
+  void _exitOutfitGenerator() => _onTabTapped(0);
 
   @override
   Widget build(BuildContext context) {

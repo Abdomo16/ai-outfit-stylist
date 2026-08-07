@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:async';
 import 'dart:io';
 import 'dart:math';
 import '../models/clothing_item_model.dart';
@@ -13,9 +14,9 @@ class AIService {
   Future<List<ClothingItemModel>> uploadWardrobeImage(File imageFile) async {
     final ext = p.extension(imageFile.path).toLowerCase();
     String mimeType = 'jpeg';
-    if (ext == '.png')
+    if (ext == '.png') {
       mimeType = 'png';
-    else if (ext == '.webp')
+    } else if (ext == '.webp')
       mimeType = 'webp';
     else if (ext == '.gif')
       mimeType = 'gif';
@@ -75,6 +76,7 @@ class AIService {
   Future<OutfitModel> getRecommendations({
     required List<ClothingItemModel> wardrobe,
     required String occasion,
+    required String style,
     required String weather,
     required String season,
   }) async {
@@ -98,15 +100,18 @@ class AIService {
         };
       }).toList(),
       "occasion": occasion,
+      "style": style,
       "weather": weather,
       "season": season,
     };
 
-    final response = await _client.post(
-      uri,
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(payload),
-    );
+    final response = await _client
+        .post(
+          uri,
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(payload),
+        )
+        .timeout(const Duration(seconds: 30));
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
@@ -132,7 +137,7 @@ class AIService {
         }
       }
 
-      return OutfitModel.fromJson(jsonResponse);
+      return OutfitModel.fromJson(jsonResponse, stylePreference: style);
     } else {
       throw Exception(
         'Failed to get recommendations. Status: ${response.statusCode}, Body: ${response.body}',
