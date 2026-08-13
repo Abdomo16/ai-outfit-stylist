@@ -10,6 +10,32 @@ import '../../saved_outfits/screens/saved_outfits_screen.dart';
 class SavedOutfitsSection extends StatelessWidget {
   const SavedOutfitsSection({super.key});
 
+  Future<void> _confirmDelete(BuildContext context, String id) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Remove Outfit?'),
+        content: const Text(
+          'This outfit will be removed from your saved collection.',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
+            child: const Text('Remove'),
+          ),
+        ],
+      ),
+    );
+    if (confirmed == true && context.mounted) {
+      context.read<SavedOutfitsCubit>().deleteOutfit(id);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -109,11 +135,8 @@ class SavedOutfitsSection extends StatelessWidget {
                                 ),
                               );
                             },
-                            onDelete: () {
-                              context.read<SavedOutfitsCubit>().deleteOutfit(
-                                outfit['id'].toString(),
-                              );
-                            },
+                            onDelete: () =>
+                                _confirmDelete(context, outfit['id'].toString()),
                           ),
                         ),
                       );
