@@ -4,6 +4,7 @@ import '../../../core/constants/app_colors.dart';
 import '../../saved_outfits/widgets/saved_outfit_card.dart';
 import '../../saved_outfits/cubit/saved_outfits_cubit.dart';
 import '../../saved_outfits/cubit/saved_outfits_state.dart';
+import '../../saved_outfits/screens/saved_outfit_detail_screen.dart';
 import '../../saved_outfits/screens/saved_outfits_screen.dart';
 
 class SavedOutfitsSection extends StatelessWidget {
@@ -99,7 +100,15 @@ class SavedOutfitsSection extends StatelessWidget {
                           padding: const EdgeInsets.only(right: 16.0),
                           child: SavedOutfitCard(
                             outfit: outfit,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      SavedOutfitDetailScreen(outfit: outfit),
+                                ),
+                              );
+                            },
                             onDelete: () {
                               context.read<SavedOutfitsCubit>().deleteOutfit(
                                 outfit['id'].toString(),

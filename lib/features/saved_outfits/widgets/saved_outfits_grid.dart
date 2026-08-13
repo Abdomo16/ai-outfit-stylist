@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../cubit/saved_outfits_cubit.dart';
+import '../screens/saved_outfit_detail_screen.dart';
 import 'saved_outfit_card.dart';
 
 class SavedOutfitsGrid extends StatelessWidget {
@@ -23,7 +24,14 @@ class SavedOutfitsGrid extends StatelessWidget {
         final outfit = outfits[index] as Map<String, dynamic>;
         return SavedOutfitCard(
           outfit: outfit,
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                builder: (context) =>
+                    SavedOutfitDetailScreen(outfit: outfit),
+              ),
+            );
+          },
           onDelete: () => _confirmDelete(context, outfit['id'].toString()),
         );
       },
