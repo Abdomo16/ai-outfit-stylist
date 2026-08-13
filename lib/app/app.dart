@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../core/theme/app_theme.dart';
 import '../core/constants/app_strings.dart';
-import '../navigation/route_names.dart';
+import '../features/auth/screens/auth_wrapper.dart';
 import 'app_router.dart';
 
 class AIOutfitStylistApp extends StatelessWidget {
@@ -13,8 +13,7 @@ class AIOutfitStylistApp extends StatelessWidget {
       title: AppStrings.appName,
       theme: AppTheme.darkTheme,
       debugShowCheckedModeBanner: false,
-      initialRoute:
-          RouteNames.welcome, // Start with welcome, will add auth logic later
+      home: const AuthWrapper(),
       onGenerateRoute: AppRouter.generateRoute,
     );
   }
