@@ -24,7 +24,7 @@ class AppProviders extends StatelessWidget {
               WardrobeCubit(WardrobeRepositoryImpl(aiService: AIService())),
         ),
         BlocProvider<SavedOutfitsCubit>(
-          create: (context) => SavedOutfitsCubit()..fetchSavedOutfits(),
+          create: (context) => SavedOutfitsCubit(),
         ),
       ],
       child: child,
