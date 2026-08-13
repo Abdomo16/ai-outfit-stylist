@@ -22,6 +22,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
     'All',
     'Shirts',
     'Pants',
+    'Jackets',
     'Shoes',
     'Accessories',
   ];
