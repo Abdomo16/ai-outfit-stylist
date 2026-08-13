@@ -39,7 +39,7 @@ class _AuthFormState extends State<AuthForm> {
     if (_formKey.currentState!.validate()) {
       widget.onSubmit(
         _emailController.text.trim(),
-        _passwordController.text.trim(),
+        _passwordController.text,
         widget.isLogin ? null : _usernameController.text.trim(),
       );
     }

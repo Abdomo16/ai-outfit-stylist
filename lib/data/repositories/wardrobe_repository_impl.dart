@@ -13,7 +13,14 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
 
   @override
   Future<List<ClothingItemModel>> getClothingItems() async {
-    final response = await _supabaseClient.from('wardrobe_items').select();
+    final userId = _supabaseClient.auth.currentUser?.id;
+    if (userId == null) {
+      return const [];
+    }
+    final response = await _supabaseClient
+        .from('wardrobe_items')
+        .select()
+        .eq('user_id', userId);
     return (response as List<dynamic>)
         .map((e) => ClothingItemModel.fromJson(e))
         .toList();
@@ -21,16 +28,26 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
 
   @override
   Future<ClothingItemModel> getClothingItemById(String id) async {
+    final userId = _supabaseClient.auth.currentUser?.id;
+    if (userId == null) {
+      throw Exception('User not logged in');
+    }
     final response = await _supabaseClient
         .from('wardrobe_items')
         .select()
         .eq('id', id)
+        .eq('user_id', userId)
         .single();
     return ClothingItemModel.fromJson(response);
   }
 
   @override
   Future<void> addClothingItem(ClothingItemModel item) async {
+    final userId = _supabaseClient.auth.currentUser?.id;
+    if (userId == null) {
+      throw Exception('User not logged in');
+    }
+
     ClothingItemModel itemToAdd = item;
 
     // Check if there is an image to upload to AI backend
@@ -57,6 +74,11 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
         return e.copyWith(id: id, imageUrl: publicUrl).toJson();
       }).toList();
 
+      // 4. Attach ownership and insert
+      for (final json in newItems) {
+        json['user_id'] = userId;
+      }
+
       if (newItems.isNotEmpty) {
         await _supabaseClient.from('wardrobe_items').insert(newItems);
       }
@@ -67,19 +89,34 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
     if (itemToAdd.id == null) {
       itemToAdd = itemToAdd.copyWith(id: const Uuid().v4());
     }
-    await _supabaseClient.from('wardrobe_items').insert(itemToAdd.toJson());
+    final json = itemToAdd.toJson();
+    json['user_id'] = userId;
+    await _supabaseClient.from('wardrobe_items').insert(json);
   }
 
   @override
   Future<void> updateClothingItem(ClothingItemModel item) async {
+    final userId = _supabaseClient.auth.currentUser?.id;
+    if (userId == null) {
+      throw Exception('User not logged in');
+    }
     await _supabaseClient
         .from('wardrobe_items')
         .update(item.toJson())
-        .eq('id', item.id!);
+        .eq('id', item.id!)
+        .eq('user_id', userId);
   }
 
   @override
   Future<void> deleteClothingItem(String id) async {
-    await _supabaseClient.from('wardrobe_items').delete().eq('id', id);
+    final userId = _supabaseClient.auth.currentUser?.id;
+    if (userId == null) {
+      throw Exception('User not logged in');
+    }
+    await _supabaseClient
+        .from('wardrobe_items')
+        .delete()
+        .eq('id', id)
+        .eq('user_id', userId);
   }
 }

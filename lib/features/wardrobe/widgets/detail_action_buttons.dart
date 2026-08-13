@@ -4,12 +4,16 @@ import '../../../../core/constants/app_colors.dart';
 import '../cubit/wardrobe_cubit.dart';
 
 import '../../../../data/models/clothing_item_model.dart';
-import '../screens/edit_clothing_screen.dart';
 
 class DetailActionButtons extends StatelessWidget {
   final ClothingItemModel item;
+  final VoidCallback? onEdit;
 
-  const DetailActionButtons({super.key, required this.item});
+  const DetailActionButtons({
+    super.key,
+    required this.item,
+    this.onEdit,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +39,7 @@ class DetailActionButtons extends StatelessWidget {
               ],
             ),
             child: MaterialButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => EditClothingScreen(item: item),
-                  ),
-                );
-              },
+              onPressed: onEdit,
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),

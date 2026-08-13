@@ -49,7 +49,6 @@ class _RegisterScreenState extends State<RegisterScreen>
   Widget build(BuildContext context) {
     final bgColor = const Color(0xFF141020);
     final brightCyan = const Color(0xFF00E5FF);
-    final darkPurpleBtn = const Color(0xFF281347);
 
     return Scaffold(
       backgroundColor: bgColor,

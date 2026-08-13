@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../auth/cubit/auth_cubit.dart';
 import '../cubit/profile_cubit.dart';
 
 class LogoutButton extends StatelessWidget {
@@ -16,6 +17,7 @@ class LogoutButton extends StatelessWidget {
       child: ListTile(
         onTap: () {
           context.read<ProfileCubit>().logout();
+          context.read<AuthCubit>().logout();
         },
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),

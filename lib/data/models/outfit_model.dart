@@ -82,9 +82,10 @@ class OutfitModel {
     }
 
     final occasion = (json['occasion'] as String?) ?? 'casual';
+    final rawId = json['id'];
 
     return OutfitModel(
-      id: const Uuid().v4(),
+      id: rawId is String && rawId.isNotEmpty ? rawId : const Uuid().v4(),
       name: 'AI Generated Outfit',
       occasion: occasion,
       stylePreference:
