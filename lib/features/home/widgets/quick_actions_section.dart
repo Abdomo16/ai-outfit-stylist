@@ -32,7 +32,7 @@ class QuickActionsSection extends StatelessWidget {
           physics: const NeverScrollableScrollPhysics(),
           mainAxisSpacing: 16,
           crossAxisSpacing: 16,
-          childAspectRatio: 1.1,
+          mainAxisExtent: 170,
           children: [
             BlocBuilder<WardrobeCubit, WardrobeState>(
               builder: (context, state) {
