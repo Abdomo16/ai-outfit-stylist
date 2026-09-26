@@ -85,12 +85,13 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
 
   Widget _buildImagePreview() {
     final url = widget.item.imageUrl;
+    final colors = Theme.of(context).colorScheme;
     final Widget fallback = Container(
-      color: AppColors.card,
-      child: const Icon(
+      color: colors.surface,
+      child: Icon(
         Icons.checkroom,
         size: 56,
-        color: AppColors.textSecondary,
+        color: colors.onSurfaceVariant,
       ),
     );
 
@@ -117,8 +118,11 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -130,25 +134,21 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
               child: Container(
                 padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
-                  color: AppColors.card,
+                  color: colors.surface,
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
+                child: Icon(
                   Icons.arrow_back,
-                  color: Colors.white,
+                  color: colors.onSurface,
                   size: 20,
                 ),
               ),
             ),
-            const Expanded(
+            Expanded(
               child: Center(
                 child: Text(
                   'Edit Item',
-                  style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white,
-                  ),
+                  style: theme.textTheme.titleMedium,
                 ),
               ),
             ),
@@ -184,15 +184,13 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                                 vertical: 8,
                               ),
                               decoration: BoxDecoration(
-                                gradient: const LinearGradient(
-                                  colors: [Color(0xFFB388FF), Color(0xFF8A3FFC)],
-                                ),
+                                gradient: AppColors.heroGradient,
                                 borderRadius: BorderRadius.circular(20),
                               ),
-                              child: const Text(
+                              child: Text(
                                 'AI SCANNED',
                                 style: TextStyle(
-                                  color: Colors.white,
+                                  color: colors.onPrimary,
                                   fontSize: 12,
                                   fontWeight: FontWeight.w900,
                                   letterSpacing: 0.5,
@@ -209,25 +207,22 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
               const SizedBox(height: 48),
 
               // Name Field
-              const Text(
+              Text(
                 'ITEM NAME',
-                style: TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 12,
-                  letterSpacing: 1.2,
-                  fontWeight: FontWeight.bold,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: colors.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 8),
               TextField(
                 controller: _nameController,
-                style: const TextStyle(color: Colors.white, fontSize: 16),
+                style: TextStyle(color: colors.onSurface, fontSize: 16),
                 decoration: InputDecoration(
                   filled: true,
-                  fillColor: AppColors.card,
-                  suffixIcon: const Icon(
+                  fillColor: colors.surface,
+                  suffixIcon: Icon(
                     Icons.edit,
-                    color: AppColors.textSecondary,
+                    color: colors.onSurfaceVariant,
                     size: 20,
                   ),
                   border: OutlineInputBorder(
@@ -244,13 +239,10 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
               const SizedBox(height: 24),
 
               // Category Field
-              const Text(
+              Text(
                 'CATEGORY',
-                style: TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 12,
-                  letterSpacing: 1.2,
-                  fontWeight: FontWeight.bold,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: colors.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 8),
@@ -260,20 +252,20 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.card,
+                  color: colors.surface,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.white.withOpacity(0.05)),
+                  border: Border.all(color: colors.outline),
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: _selectedCategory,
-                    dropdownColor: AppColors.card,
+                    dropdownColor: colors.surface,
                     isExpanded: true,
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.keyboard_arrow_down,
-                      color: AppColors.textSecondary,
+                      color: colors.onSurfaceVariant,
                     ),
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: colors.onSurface, fontSize: 16),
                     items: _categories.map((cat) {
                       return DropdownMenuItem(value: cat, child: Text(cat));
                     }).toList(),
@@ -286,13 +278,10 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
               const SizedBox(height: 24),
 
               // Color Field
-              const Text(
+              Text(
                 'COLOR',
-                style: TextStyle(
-                  color: AppColors.textSecondary,
-                  fontSize: 12,
-                  letterSpacing: 1.2,
-                  fontWeight: FontWeight.bold,
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: colors.onSurfaceVariant,
                 ),
               ),
               const SizedBox(height: 8),
@@ -302,20 +291,20 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                   vertical: 4,
                 ),
                 decoration: BoxDecoration(
-                  color: AppColors.card,
+                  color: colors.surface,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.white.withOpacity(0.05)),
+                  border: Border.all(color: colors.outline),
                 ),
                 child: DropdownButtonHideUnderline(
                   child: DropdownButton<String>(
                     value: _selectedColor,
-                    dropdownColor: AppColors.card,
+                    dropdownColor: colors.surface,
                     isExpanded: true,
-                    icon: const Icon(
+                    icon: Icon(
                       Icons.keyboard_arrow_down,
-                      color: AppColors.textSecondary,
+                      color: colors.onSurfaceVariant,
                     ),
-                    style: const TextStyle(color: Colors.white, fontSize: 16),
+                    style: TextStyle(color: colors.onSurface, fontSize: 16),
                     items: _colors.map((color) {
                       return DropdownMenuItem(
                         value: color,
@@ -333,7 +322,7 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                                       ? Colors.white38
                                       : _selectedColor == color
                                       ? AppColors.primary
-                                      : Colors.white12,
+                                      : colors.outline,
                                   width: 2,
                                 ),
                               ),
@@ -356,14 +345,10 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                 height: 56,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(16),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFB388FF), Color(0xFF8A3FFC)],
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                  ),
+                  gradient: AppColors.heroGradient,
                   boxShadow: [
                     BoxShadow(
-                      color: AppColors.primary.withOpacity(0.3),
+                      color: AppColors.primary.withValues(alpha: 0.3),
                       blurRadius: 12,
                       offset: const Offset(0, 6),
                     ),
@@ -374,15 +359,15 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: const Row(
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Icon(Icons.save_outlined, color: Colors.white),
-                      SizedBox(width: 8),
+                      Icon(Icons.save_outlined, color: colors.onPrimary),
+                      const SizedBox(width: 8),
                       Text(
                         'Save Changes',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: colors.onPrimary,
                           fontWeight: FontWeight.bold,
                           fontSize: 16,
                         ),
@@ -396,9 +381,9 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                 width: double.infinity,
                 height: 56,
                 decoration: BoxDecoration(
-                  color: AppColors.background,
+                  color: theme.scaffoldBackgroundColor,
                   borderRadius: BorderRadius.circular(16),
-                  border: Border.all(color: Colors.white.withOpacity(0.1)),
+                  border: Border.all(color: colors.outline),
                 ),
                 child: MaterialButton(
                   onPressed: () {
@@ -418,14 +403,14 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                     children: [
                       Icon(
                         Icons.delete_outline,
-                        color: Colors.redAccent,
+                        color: AppColors.error,
                         size: 20,
                       ),
                       SizedBox(width: 8),
                       Text(
                         'Delete Item',
                         style: TextStyle(
-                          color: AppColors.textSecondary,
+                          color: AppColors.error,
                           fontWeight: FontWeight.w600,
                           fontSize: 16,
                         ),

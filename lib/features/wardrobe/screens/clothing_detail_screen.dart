@@ -36,13 +36,14 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
 
   Widget _buildImage() {
     final url = _item.imageUrl;
+    final colors = Theme.of(context).colorScheme;
     final Widget fallback = Container(
-      color: AppColors.card,
-      child: const Center(
+      color: colors.surface,
+      child: Center(
         child: Icon(
           Icons.checkroom,
           size: 48,
-          color: AppColors.textSecondary,
+          color: colors.onSurfaceVariant,
         ),
       ),
     );
@@ -70,8 +71,11 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
@@ -109,8 +113,8 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
                           begin: Alignment.bottomCenter,
                           end: Alignment.topCenter,
                           colors: [
-                            AppColors.background,
-                            AppColors.background.withOpacity(0.0),
+                            theme.scaffoldBackgroundColor,
+                            theme.scaffoldBackgroundColor.withValues(alpha: 0.0),
                           ],
                         ),
                       ),
@@ -135,8 +139,8 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
                           _item.name.isEmpty
                               ? '${_item.color} ${_item.category}'.toUpperCase()
                               : _item.name,
-                          style: const TextStyle(
-                            color: Colors.white,
+                          style: TextStyle(
+                            color: colors.onSurface,
                             fontSize: 28,
                             fontWeight: FontWeight.w800,
                             height: 1.2,
@@ -146,7 +150,7 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
                       Container(
                         padding: const EdgeInsets.all(12),
                         decoration: BoxDecoration(
-                          color: AppColors.card,
+                          color: colors.surface,
                           shape: BoxShape.circle,
                         ),
                         child: const Icon(
@@ -160,8 +164,8 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
                   const SizedBox(height: 8),
                   Text(
                     'ID: ${(_item.id ?? '').length > 8 ? (_item.id ?? '').substring(0, 8) : (_item.id ?? '')} • Added recently',
-                    style: const TextStyle(
-                      color: AppColors.textSecondary,
+                    style: TextStyle(
+                      color: colors.onSurfaceVariant,
                       fontSize: 13,
                     ),
                   ),

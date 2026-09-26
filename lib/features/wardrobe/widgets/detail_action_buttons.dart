@@ -17,6 +17,8 @@ class DetailActionButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Row(
       children: [
         Expanded(
@@ -25,14 +27,10 @@ class DetailActionButtons extends StatelessWidget {
             height: 56,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(16),
-              gradient: const LinearGradient(
-                colors: [Color(0xFFB388FF), Color(0xFF8A3FFC)],
-                begin: Alignment.centerLeft,
-                end: Alignment.centerRight,
-              ),
+              gradient: AppColors.heroGradient,
               boxShadow: [
                 BoxShadow(
-                  color: AppColors.primary.withOpacity(0.3),
+                  color: AppColors.primary.withValues(alpha: 0.3),
                   blurRadius: 12,
                   offset: const Offset(0, 6),
                 ),
@@ -43,20 +41,23 @@ class DetailActionButtons extends StatelessWidget {
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.edit_note, color: Colors.white),
-                  SizedBox(width: 8),
-                  Text(
-                    'Edit Detail',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Icon(Icons.edit_note, color: colors.onPrimary),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Edit Detail',
+                      style: TextStyle(
+                        color: colors.onPrimary,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -67,29 +68,32 @@ class DetailActionButtons extends StatelessWidget {
           child: Container(
             height: 56,
             decoration: BoxDecoration(
-              color: const Color(0xFF2A1620), // Dark red tint
+              color: AppColors.error.withValues(alpha: 0.12),
               borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.redAccent.withOpacity(0.3)),
+              border: Border.all(color: AppColors.error.withValues(alpha: 0.3)),
             ),
             child: MaterialButton(
               onPressed: () => _confirmDeletion(context),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16),
               ),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Icon(Icons.delete_outline, color: Colors.redAccent, size: 20),
-                  SizedBox(width: 8),
-                  Text(
-                    'Remove',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
+              child: FittedBox(
+                fit: BoxFit.scaleDown,
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const Icon(Icons.delete_outline, color: AppColors.error, size: 20),
+                    const SizedBox(width: 8),
+                    Text(
+                      'Remove',
+                      style: TextStyle(
+                        color: colors.onSurface,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -102,25 +106,26 @@ class DetailActionButtons extends StatelessWidget {
     showDialog(
       context: context,
       builder: (dialogContext) {
+        final colors = Theme.of(dialogContext).colorScheme;
         return AlertDialog(
-          backgroundColor: AppColors.card,
+          backgroundColor: colors.surface,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          title: const Text(
+          title: Text(
             'Delete Item?',
-            style: TextStyle(color: Colors.white),
+            style: TextStyle(color: colors.onSurface),
           ),
-          content: const Text(
+          content: Text(
             'Are you sure you want to remove this clothing item from your wardrobe?',
-            style: TextStyle(color: AppColors.textSecondary),
+            style: TextStyle(color: colors.onSurfaceVariant),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
-              child: const Text(
+              child: Text(
                 'Cancel',
-                style: TextStyle(color: AppColors.textSecondary),
+                style: TextStyle(color: colors.onSurfaceVariant),
               ),
             ),
             TextButton(
@@ -132,7 +137,7 @@ class DetailActionButtons extends StatelessWidget {
               child: const Text(
                 'Remove',
                 style: TextStyle(
-                  color: Colors.redAccent,
+                  color: AppColors.error,
                   fontWeight: FontWeight.bold,
                 ),
               ),

@@ -8,44 +8,36 @@ import '../cubit/wardrobe_cubit.dart';
 class AddClothingButton extends StatelessWidget {
   const AddClothingButton({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        gradient: const LinearGradient(
-          colors: [
-            Color(0xFFB388FF), // Lighter Purple
-            Color(0xFF8A3FFC), // Primary Purple
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: AppColors.primary.withOpacity(0.4),
-            blurRadius: 16,
-            offset: const Offset(0, 8),
-          ),
-        ],
-      ),
-      child: FloatingActionButton(
-        backgroundColor: Colors.transparent, // Transparent to show gradient
-        elevation: 0,
-        foregroundColor: Colors.white,
-        onPressed: () => _showAddDialog(context),
-        child: const Icon(Icons.add, size: 32),
-      ),
-    );
-  }
-
-  Future<void> _showAddDialog(BuildContext context) async {
+  static Future<void> pickAndUpload(BuildContext context) async {
     final imagePath = await ImagePickerHelper.pickImageFromGallery();
     if (imagePath == null) return;
 
     if (!context.mounted) return;
 
-    // Immediately upload the image, the AI backend extracts everything
     context.read<WardrobeCubit>().addClothingItem(File(imagePath));
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        shape: BoxShape.circle,
+        gradient: AppColors.heroGradient,
+        boxShadow: [
+          BoxShadow(
+            color: AppColors.primary.withValues(alpha: 0.35),
+            blurRadius: 20,
+            offset: const Offset(0, 8),
+          ),
+        ],
+      ),
+      child: FloatingActionButton(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
+        onPressed: () => pickAndUpload(context),
+        child: const Icon(Icons.add, size: 32),
+      ),
+    );
   }
 }

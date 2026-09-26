@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../cubit/wardrobe_cubit.dart';
 import '../cubit/wardrobe_state.dart';
 import '../widgets/clothing_card.dart';
 import '../widgets/add_clothing_button.dart';
 import '../widgets/wardrobe_header.dart';
 import '../widgets/category_tabs.dart';
+import '../widgets/wardrobe_empty_state.dart';
 import '../utils/category_utils.dart';
 
 class WardrobeScreen extends StatefulWidget {
@@ -35,8 +37,11 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -57,7 +62,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                       SnackBar(
                         content: Text(
                           state.message,
-                          style: const TextStyle(color: Colors.white),
+                          style: TextStyle(color: colors.onSurface),
                         ),
                         backgroundColor: AppColors.error,
                       ),
@@ -67,9 +72,7 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                 builder: (context, state) {
                   if (state is WardrobeLoading) {
                     return const Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.primary,
-                      ),
+                      child: CircularProgressIndicator(color: AppColors.primary),
                     );
                   } else if (state is WardrobeLoaded) {
                     final filteredItems = _selectedCategory == 'All'
@@ -84,36 +87,28 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                               .toList();
 
                     if (filteredItems.isEmpty) {
-                      return Center(
-                        child: Text(
-                          _selectedCategory == 'All'
-                              ? 'Your wardrobe is empty.'
-                              : 'No items found in $_selectedCategory.',
-                          style: const TextStyle(
-                            color: AppColors.textSecondary,
-                            fontSize: 16,
-                          ),
-                        ),
+                      return WardrobeEmptyState(
+                        category: _selectedCategory,
+                        onAddPressed: () => AddClothingButton.pickAndUpload(context),
                       );
                     }
 
                     return RefreshIndicator(
                       color: AppColors.primary,
-                      backgroundColor: AppColors.card,
+                      backgroundColor: colors.surface,
                       onRefresh: () =>
                           context.read<WardrobeCubit>().refreshWardrobe(),
                       child: GridView.builder(
                         padding: const EdgeInsets.symmetric(
-                          horizontal: 24,
-                          vertical: 16,
+                          horizontal: AppSpacing.lg,
+                          vertical: AppSpacing.md,
                         ),
                         gridDelegate:
                             const SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: 2,
-                              crossAxisSpacing: 16,
-                              mainAxisSpacing: 16,
-                              childAspectRatio:
-                                  0.65, // Adjusted for taller cards
+                              crossAxisSpacing: AppSpacing.md,
+                              mainAxisSpacing: AppSpacing.md,
+                              childAspectRatio: 0.65,
                             ),
                         itemCount: filteredItems.length,
                         itemBuilder: (context, index) {

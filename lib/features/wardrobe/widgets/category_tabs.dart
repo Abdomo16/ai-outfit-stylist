@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 
 class CategoryTabs extends StatelessWidget {
   final List<String> categories;
@@ -15,18 +16,21 @@ class CategoryTabs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return SizedBox(
-      height: 41,
+      height: 44,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
         itemCount: categories.length,
         itemBuilder: (context, index) {
           final category = categories[index];
           final isSelected = category == selectedCategory;
 
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6),
+            padding: const EdgeInsets.symmetric(horizontal: AppSpacing.xs),
             child: GestureDetector(
               onTap: () {
                 if (!isSelected) {
@@ -34,19 +38,24 @@ class CategoryTabs extends StatelessWidget {
                 }
               },
               child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                duration: const Duration(milliseconds: 220),
+                curve: Curves.easeOutCubic,
+                padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primary : AppColors.card,
-                  borderRadius: BorderRadius.circular(20),
+                  color: isSelected ? AppColors.primary : colors.surface,
+                  borderRadius: BorderRadius.circular(AppRadius.xl),
+                  border: isSelected
+                      ? null
+                      : Border.all(color: colors.outline),
                 ),
                 alignment: Alignment.center,
                 child: Text(
                   category,
-                  style: TextStyle(
-                    color: isSelected ? Colors.white : AppColors.textSecondary,
+                  style: theme.textTheme.labelMedium?.copyWith(
+                    color: isSelected
+                        ? colors.onPrimary
+                        : colors.onSurfaceVariant,
                     fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
-                    fontSize: 13, // Smaller font for a refined look
                   ),
                 ),
               ),
