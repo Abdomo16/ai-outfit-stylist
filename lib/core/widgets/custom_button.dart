@@ -56,7 +56,7 @@ class CustomButton extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           boxShadow: [
             BoxShadow(
-              color: (color ?? AppColors.primary).withOpacity(0.4),
+              color: (color ?? AppColors.primary).withValues(alpha: 0.4),
               blurRadius: 20,
               offset: const Offset(0, 4),
             ),

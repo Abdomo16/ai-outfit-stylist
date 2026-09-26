@@ -32,13 +32,15 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           widget.label.toUpperCase(),
-          style: const TextStyle(
-            color: AppColors.textSecondary,
+          style: TextStyle(
+            color: colors.onSurfaceVariant,
             fontSize: 12,
             fontWeight: FontWeight.w600,
             letterSpacing: 1.2,
@@ -52,11 +54,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
           validator: widget.validator,
           autocorrect: !widget.isPassword,
           enableSuggestions: !widget.isPassword,
-          style: const TextStyle(color: AppColors.textPrimary, fontSize: 16),
+          style: TextStyle(color: colors.onSurface, fontSize: 16),
           decoration: InputDecoration(
             hintText: widget.hintText,
             hintStyle: TextStyle(
-              color: AppColors.textSecondary.withOpacity(0.5),
+              color: colors.onSurfaceVariant.withValues(alpha: 0.5),
             ),
             prefixIcon: widget.prefixIcon,
             suffixIcon: widget.isPassword
@@ -65,13 +67,13 @@ class _CustomTextFieldState extends State<CustomTextField> {
                       _obscure
                           ? Icons.visibility_off_outlined
                           : Icons.visibility_outlined,
-                      color: AppColors.textSecondary,
+                      color: colors.onSurfaceVariant,
                     ),
                     onPressed: () => setState(() => _obscure = !_obscure),
                   )
                 : widget.suffixIcon,
             filled: true,
-            fillColor: AppColors.card,
+            fillColor: colors.surface,
             contentPadding: const EdgeInsets.symmetric(
               horizontal: 16,
               vertical: 16,
