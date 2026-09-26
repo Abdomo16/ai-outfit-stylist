@@ -18,6 +18,8 @@ class OutfitGeneratorScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final aiService = AIService();
     final wardrobeRepo = WardrobeRepositoryImpl(aiService: aiService);
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return BlocProvider(
       create: (context) => OutfitCubit(wardrobeRepo, aiService),
@@ -26,10 +28,10 @@ class OutfitGeneratorScreen extends StatelessWidget {
           title: const Text('Create Your Look'),
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: AppColors.textPrimary),
+            icon: Icon(Icons.arrow_back, color: colors.onSurface),
             onPressed: onExit ?? () => Navigator.of(context).maybePop(),
           ),
-          backgroundColor: AppColors.background,
+          backgroundColor: theme.scaffoldBackgroundColor,
           surfaceTintColor: Colors.transparent,
           scrolledUnderElevation: 0,
           elevation: 0,
@@ -72,13 +74,13 @@ class OutfitGeneratorScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Outfit Details',
-                          style: Theme.of(context).textTheme.titleMedium
+                          style: theme.textTheme.titleMedium
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
                           'Step 1 of 2',
-                          style: Theme.of(context).textTheme.bodyMedium
-                              ?.copyWith(color: AppColors.textSecondary),
+                          style: theme.textTheme.bodyMedium
+                              ?.copyWith(color: colors.onSurfaceVariant),
                         ),
                       ],
                     ),
@@ -87,7 +89,7 @@ class OutfitGeneratorScreen extends StatelessWidget {
                       height: 6,
                       width: double.infinity,
                       decoration: BoxDecoration(
-                        color: AppColors.card,
+                        color: colors.surface,
                         borderRadius: BorderRadius.circular(3),
                       ),
                       child: FractionallySizedBox(
@@ -120,20 +122,20 @@ class OutfitGeneratorScreen extends StatelessWidget {
                             : () => cubit.generateOutfit(),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,
-                          foregroundColor: AppColors.textPrimary,
+                          foregroundColor: colors.onPrimary,
                           padding: const EdgeInsets.symmetric(vertical: 16),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(16),
                           ),
                         ),
                         child: isLoading
-                            ? const SizedBox(
+                            ? SizedBox(
                                 width: 24,
                                 height: 24,
                                 child: CircularProgressIndicator(
                                   strokeWidth: 2,
                                   valueColor: AlwaysStoppedAnimation<Color>(
-                                    AppColors.textPrimary,
+                                    colors.onPrimary,
                                   ),
                                 ),
                               )

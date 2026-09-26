@@ -10,10 +10,12 @@ class OutfitPreviewCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Container(
       clipBehavior: Clip.antiAlias,
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(24),
         boxShadow: [
           BoxShadow(
@@ -35,7 +37,7 @@ class OutfitPreviewCard extends StatelessWidget {
           // Details Bottom Area
           Container(
             padding: const EdgeInsets.all(20),
-            color: AppColors.card,
+            color: colors.surface,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -43,14 +45,14 @@ class OutfitPreviewCard extends StatelessWidget {
                   outfit.name,
                   style: Theme.of(context).textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
-                    color: AppColors.textPrimary,
+                    color: colors.onSurface,
                   ),
                 ),
                 const SizedBox(height: 8),
                 Text(
                   _buildOutfitDescription(),
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: colors.onSurfaceVariant,
                     height: 1.5,
                   ),
                 ),

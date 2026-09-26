@@ -11,6 +11,8 @@ class SavedOutfitDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
     final outfitData = outfit['outfit_data'] as Map<String, dynamic>? ?? {};
     final name = outfitData['name'] as String? ?? 'Saved Outfit';
     final occasion = outfitData['occasion'] as String? ?? '';
@@ -22,13 +24,13 @@ class SavedOutfitDetailScreen extends StatelessWidget {
     final createdAt = outfit['created_at'] as String?;
 
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: CustomScrollView(
         slivers: [
           SliverAppBar(
             expandedHeight: 320,
             pinned: true,
-            backgroundColor: AppColors.card,
+            backgroundColor: colors.surface,
             leading: CircularIconButton(
               icon: Icons.arrow_back,
               onTap: () => Navigator.of(context).pop(),
@@ -54,8 +56,8 @@ class SavedOutfitDetailScreen extends StatelessWidget {
                     const SizedBox(height: 8),
                     Text(
                       _formatDate(createdAt),
-                      style: const TextStyle(
-                        color: AppColors.textSecondary,
+                      style: TextStyle(
+                        color: colors.onSurfaceVariant,
                         fontSize: 12,
                       ),
                     ),
@@ -63,14 +65,13 @@ class SavedOutfitDetailScreen extends StatelessWidget {
                   const SizedBox(height: 24),
                   Text(
                     'Outfit Pieces',
-                    style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                    style: theme.textTheme.titleLarge?.copyWith(
                       fontWeight: FontWeight.bold,
-                      color: AppColors.textPrimary,
                     ),
                   ),
                   const SizedBox(height: 16),
                   if (items.isEmpty)
-                    _buildEmptyItems()
+                    _buildEmptyItems(context)
                   else
                     ...items.map(
                       (item) => Padding(
@@ -104,7 +105,6 @@ class SavedOutfitDetailScreen extends StatelessWidget {
           name,
           style: Theme.of(context).textTheme.headlineMedium?.copyWith(
             fontWeight: FontWeight.bold,
-            color: AppColors.textPrimary,
           ),
         ),
         const SizedBox(height: 12),
@@ -153,22 +153,23 @@ class SavedOutfitDetailScreen extends StatelessWidget {
     return rawItems.whereType<Map>().cast<Map<String, dynamic>>().toList();
   }
 
-  Widget _buildEmptyItems() {
+  Widget _buildEmptyItems(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.all(24),
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(16),
       ),
-      child: const Column(
+      child: Column(
         children: [
-          Icon(Icons.checkroom, size: 40, color: AppColors.textSecondary),
-          SizedBox(height: 12),
+          Icon(Icons.checkroom, size: 40, color: colors.onSurfaceVariant),
+          const SizedBox(height: 12),
           Text(
             'No clothing details available for this outfit.',
             textAlign: TextAlign.center,
-            style: TextStyle(color: AppColors.textSecondary),
+            style: TextStyle(color: colors.onSurfaceVariant),
           ),
         ],
       ),

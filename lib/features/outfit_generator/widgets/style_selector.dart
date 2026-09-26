@@ -20,6 +20,8 @@ class StyleSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -34,7 +36,7 @@ class StyleSelector extends StatelessWidget {
           'Choose an aesthetic for your outfit AI',
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+          ).textTheme.bodyMedium?.copyWith(color: colors.onSurfaceVariant),
         ),
         const SizedBox(height: 16),
         GridView.builder(
@@ -65,8 +67,7 @@ class StyleSelector extends StatelessWidget {
                               : Colors.transparent,
                           width: 2,
                         ),
-                        color: AppColors
-                            .background, // Or another appropriate color
+                        color: colors.surface,
                       ),
                       child: Stack(
                         fit: StackFit.expand,
@@ -79,11 +80,11 @@ class StyleSelector extends StatelessWidget {
                               errorBuilder: (context, error, stackTrace) {
                                 // Fallback if image not found
                                 return Container(
-                                  color: AppColors.card,
-                                  child: const Icon(
+                                  color: colors.surface,
+                                  child: Icon(
                                     Icons.image_not_supported,
                                     size: 40,
-                                    color: AppColors.textSecondary,
+                                    color: colors.onSurfaceVariant,
                                   ),
                                 );
                               },
@@ -97,9 +98,9 @@ class StyleSelector extends StatelessWidget {
                                   color: AppColors.primary,
                                   shape: BoxShape.circle,
                                 ),
-                                child: const Icon(
+                                child: Icon(
                                   Icons.check,
-                                  color: AppColors.textPrimary,
+                                  color: colors.onPrimary,
                                   size: 24,
                                 ),
                               ),
@@ -113,7 +114,7 @@ class StyleSelector extends StatelessWidget {
                     style['name']!,
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      color: AppColors.textPrimary,
+                      color: colors.onSurface,
                       fontWeight: isSelected
                           ? FontWeight.bold
                           : FontWeight.w500,

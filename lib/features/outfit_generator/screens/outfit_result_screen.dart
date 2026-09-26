@@ -21,6 +21,8 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return BlocListener<OutfitCubit, OutfitState>(
       listener: (context, state) {
         if (state is OutfitError) {
@@ -64,7 +66,7 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
                   padding: const EdgeInsets.only(left: 16, top: 8, bottom: 8),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: AppColors.card.withValues(alpha: 0.5),
+                      color: colors.surface.withValues(alpha: 0.5),
                       shape: BoxShape.circle,
                     ),
                     child: IconButton(
@@ -78,7 +80,7 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
                     padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
                     child: Container(
                       decoration: BoxDecoration(
-                        color: AppColors.card.withValues(alpha: 0.5),
+                        color: colors.surface.withValues(alpha: 0.5),
                         shape: BoxShape.circle,
                       ),
                       child: IconButton(
@@ -118,10 +120,10 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
                 ],
               ),
               body: outfit == null
-                  ? const Center(
+                  ? Center(
                       child: Text(
                         'No outfit generated. Please try again.',
-                        style: TextStyle(color: AppColors.textPrimary),
+                        style: TextStyle(color: colors.onSurface),
                       ),
                     )
                   : SafeArea(

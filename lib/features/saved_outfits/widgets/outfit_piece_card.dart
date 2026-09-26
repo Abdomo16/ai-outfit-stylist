@@ -8,6 +8,7 @@ class OutfitPieceCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
     final imageUrl = (item['imageUrl'] ?? item['image_path']) as String?;
     final name = (item['name'] ?? item['type'] ?? 'Clothing Item') as String;
     final category = (item['type'] ?? item['category'] ?? 'Unknown') as String;
@@ -16,9 +17,9 @@ class OutfitPieceCard extends StatelessWidget {
 
     return Container(
       decoration: BoxDecoration(
-        color: AppColors.card,
+        color: colors.surface,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: Colors.white.withValues(alpha: 0.06)),
+        border: Border.all(color: colors.outline),
       ),
       clipBehavior: Clip.antiAlias,
       child: Row(
@@ -44,8 +45,8 @@ class OutfitPieceCard extends StatelessWidget {
                   name,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: const TextStyle(
-                    color: AppColors.textPrimary,
+                  style: TextStyle(
+                    color: colors.onSurface,
                     fontSize: 15,
                     fontWeight: FontWeight.w600,
                   ),
@@ -64,8 +65,8 @@ class OutfitPieceCard extends StatelessWidget {
                   const SizedBox(height: 6),
                   Text(
                     [if (color.isNotEmpty) color, if (pattern.isNotEmpty) pattern].join(' • '),
-                    style: const TextStyle(
-                      color: AppColors.textSecondary,
+                    style: TextStyle(
+                      color: colors.onSurfaceVariant,
                       fontSize: 12,
                     ),
                   ),
