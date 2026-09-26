@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 
 class BottomNavBar extends StatelessWidget {
   final int currentIndex;
@@ -12,8 +14,7 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = theme.colorScheme;
+    final colors = Theme.of(context).colorScheme;
 
     final items = [
       (Icons.home_outlined, Icons.home_rounded, 'Home'),
@@ -23,52 +24,51 @@ class BottomNavBar extends StatelessWidget {
       (Icons.person_outline_rounded, Icons.person_rounded, 'Profile'),
     ];
 
-    return Container(
-      margin: const EdgeInsets.fromLTRB(12, 0, 12, 10),
-      height: 73,
-      decoration: BoxDecoration(
-        // Blend with the app background instead of using surface directly.
-        color: Color.alphaBlend(
-          colors.primary.withOpacity(0.035),
-          colors.surface,
-        ),
-        borderRadius: BorderRadius.circular(22),
-
-        // Almost invisible border.
-        border: Border.all(color: colors.onSurface.withOpacity(0.06), width: 1),
-
-        // Neutral shadow only.
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.28),
-            blurRadius: 12,
-            offset: const Offset(0, 5),
-          ),
-        ],
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(
+        AppSpacing.md,
+        0,
+        AppSpacing.md,
+        AppSpacing.md,
       ),
-      child: Row(
-        children: List.generate(items.length, (index) {
-          if (index == 2) {
+      child: Container(
+        height: 72,
+        decoration: BoxDecoration(
+          color: colors.surface,
+          borderRadius: BorderRadius.circular(AppRadius.large),
+          border: Border.all(color: colors.outline),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withValues(alpha: 0.3),
+              blurRadius: 20,
+              offset: const Offset(0, 8),
+            ),
+          ],
+        ),
+        child: Row(
+          children: List.generate(items.length, (index) {
+            if (index == 2) {
+              return Expanded(
+                child: _GenerateItem(
+                  selected: currentIndex == index,
+                  onTap: () => onTap(index),
+                  colors: colors,
+                ),
+              );
+            }
+
             return Expanded(
-              child: _GenerateItem(
+              child: _NavItem(
+                icon: items[index].$1,
+                activeIcon: items[index].$2,
+                label: items[index].$3,
                 selected: currentIndex == index,
                 onTap: () => onTap(index),
                 colors: colors,
               ),
             );
-          }
-
-          return Expanded(
-            child: _NavItem(
-              icon: items[index].$1,
-              activeIcon: items[index].$2,
-              label: items[index].$3,
-              selected: currentIndex == index,
-              onTap: () => onTap(index),
-              colors: colors,
-            ),
-          );
-        }),
+          }),
+        ),
       ),
     );
   }
@@ -99,13 +99,13 @@ class _NavItem extends StatelessWidget {
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
         curve: Curves.easeOutCubic,
-        margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 7),
+        margin: const EdgeInsets.symmetric(horizontal: 4, vertical: 8),
         padding: const EdgeInsets.symmetric(horizontal: 4),
         decoration: BoxDecoration(
           color: selected
-              ? colors.primary.withOpacity(0.12)
+              ? AppColors.primary.withValues(alpha: 0.12)
               : Colors.transparent,
-          borderRadius: BorderRadius.circular(16),
+          borderRadius: BorderRadius.circular(AppRadius.medium),
         ),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -117,20 +117,20 @@ class _NavItem extends StatelessWidget {
                 key: ValueKey(selected),
                 size: 24,
                 color: selected
-                    ? colors.primary
-                    : colors.onSurfaceVariant.withOpacity(0.65),
+                    ? AppColors.primary
+                    : colors.onSurfaceVariant,
               ),
             ),
             const SizedBox(height: 3),
             AnimatedDefaultTextStyle(
               duration: const Duration(milliseconds: 180),
-              style: TextStyle(
-                fontSize: 10.5,
-                fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-                color: selected
-                    ? colors.primary
-                    : colors.onSurfaceVariant.withOpacity(0.65),
-              ),
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                    fontSize: 10.5,
+                    fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                    color: selected
+                        ? AppColors.primary
+                        : colors.onSurfaceVariant,
+                  ),
               child: Text(label),
             ),
           ],
@@ -167,10 +167,15 @@ class _GenerateItem extends StatelessWidget {
               width: 50,
               height: 50,
               decoration: BoxDecoration(
-                color: selected
-                    ? colors.primary
-                    : colors.primary.withOpacity(0.85),
+                gradient: AppColors.heroGradient,
                 shape: BoxShape.circle,
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.primary.withValues(alpha: 0.3),
+                    blurRadius: 12,
+                    offset: const Offset(0, 4),
+                  ),
+                ],
               ),
               child: Icon(
                 Icons.auto_awesome,
@@ -179,16 +184,16 @@ class _GenerateItem extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: 1),
+          const SizedBox(height: 2),
           Text(
             'Generate',
-            style: TextStyle(
-              fontSize: 10.5,
-              fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
-              color: selected
-                  ? colors.primary
-                  : colors.onSurfaceVariant.withOpacity(0.65),
-            ),
+            style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                  fontSize: 10.5,
+                  fontWeight: selected ? FontWeight.w600 : FontWeight.w500,
+                  color: selected
+                      ? AppColors.primary
+                      : colors.onSurfaceVariant,
+                ),
           ),
         ],
       ),

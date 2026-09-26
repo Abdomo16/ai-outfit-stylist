@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'dart:io';
 import '../../../../data/models/clothing_item_model.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../screens/clothing_detail_screen.dart';
 
 class ClothingCard extends StatelessWidget {
@@ -11,6 +12,9 @@ class ClothingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -20,13 +24,14 @@ class ClothingCard extends StatelessWidget {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: const Color(0xFF1A1625), // Slightly deeper dark background
-          borderRadius: BorderRadius.circular(20),
+          color: colors.surface,
+          borderRadius: BorderRadius.circular(AppRadius.large),
+          border: Border.all(color: colors.outline),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 10,
-              offset: const Offset(0, 5),
+              color: colors.shadow.withValues(alpha: 0.25),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
             ),
           ],
         ),
@@ -40,43 +45,43 @@ class ClothingCard extends StatelessWidget {
                 children: [
                   ClipRRect(
                     borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(20),
-                      topRight: Radius.circular(20),
+                      topLeft: Radius.circular(AppRadius.large),
+                      topRight: Radius.circular(AppRadius.large),
                     ),
                     child: (item.imageUrl ?? '').startsWith('http')
                         ? Image.network(
                             item.imageUrl!,
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>
-                                const Icon(
+                                Icon(
                                   Icons.style,
                                   size: 40,
-                                  color: AppColors.textSecondary,
+                                  color: colors.onSurfaceVariant,
                                 ),
                           )
                         : Image.file(
                             File(item.imageUrl ?? ''),
                             fit: BoxFit.cover,
                             errorBuilder: (context, error, stackTrace) =>
-                                const Icon(
+                                Icon(
                                   Icons.style,
                                   size: 40,
-                                  color: AppColors.textSecondary,
+                                  color: colors.onSurfaceVariant,
                                 ),
                           ),
                   ),
                   Positioned(
-                    top: 12,
-                    right: 12,
+                    top: AppSpacing.md,
+                    right: AppSpacing.md,
                     child: Container(
                       padding: const EdgeInsets.all(6),
                       decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.4),
+                        color: colors.shadow.withValues(alpha: 0.4),
                         shape: BoxShape.circle,
                       ),
-                      child: const Icon(
+                      child: Icon(
                         Icons.favorite_border,
-                        color: Colors.white,
+                        color: colors.onSurface,
                         size: 18,
                       ),
                     ),
@@ -85,30 +90,30 @@ class ClothingCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppSpacing.md,
+                vertical: AppSpacing.md,
+              ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     item.category.toUpperCase(),
-                    style: TextStyle(
+                    style: theme.textTheme.labelSmall?.copyWith(
                       color: AppColors.primary,
                       fontWeight: FontWeight.w800,
-                      fontSize: 10,
-                      letterSpacing: 1.2,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
-                  const SizedBox(height: 4),
+                  const SizedBox(height: AppSpacing.xs),
                   Text(
                     item.name.isEmpty
                         ? '${item.color} ${item.category}'
                         : item.name,
-                    style: const TextStyle(
-                      color: Colors.white,
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: colors.onSurface,
                       fontWeight: FontWeight.w600,
-                      fontSize: 14,
                     ),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../navigation/route_names.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
@@ -10,6 +11,7 @@ import '../widgets/profile_header.dart';
 import '../widgets/profile_menu_item.dart';
 import '../widgets/logout_button.dart';
 import '../widgets/delete_account_dialog.dart';
+import '../widgets/theme_mode_card.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -45,24 +47,17 @@ class ProfileView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text(
-          'Profile',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
-        backgroundColor: AppColors.card,
+        title: const Text('Profile'),
+        backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new, size: 20),
-          onPressed: () {
-            if (Navigator.canPop(context)) {
-              Navigator.pop(context);
-            }
-          },
-        ),
+        automaticallyImplyLeading: false,
       ),
       body: BlocConsumer<ProfileCubit, ProfileState>(
         listener: (context, state) {
@@ -87,6 +82,7 @@ class ProfileView extends StatelessWidget {
             return RefreshIndicator(
               onRefresh: () => context.read<ProfileCubit>().loadProfile(),
               color: AppColors.primary,
+              backgroundColor: colors.surface,
               child: SafeArea(
                 child: SingleChildScrollView(
                   physics: const AlwaysScrollableScrollPhysics(),
@@ -94,20 +90,22 @@ class ProfileView extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Container(
-                        padding: const EdgeInsets.only(bottom: 32, top: 16),
+                        padding: const EdgeInsets.only(
+                          bottom: AppSpacing.xl,
+                          top: AppSpacing.md,
+                        ),
+                        margin: const EdgeInsets.all(AppSpacing.lg),
                         decoration: BoxDecoration(
-                          color: AppColors.card,
-                          borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(32),
-                            bottomRight: Radius.circular(32),
+                          gradient: LinearGradient(
+                            begin: Alignment.topLeft,
+                            end: Alignment.bottomRight,
+                            colors: [
+                              colors.surface,
+                              colors.surfaceContainerHighest,
+                            ],
                           ),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.05),
-                              blurRadius: 10,
-                              offset: const Offset(0, 4),
-                            ),
-                          ],
+                          borderRadius: BorderRadius.circular(AppRadius.large),
+                          border: Border.all(color: colors.outline),
                         ),
                         child: Center(
                           child: ProfileHeader(
@@ -116,30 +114,34 @@ class ProfileView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 32),
                       Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: AppSpacing.lg,
+                        ),
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Account Security',
-                              style: Theme.of(context).textTheme.titleSmall
-                                  ?.copyWith(
-                                    color: AppColors.textSecondary,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              'Appearance',
+                              style: theme.textTheme.titleSmall,
                             ),
-                            const SizedBox(height: 16),
+                            const SizedBox(height: AppSpacing.md),
+                            const ThemeModeCard(),
+                            const SizedBox(height: AppSpacing.lg),
+                            Text(
+                              'Account Security',
+                              style: theme.textTheme.titleSmall,
+                            ),
+                            const SizedBox(height: AppSpacing.md),
                             const LogoutButton(),
-                            const SizedBox(height: 12),
+                            const SizedBox(height: AppSpacing.sm),
                             ProfileMenuItem(
                               icon: Icons.person_remove_rounded,
                               title: 'Delete Account',
                               iconColor: AppColors.error,
                               textColor: AppColors.error,
-                              iconBackgroundColor: AppColors.error.withOpacity(
-                                0.15,
+                              iconBackgroundColor: AppColors.error.withValues(
+                                alpha: 0.15,
                               ),
                               onTap: () {
                                 showDialog(
@@ -149,7 +151,7 @@ class ProfileView extends StatelessWidget {
                                 );
                               },
                             ),
-                            const SizedBox(height: 48),
+                            const SizedBox(height: AppSpacing.xxl),
                           ],
                         ),
                       ),
@@ -165,9 +167,9 @@ class ProfileView extends StatelessWidget {
                 children: [
                   Text(
                     'Error loading profile',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: theme.textTheme.bodyLarge,
                   ),
-                  const SizedBox(height: 16),
+                  const SizedBox(height: AppSpacing.md),
                   ElevatedButton(
                     onPressed: () => context.read<ProfileCubit>().loadProfile(),
                     child: const Text('Retry'),

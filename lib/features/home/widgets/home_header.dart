@@ -10,6 +10,7 @@ class HomeHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
     final authState = context.watch<AuthCubit>().state;
 
     String username = 'User';
@@ -33,12 +34,11 @@ class HomeHeader extends StatelessWidget {
                 height: 48,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  gradient: const LinearGradient(
-                    colors: [AppColors.primary, Color(0xFFB066FF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
+                  gradient: AppColors.heroGradient,
+                  border: Border.all(
+                    color: theme.scaffoldBackgroundColor,
+                    width: 2,
                   ),
-                  border: Border.all(color: AppColors.background, width: 2),
                   boxShadow: [
                     BoxShadow(
                       color: AppColors.primary.withValues(alpha: 0.3),
@@ -70,7 +70,7 @@ class HomeHeader extends StatelessWidget {
                 Text(
                   'WELCOME BACK',
                   style: theme.textTheme.labelSmall?.copyWith(
-                    color: AppColors.textSecondary,
+                    color: colors.onSurfaceVariant,
                     letterSpacing: 1.2,
                   ),
                 ),
@@ -87,9 +87,9 @@ class HomeHeader extends StatelessWidget {
         Container(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
           decoration: BoxDecoration(
-            color: AppColors.primary.withOpacity(0.1),
+            color: AppColors.primary.withValues(alpha: 0.1),
             borderRadius: BorderRadius.circular(20),
-            border: Border.all(color: AppColors.primary.withOpacity(0.2)),
+            border: Border.all(color: AppColors.primary.withValues(alpha: 0.2)),
           ),
           child: Row(
             children: [

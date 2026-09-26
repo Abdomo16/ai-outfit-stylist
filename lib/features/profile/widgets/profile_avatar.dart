@@ -9,28 +9,30 @@ class ProfileAvatar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Stack(
       alignment: Alignment.bottomRight,
       children: [
         Container(
           padding: const EdgeInsets.all(3),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.circle,
-            gradient: const LinearGradient(
-              colors: [AppColors.primary, Color(0xFF5E17EB)],
+            gradient: LinearGradient(
+              colors: [AppColors.primary, AppColors.tertiary],
               begin: Alignment.topLeft,
               end: Alignment.bottomRight,
             ),
           ),
           child: CircleAvatar(
             radius: 50,
-            backgroundColor: AppColors.background,
+            backgroundColor: colors.surface,
             backgroundImage: imageUrl != null ? NetworkImage(imageUrl!) : null,
             child: imageUrl == null
-                ? const Icon(
+                ? Icon(
                     Icons.person,
                     size: 50,
-                    color: AppColors.textSecondary,
+                    color: colors.onSurfaceVariant,
                   )
                 : null,
           ),
@@ -43,9 +45,13 @@ class ProfileAvatar extends StatelessWidget {
               decoration: BoxDecoration(
                 color: AppColors.primary,
                 shape: BoxShape.circle,
-                border: Border.all(color: AppColors.background, width: 3),
+                border: Border.all(color: colors.surface, width: 3),
               ),
-              child: const Icon(Icons.edit, color: Colors.white, size: 16),
+              child: Icon(
+                Icons.edit,
+                color: colors.onPrimary,
+                size: 16,
+              ),
             ),
           ),
       ],

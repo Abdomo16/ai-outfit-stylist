@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../core/widgets/custom_button.dart';
 import '../../../../navigation/route_names.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -27,7 +28,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
       CurvedAnimation(parent: _animationController, curve: Curves.easeOut),
     );
     _slideAnimation =
-        Tween<Offset>(begin: const Offset(0, 0.1), end: Offset.zero).animate(
+        Tween<Offset>(begin: const Offset(0, 0.12), end: Offset.zero).animate(
           CurvedAnimation(
             parent: _animationController,
             curve: Curves.easeOutCubic,
@@ -44,95 +45,83 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = const Color(0xFF141020);
-    final darkPurpleBtn = const Color(0xFF281347);
-    final brightPurple = AppColors.primary; // 0xFF8A3FFC
-    final brightCyan = const Color(0xFF00E5FF);
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+    final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: Stack(
         children: [
-          // Background Image Layer
+          // Background image with gradient fallback.
           Positioned(
             top: 0,
             left: 0,
             right: 0,
-            height: MediaQuery.of(context).size.height * 0.55,
+            height: size.height * 0.58,
             child: ShaderMask(
               shaderCallback: (rect) {
                 return LinearGradient(
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
                   colors: [
-                    Colors.black,
-                    Colors.black.withOpacity(0.8),
-                    Colors.transparent,
+                    Colors.black.withValues(alpha: 0.2),
+                    theme.scaffoldBackgroundColor.withValues(alpha: 0.4),
+                    theme.scaffoldBackgroundColor,
                   ],
-                  stops: const [0.6, 0.8, 1.0],
+                  stops: const [0.4, 0.75, 1.0],
                 ).createShader(rect);
               },
-              blendMode: BlendMode.dstIn,
+              blendMode: BlendMode.srcOver,
               child: Image.network(
                 'https://images.unsplash.com/photo-1549439602-43ebca2327af?q=80&w=1000&auto=format&fit=crop',
-                // Using a generic unsplash fashion placeholder until the user updates with their local image.
                 fit: BoxFit.cover,
                 alignment: Alignment.topCenter,
+                errorBuilder: (context, error, stackTrace) {
+                  return Container(
+                    decoration: const BoxDecoration(
+                      gradient: AppColors.heroGradient,
+                    ),
+                    child: Center(
+                      child: Icon(
+                        Icons.auto_fix_high,
+                        size: 80,
+                        color: colors.onPrimary.withValues(alpha: 0.3),
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ),
 
-          // Magic Wand Bubble
+          // Decorative glow orb.
           Positioned(
-            top: MediaQuery.of(context).padding.top + 20,
-            left: 0,
-            right: 0,
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  gradient: LinearGradient(
-                    colors: [
-                      brightPurple.withOpacity(0.4),
-                      brightPurple.withOpacity(0.1),
-                    ],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
-                  border: Border.all(
-                    color: Colors.white.withOpacity(0.2),
-                    width: 1,
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                      color: brightPurple.withOpacity(0.3),
-                      blurRadius: 15,
-                      offset: const Offset(0, 5),
-                    ),
+            top: size.height * 0.12,
+            right: -40,
+            width: 180,
+            height: 180,
+            child: Container(
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    AppColors.primary.withValues(alpha: 0.35),
+                    AppColors.transparent,
                   ],
                 ),
-                child: Center(
-                  child: Icon(
-                    Icons.auto_fix_high,
-                    color: brightPurple,
-                    size: 30,
-                  ),
-                ),
               ),
             ),
           ),
 
-          // Content Layer (Bottom)
+          // Content.
           Align(
             alignment: Alignment.bottomCenter,
             child: SafeArea(
               child: Padding(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 24.0,
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.lg,
                 ),
                 child: FadeTransition(
                   opacity: _fadeAnimation,
@@ -142,46 +131,60 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const Text(
-                          'AI Outfit Stylist',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w900,
-                            color: Colors.white,
-                            letterSpacing: -0.5,
+                        Container(
+                          width: 72,
+                          height: 72,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            gradient: AppColors.heroGradient,
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.primary.withValues(alpha: 0.25),
+                                blurRadius: 24,
+                                offset: const Offset(0, 8),
+                              ),
+                            ],
+                          ),
+                          child: Icon(
+                            Icons.auto_fix_high,
+                            color: colors.onPrimary,
+                            size: 32,
                           ),
                         ),
-                        const SizedBox(height: 12),
-                        const Text(
-                          'Your personal AI fashion assistant for\nthe perfect look',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.textSecondary,
-                            fontWeight: FontWeight.w400,
-                            height: 1.4,
+                        const SizedBox(height: AppSpacing.lg),
+                        Text(
+                          'AI Outfit\nStylist',
+                          style: theme.textTheme.displayLarge?.copyWith(
+                            color: colors.onSurface,
+                            height: 1.05,
                           ),
                         ),
-                        const SizedBox(height: 48),
+                        const SizedBox(height: AppSpacing.md),
+                        Text(
+                          'Your personal AI fashion assistant for the perfect look, every single day.',
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: colors.onSurfaceVariant,
+                          ),
+                        ),
+                        const SizedBox(height: AppSpacing.xxl),
                         CustomButton(
                           text: 'Create Account',
-                          // Bright purple matching AppColors.primary
-                          color: brightPurple,
+                          color: AppColors.primary,
+                          textColor: colors.onPrimary,
                           hasGlow: true,
                           onPressed: () =>
                               Navigator.pushNamed(context, RouteNames.register),
                         ),
-                        const SizedBox(height: 16),
+                        const SizedBox(height: AppSpacing.md),
                         CustomButton(
                           text: 'Login',
-                          color: darkPurpleBtn.withOpacity(0.8),
-                          textColor: brightCyan,
+                          isOutlined: true,
+                          color: AppColors.primary,
+                          textColor: colors.onSurface,
                           onPressed: () =>
                               Navigator.pushNamed(context, RouteNames.login),
                         ),
-
-                        const SizedBox(height: 24),
+                        const SizedBox(height: AppSpacing.lg),
                       ],
                     ),
                   ),

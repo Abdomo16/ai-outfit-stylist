@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../outfit_generator/screens/outfit_generator_screen.dart';
 
 class GenerateOutfitCard extends StatelessWidget {
@@ -7,38 +9,65 @@ class GenerateOutfitCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 32.0, vertical: 40.0),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppSpacing.lg,
+        vertical: AppSpacing.xl,
+      ),
       decoration: BoxDecoration(
         gradient: const LinearGradient(
-          colors: [
-            Color(0xFFFF007F), // Vivid Pink
-            Color(0xFF7F00FF), // Deep Purple
-          ],
-          begin: Alignment.topCenter,
+          begin: Alignment.topLeft,
           end: Alignment.bottomRight,
+          colors: [
+            Color(0xFF1A1D2A),
+            Color(0xFF24283A),
+          ],
         ),
-        borderRadius: BorderRadius.circular(36.0),
+        borderRadius: BorderRadius.circular(AppRadius.xl),
+        border: Border.all(
+          color: AppColors.primary.withValues(alpha: 0.25),
+          width: 1,
+        ),
         boxShadow: [
           BoxShadow(
-            color: const Color(0xFFFF007F).withOpacity(0.4),
+            color: AppColors.primary.withValues(alpha: 0.12),
             blurRadius: 32,
-            spreadRadius: 8,
+            spreadRadius: 4,
             offset: const Offset(0, 16),
           ),
         ],
       ),
       child: Stack(
         children: [
-          // Background Icon
+          // Background accent orb.
+          Positioned(
+            right: -60,
+            top: -60,
+            child: Container(
+              width: 220,
+              height: 220,
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                gradient: RadialGradient(
+                  colors: [
+                    AppColors.primary.withValues(alpha: 0.25),
+                    AppColors.transparent,
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Background icon.
           Positioned(
             right: -40,
             bottom: -40,
             child: Icon(
               Icons.auto_awesome,
-              size: 240,
-              color: Colors.white.withOpacity(0.15),
+              size: 220,
+              color: AppColors.white.withValues(alpha: 0.05),
             ),
           ),
           Column(
@@ -48,23 +77,29 @@ class GenerateOutfitCard extends StatelessWidget {
                 children: [
                   Container(
                     padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
+                      horizontal: AppSpacing.md,
+                      vertical: AppSpacing.sm,
                     ),
                     decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(20),
-                      border: Border.all(color: Colors.white.withOpacity(0.5)),
+                      color: AppColors.primary.withValues(alpha: 0.15),
+                      borderRadius: BorderRadius.circular(AppRadius.xl),
+                      border: Border.all(
+                        color: AppColors.primary.withValues(alpha: 0.4),
+                      ),
                     ),
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        const Icon(Icons.star, color: Colors.amber, size: 16),
-                        const SizedBox(width: 6),
+                        Icon(
+                          Icons.auto_awesome,
+                          color: AppColors.primary,
+                          size: 14,
+                        ),
+                        const SizedBox(width: AppSpacing.sm),
                         Text(
                           'PREMIUM AI',
                           style: theme.textTheme.labelSmall?.copyWith(
-                            color: Colors.white,
+                            color: AppColors.primary,
                             letterSpacing: 1.5,
                             fontWeight: FontWeight.bold,
                           ),
@@ -74,27 +109,25 @@ class GenerateOutfitCard extends StatelessWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              const SizedBox(height: 24),
+              const SizedBox(height: AppSpacing.lg),
               Text(
                 'Generate\nYour Outfit',
                 style: theme.textTheme.displaySmall?.copyWith(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontWeight: FontWeight.w900,
                   height: 1.1,
                   letterSpacing: -1.0,
                 ),
               ),
-              const SizedBox(height: 16),
+              const SizedBox(height: AppSpacing.md),
               Text(
                 'Discover your perfect look with AI\ntailored to your unique style.',
-                style: theme.textTheme.titleMedium?.copyWith(
-                  color: Colors.white.withOpacity(0.9),
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: AppColors.white.withValues(alpha: 0.8),
                   height: 1.4,
-                  fontWeight: FontWeight.w400,
                 ),
               ),
-              const SizedBox(height: 40),
+              const SizedBox(height: AppSpacing.xxl),
               ElevatedButton(
                 onPressed: () {
                   Navigator.push(
@@ -105,31 +138,29 @@ class GenerateOutfitCard extends StatelessWidget {
                   );
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: const Color(0xFF7F00FF),
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: colors.onPrimary,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 32,
-                    vertical: 20,
+                    horizontal: AppSpacing.lg,
+                    vertical: AppSpacing.md,
                   ),
-                  elevation: 12,
-                  shadowColor: Colors.black38,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(AppRadius.large),
                   ),
                 ),
-                child: const Row(
+                child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
                       'Style Me Now',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18,
-                        letterSpacing: 1.2,
+                      style: theme.textTheme.labelLarge?.copyWith(
+                        color: colors.onPrimary,
+                        letterSpacing: 0.5,
                       ),
                     ),
-                    SizedBox(width: 12),
-                    Icon(Icons.auto_awesome, size: 22),
+                    const SizedBox(width: AppSpacing.md),
+                    const Icon(Icons.auto_awesome, size: 20),
                   ],
                 ),
               ),

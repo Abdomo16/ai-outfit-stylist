@@ -9,43 +9,49 @@ class ProfileCubit extends Cubit<ProfileState> {
     : _repository = repository,
       super(ProfileInitial());
 
+  void _safeEmit(ProfileState state) {
+    if (!isClosed) {
+      emit(state);
+    }
+  }
+
   Future<void> loadProfile() async {
-    emit(ProfileLoading());
+    _safeEmit(ProfileLoading());
     try {
       final profile = await _repository.getUserProfile();
-      emit(ProfileLoaded(profile));
+      _safeEmit(ProfileLoaded(profile));
     } catch (e) {
-      emit(ProfileError(e.toString()));
+      _safeEmit(ProfileError(e.toString()));
     }
   }
 
   Future<void> logout() async {
-    emit(ProfileLoading());
+    _safeEmit(ProfileLoading());
     try {
       await _repository.logout();
-      emit(ProfileUnauthenticated());
+      _safeEmit(ProfileUnauthenticated());
     } catch (e) {
-      emit(ProfileError(e.toString()));
+      _safeEmit(ProfileError(e.toString()));
     }
   }
 
   Future<void> deleteAccount() async {
-    emit(ProfileLoading());
+    _safeEmit(ProfileLoading());
     try {
       await _repository.deleteAccount();
-      emit(ProfileUnauthenticated());
+      _safeEmit(ProfileUnauthenticated());
     } catch (e) {
-      emit(ProfileError(e.toString()));
+      _safeEmit(ProfileError(e.toString()));
     }
   }
 
   Future<void> uploadAvatar(String imagePath) async {
-    emit(ProfileLoading());
+    _safeEmit(ProfileLoading());
     try {
       await _repository.uploadAvatar(imagePath);
       await loadProfile();
     } catch (e) {
-      emit(ProfileError(e.toString()));
+      _safeEmit(ProfileError(e.toString()));
       await loadProfile();
     }
   }

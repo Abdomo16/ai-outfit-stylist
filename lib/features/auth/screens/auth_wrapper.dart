@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../core/constants/app_colors.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
 import 'welcome_screen.dart';
@@ -13,13 +14,11 @@ class AuthWrapper extends StatelessWidget {
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) {
         if (state is AuthInitial || state is AuthLoading) {
-          // Show a blank dark screen or a splash screen while checking auth status
-          return const Scaffold(
-            backgroundColor: Color(0xFF141020), // App background color
-            body: Center(
-              child: CircularProgressIndicator(
-                color: Color(0xFF8A3FFC), // App primary color
-              ),
+          // Show a blank themed screen or a splash screen while checking auth status
+          return Scaffold(
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+            body: const Center(
+              child: CircularProgressIndicator(color: AppColors.primary),
             ),
           );
         } else if (state is Authenticated) {

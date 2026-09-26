@@ -22,6 +22,8 @@ class OccasionSelector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -36,7 +38,7 @@ class OccasionSelector extends StatelessWidget {
           'Select where you\'re headed today',
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.textSecondary),
+          ).textTheme.bodyMedium?.copyWith(color: colors.onSurfaceVariant),
         ),
         const SizedBox(height: 16),
         Wrap(
@@ -53,7 +55,7 @@ class OccasionSelector extends StatelessWidget {
                   vertical: 12,
                 ),
                 decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primary : AppColors.card,
+                  color: isSelected ? AppColors.primary : colors.surface,
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
                     color: isSelected ? AppColors.primary : Colors.transparent,
@@ -68,16 +70,16 @@ class OccasionSelector extends StatelessWidget {
                       occasion['icon'] as IconData,
                       size: 18,
                       color: isSelected
-                          ? AppColors.textPrimary
-                          : AppColors.textSecondary,
+                          ? colors.onPrimary
+                          : colors.onSurfaceVariant,
                     ),
                     const SizedBox(width: 8),
                     Text(
                       occasion['name'] as String,
                       style: TextStyle(
                         color: isSelected
-                            ? AppColors.textPrimary
-                            : AppColors.textSecondary,
+                            ? colors.onPrimary
+                            : colors.onSurfaceVariant,
                         fontWeight: isSelected
                             ? FontWeight.bold
                             : FontWeight.normal,

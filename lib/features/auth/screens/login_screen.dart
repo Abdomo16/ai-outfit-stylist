@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../navigation/route_names.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
@@ -47,12 +48,11 @@ class _LoginScreenState extends State<LoginScreen>
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = const Color(0xFF141020);
-    final brightPurple = AppColors.primary; // 0xFF8A3FFC
-    final brightCyan = const Color(0xFF00E5FF);
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
@@ -74,8 +74,8 @@ class _LoginScreenState extends State<LoginScreen>
             child: Center(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 40.0,
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.xl,
                 ),
                 child: FadeTransition(
                   opacity: _fadeAnimation,
@@ -85,59 +85,42 @@ class _LoginScreenState extends State<LoginScreen>
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // App Icon Container
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            width: 64,
-                            height: 64,
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  brightPurple,
-                                  brightPurple.withOpacity(0.7),
-                                ],
-                                begin: Alignment.topLeft,
-                                end: Alignment.bottomRight,
+                        Container(
+                          width: 64,
+                          height: 64,
+                          decoration: BoxDecoration(
+                            gradient: AppColors.heroGradient,
+                            borderRadius:
+                                BorderRadius.circular(AppRadius.medium),
+                            boxShadow: [
+                              BoxShadow(
+                                color: AppColors.primary.withValues(alpha: 0.25),
+                                blurRadius: 20,
+                                offset: const Offset(0, 10),
                               ),
-                              borderRadius: BorderRadius.circular(20),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: brightPurple.withOpacity(0.3),
-                                  blurRadius: 20,
-                                  offset: const Offset(0, 10),
-                                ),
-                              ],
-                            ),
-                            child: const Center(
-                              child: Icon(
-                                Icons.auto_fix_high,
-                                color: Colors.white,
-                                size: 32,
-                              ),
+                            ],
+                          ),
+                          child: Center(
+                            child: Icon(
+                              Icons.auto_fix_high,
+                              color: colors.onPrimary,
+                              size: 32,
                             ),
                           ),
                         ),
-                        const SizedBox(height: 32),
-                        const Text(
+                        const SizedBox(height: AppSpacing.xl),
+                        Text(
                           'Welcome Back',
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                            letterSpacing: -0.5,
-                          ),
+                          style: theme.textTheme.displayMedium,
                         ),
-                        const SizedBox(height: 8),
-                        const Text(
+                        const SizedBox(height: AppSpacing.sm),
+                        Text(
                           'Login to your AI Outfit Stylist',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.textSecondary,
-                            fontWeight: FontWeight.w400,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: colors.onSurfaceVariant,
                           ),
                         ),
-                        const SizedBox(height: 48),
+                        const SizedBox(height: AppSpacing.xxl),
 
                         AuthForm(
                           isLogin: true,
@@ -147,16 +130,13 @@ class _LoginScreenState extends State<LoginScreen>
                           },
                         ),
 
-                        const SizedBox(height: 24),
+                        const SizedBox(height: AppSpacing.lg),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
+                            Text(
                               "Don't have an account? ",
-                              style: TextStyle(
-                                color: AppColors.textSecondary,
-                                fontSize: 14,
-                              ),
+                              style: theme.textTheme.bodyMedium,
                             ),
                             GestureDetector(
                               onTap: isLoading
@@ -167,10 +147,9 @@ class _LoginScreenState extends State<LoginScreen>
                                     ),
                               child: Text(
                                 'Register',
-                                style: TextStyle(
-                                  color: brightCyan,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: AppColors.primary,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 14,
                                 ),
                               ),
                             ),

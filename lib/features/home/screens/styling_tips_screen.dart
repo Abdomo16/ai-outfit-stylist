@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import '../../../core/constants/app_colors.dart';
 import '../widgets/hero_tip_card.dart';
 import '../widgets/styling_tip_card.dart';
 
@@ -9,16 +8,21 @@ class StylingTipsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Styling Tips',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: colors.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        backgroundColor: AppColors.background,
+        backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: colors.onSurface),
       ),
       body: ListView(
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
@@ -28,7 +32,6 @@ class StylingTipsScreen extends StatelessWidget {
           Text(
             'Daily Fashion Advice',
             style: theme.textTheme.titleLarge?.copyWith(
-              color: Colors.white,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -1,15 +1,29 @@
 import 'package:flutter/material.dart';
 
+/// Core design tokens that do not change between light and dark modes.
+///
+/// For theme-aware surface, background, and text colors use
+/// `Theme.of(context).colorScheme` instead.
 class AppColors {
   AppColors._();
 
-  static const Color primary = Color(0xFF8A3FFC);
-  static const Color background = Color(0xFF0F0B1F);
-  static const Color card = Color(0xFF1A1233);
-  static const Color textPrimary = Colors.white;
-  static const Color textSecondary = Color(0xFFB9B6C9);
+  // ─── Accents ───
+  static const Color primary = Color(0xFF8A3FFC); // vibrant purple
+  static const Color primaryMuted = Color(0xFF6C2BD9);
+  static const Color secondary = Color(0xFFFF7B6B); // coral
+  static const Color tertiary = Color(0xFFB388FF); // soft lavender
 
-  static const Color error = Color(0xFFE53935);
-  static const Color success = Color(0xFF43A047);
+  // ─── Utility ───
+  static const Color error = Color(0xFFEF4444);
+  static const Color success = Color(0xFF22C55E);
   static const Color transparent = Colors.transparent;
+  static const Color white = Colors.white;
+  static const Color black = Colors.black;
+
+  // ─── Gradients ───
+  static const LinearGradient heroGradient = LinearGradient(
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+    colors: [Color(0xFF8A3FFC), Color(0xFFB066FF)],
+  );
 }

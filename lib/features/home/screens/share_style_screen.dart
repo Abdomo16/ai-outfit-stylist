@@ -16,16 +16,21 @@ class ShareStyleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text(
+        title: Text(
           'Share Style',
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(
+            color: colors.onSurface,
+            fontWeight: FontWeight.bold,
+          ),
         ),
-        backgroundColor: AppColors.background,
+        backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
-        iconTheme: const IconThemeData(color: Colors.white),
+        iconTheme: IconThemeData(color: colors.onSurface),
       ),
       body: SafeArea(
         child: Padding(
@@ -37,15 +42,11 @@ class ShareStyleScreen extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(32),
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFFFF007F), Color(0xFF7F00FF)],
-                    begin: Alignment.topLeft,
-                    end: Alignment.bottomRight,
-                  ),
+                  gradient: AppColors.heroGradient,
                   borderRadius: BorderRadius.circular(32),
                   boxShadow: [
                     BoxShadow(
-                      color: const Color(0xFF7F00FF).withOpacity(0.3),
+                      color: AppColors.primary.withValues(alpha: 0.3),
                       blurRadius: 24,
                       offset: const Offset(0, 12),
                     ),
@@ -56,7 +57,7 @@ class ShareStyleScreen extends StatelessWidget {
                     Container(
                       padding: const EdgeInsets.all(16),
                       decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.2),
+                        color: Colors.white.withValues(alpha: 0.2),
                         shape: BoxShape.circle,
                       ),
                       child: const Icon(
@@ -69,7 +70,7 @@ class ShareStyleScreen extends StatelessWidget {
                     Text(
                       'Spread the Style',
                       style: theme.textTheme.headlineMedium?.copyWith(
-                        color: Colors.white,
+                        color: colors.onPrimary,
                         fontWeight: FontWeight.w900,
                       ),
                       textAlign: TextAlign.center,
@@ -78,7 +79,7 @@ class ShareStyleScreen extends StatelessWidget {
                     Text(
                       'Invite friends to experience the magic of AI outfit curation and show off your unique taste.',
                       style: theme.textTheme.bodyMedium?.copyWith(
-                        color: Colors.white.withOpacity(0.9),
+                        color: colors.onPrimary.withValues(alpha: 0.9),
                         height: 1.5,
                       ),
                       textAlign: TextAlign.center,
@@ -100,8 +101,8 @@ class ShareStyleScreen extends StatelessWidget {
                 icon: const Icon(Icons.favorite),
                 label: const Text('Share a Saved Outfit instead'),
                 style: OutlinedButton.styleFrom(
-                  foregroundColor: Colors.white,
-                  side: BorderSide(color: Colors.white.withOpacity(0.3)),
+                  foregroundColor: colors.onSurface,
+                  side: BorderSide(color: colors.outline),
                   padding: const EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(16),
@@ -118,8 +119,8 @@ class ShareStyleScreen extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
                 ),
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: AppColors.primary,
+                  backgroundColor: AppColors.primary,
+                  foregroundColor: colors.onPrimary,
                   padding: const EdgeInsets.symmetric(vertical: 20),
                   elevation: 8,
                   shape: RoundedRectangleBorder(
