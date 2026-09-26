@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../navigation/route_names.dart';
 import '../cubit/auth_cubit.dart';
 import '../cubit/auth_state.dart';
@@ -47,11 +48,11 @@ class _RegisterScreenState extends State<RegisterScreen>
 
   @override
   Widget build(BuildContext context) {
-    final bgColor = const Color(0xFF141020);
-    final brightCyan = const Color(0xFF00E5FF);
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
 
     return Scaffold(
-      backgroundColor: bgColor,
+      backgroundColor: theme.scaffoldBackgroundColor,
       body: BlocConsumer<AuthCubit, AuthState>(
         listener: (context, state) {
           if (state is Authenticated) {
@@ -73,8 +74,8 @@ class _RegisterScreenState extends State<RegisterScreen>
             child: Center(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 24.0,
-                  vertical: 24.0,
+                  horizontal: AppSpacing.lg,
+                  vertical: AppSpacing.xl,
                 ),
                 child: FadeTransition(
                   opacity: _fadeAnimation,
@@ -83,26 +84,19 @@ class _RegisterScreenState extends State<RegisterScreen>
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.stretch,
                       children: [
-                        const SizedBox(height: 32),
-                        const Text(
+                        const SizedBox(height: AppSpacing.xl),
+                        Text(
                           'Create Account',
-                          style: TextStyle(
-                            fontSize: 34,
-                            fontWeight: FontWeight.w800,
-                            color: Colors.white,
-                            letterSpacing: -0.5,
-                          ),
+                          style: theme.textTheme.displayMedium,
                         ),
-                        const SizedBox(height: 8),
-                        const Text(
+                        const SizedBox(height: AppSpacing.sm),
+                        Text(
                           'Join the future of fashion',
-                          style: TextStyle(
-                            fontSize: 16,
-                            color: AppColors.textSecondary,
-                            fontWeight: FontWeight.w400,
+                          style: theme.textTheme.bodyLarge?.copyWith(
+                            color: colors.onSurfaceVariant,
                           ),
                         ),
-                        const SizedBox(height: 48),
+                        const SizedBox(height: AppSpacing.xxl),
 
                         AuthForm(
                           isLogin: false,
@@ -116,16 +110,13 @@ class _RegisterScreenState extends State<RegisterScreen>
                           },
                         ),
 
-                        const SizedBox(height: 24),
+                        const SizedBox(height: AppSpacing.lg),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            const Text(
-                              "Already have an account? ",
-                              style: TextStyle(
-                                color: AppColors.textSecondary,
-                                fontSize: 14,
-                              ),
+                            Text(
+                              'Already have an account? ',
+                              style: theme.textTheme.bodyMedium,
                             ),
                             GestureDetector(
                               onTap: isLoading
@@ -136,10 +127,9 @@ class _RegisterScreenState extends State<RegisterScreen>
                                     ),
                               child: Text(
                                 'Login',
-                                style: TextStyle(
-                                  color: brightCyan,
+                                style: theme.textTheme.bodyMedium?.copyWith(
+                                  color: AppColors.primary,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 14,
                                 ),
                               ),
                             ),

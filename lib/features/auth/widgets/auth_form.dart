@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../../../core/widgets/custom_textfield.dart';
-import '../../../../core/widgets/custom_button.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
+import '../../../../core/widgets/custom_button.dart';
+import '../../../../core/widgets/custom_textfield.dart';
+import '../../../../core/widgets/google_logo.dart';
 
 class AuthForm extends StatefulWidget {
   final bool isLogin;
@@ -25,8 +27,6 @@ class _AuthFormState extends State<AuthForm> {
   final _passwordController = TextEditingController();
   final _usernameController = TextEditingController();
 
-  final brightCyan = const Color(0xFF00E5FF);
-
   @override
   void dispose() {
     _emailController.dispose();
@@ -47,6 +47,9 @@ class _AuthFormState extends State<AuthForm> {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
     return Form(
       key: _formKey,
       child: Column(
@@ -56,26 +59,26 @@ class _AuthFormState extends State<AuthForm> {
             CustomTextField(
               controller: _usernameController,
               label: 'Username',
-              hintText: 'name',
-              prefixIcon: const Icon(
+              hintText: 'Your name',
+              prefixIcon: Icon(
                 Icons.person_outline,
-                color: AppColors.textSecondary,
+                color: colors.onSurfaceVariant,
               ),
               validator: (val) {
                 if (val == null || val.isEmpty) return 'Username is required';
                 return null;
               },
             ),
-            const SizedBox(height: 20),
+            const SizedBox(height: AppSpacing.md),
           ],
           CustomTextField(
             controller: _emailController,
             label: 'Email Address',
             hintText: 'name@example.com',
             keyboardType: TextInputType.emailAddress,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               Icons.email_outlined,
-              color: AppColors.textSecondary,
+              color: colors.onSurfaceVariant,
             ),
             validator: (val) {
               if (val == null || val.isEmpty) return 'Email is required';
@@ -83,19 +86,15 @@ class _AuthFormState extends State<AuthForm> {
               return null;
             },
           ),
-          const SizedBox(height: 20),
+          const SizedBox(height: AppSpacing.md),
           CustomTextField(
             controller: _passwordController,
             label: 'Password',
             hintText: '••••••••',
             isPassword: true,
-            prefixIcon: const Icon(
+            prefixIcon: Icon(
               Icons.lock_outline,
-              color: AppColors.textSecondary,
-            ),
-            suffixIcon: const Icon(
-              Icons.visibility_off_outlined,
-              color: AppColors.textSecondary,
+              color: colors.onSurfaceVariant,
             ),
             validator: (val) {
               if (val == null || val.isEmpty) return 'Password is required';
@@ -106,7 +105,7 @@ class _AuthFormState extends State<AuthForm> {
             },
           ),
           if (widget.isLogin) ...[
-            const SizedBox(height: 12),
+            const SizedBox(height: AppSpacing.sm),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
@@ -118,29 +117,28 @@ class _AuthFormState extends State<AuthForm> {
                 ),
                 child: Text(
                   'Forgot Password?',
-                  style: TextStyle(color: brightCyan),
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: AppColors.primary,
+                    fontWeight: FontWeight.w600,
+                  ),
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
           ] else ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: AppSpacing.md),
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              padding: const EdgeInsets.symmetric(horizontal: AppSpacing.md),
               child: RichText(
                 textAlign: TextAlign.center,
                 text: TextSpan(
-                  style: const TextStyle(
-                    color: AppColors.textSecondary,
-                    fontSize: 13,
-                    height: 1.4,
-                  ),
+                  style: theme.textTheme.bodySmall,
                   children: [
                     const TextSpan(text: 'By registering, you agree to our '),
                     TextSpan(
                       text: 'Terms of Service\n',
                       style: TextStyle(
-                        color: brightCyan,
+                        color: AppColors.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -148,7 +146,7 @@ class _AuthFormState extends State<AuthForm> {
                     TextSpan(
                       text: 'Privacy Policy',
                       style: TextStyle(
-                        color: brightCyan,
+                        color: AppColors.primary,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -157,77 +155,106 @@ class _AuthFormState extends State<AuthForm> {
                 ),
               ),
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: AppSpacing.lg),
           ],
           CustomButton(
             text: widget.isLogin ? 'Login' : 'Register',
             onPressed: _submit,
             isLoading: widget.isLoading,
             hasGlow: true,
-            color: AppColors.primary, // 0xFF8A3FFC
+            color: AppColors.primary,
+            textColor: colors.onPrimary,
           ),
-          const SizedBox(height: 32),
+          const SizedBox(height: AppSpacing.xl),
           Row(
             children: [
-              const Expanded(
-                child: Divider(color: AppColors.card, thickness: 1),
+              Expanded(
+                child: Divider(color: colors.outline, thickness: 1),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppSpacing.md,
+                ),
                 child: Text(
                   'OR CONTINUE WITH',
-                  style: TextStyle(
-                    color: AppColors.textSecondary.withOpacity(0.5),
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
+                  style: theme.textTheme.labelSmall?.copyWith(
+                    color: theme.textTheme.bodySmall?.color ??
+                        colors.onSurfaceVariant,
                     letterSpacing: 1.0,
                   ),
                 ),
               ),
-              const Expanded(
-                child: Divider(color: AppColors.card, thickness: 1),
+              Expanded(
+                child: Divider(color: colors.outline, thickness: 1),
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          const SizedBox(height: AppSpacing.lg),
           Row(
             children: [
               Expanded(
-                child: Container(
-                  height: 54,
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Center(
-                    // using letter G simple proxy for google logo for now
-                    child: Text(
-                      'G',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w900,
-                        fontSize: 22,
-                        color: Colors.white,
-                      ),
-                    ),
-                  ),
+                child: _SocialButton(
+                  icon: const GoogleLogo(size: 22),
+                  label: 'Google',
+                  onTap: () {},
                 ),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: AppSpacing.md),
               Expanded(
-                child: Container(
-                  height: 54,
-                  decoration: BoxDecoration(
-                    color: AppColors.card,
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: const Center(
-                    child: Icon(Icons.apple, size: 28, color: Colors.white),
-                  ),
+                child: _SocialButton(
+                  icon: const Icon(Icons.apple, size: 24),
+                  label: 'Apple',
+                  onTap: () {},
                 ),
               ),
             ],
           ),
         ],
+      ),
+    );
+  }
+}
+
+class _SocialButton extends StatelessWidget {
+  final Widget icon;
+  final String label;
+  final VoidCallback onTap;
+
+  const _SocialButton({
+    required this.icon,
+    required this.label,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
+
+    return InkWell(
+      onTap: onTap,
+      borderRadius: BorderRadius.circular(AppRadius.medium),
+      child: Container(
+        height: 54,
+        decoration: BoxDecoration(
+          color: colors.surface,
+          borderRadius: BorderRadius.circular(AppRadius.medium),
+          border: Border.all(color: colors.outline),
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            icon,
+            const SizedBox(width: AppSpacing.sm),
+            Text(
+              label,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: colors.onSurface,
+                fontWeight: FontWeight.w600,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
