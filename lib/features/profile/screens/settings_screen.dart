@@ -27,11 +27,12 @@ class SettingsView extends StatelessWidget {
     showDialog(
       context: context,
       builder: (dialogContext) {
+        final colors = Theme.of(dialogContext).colorScheme;
         return AlertDialog(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
-          backgroundColor: AppColors.card,
+          backgroundColor: colors.surface,
           title: const Text(
             'Delete Account',
             style: TextStyle(
@@ -39,16 +40,16 @@ class SettingsView extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          content: const Text(
+          content: Text(
             'Are you sure you want to delete your account? This action cannot be undone and you will lose all saved settings, outfits, and wardrobe items.',
-            style: TextStyle(color: AppColors.textPrimary, height: 1.5),
+            style: TextStyle(color: colors.onSurface, height: 1.5),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
-              child: const Text(
+              child: Text(
                 'Cancel',
-                style: TextStyle(color: AppColors.textSecondary),
+                style: TextStyle(color: colors.onSurfaceVariant),
               ),
             ),
             ElevatedButton(
@@ -76,14 +77,16 @@ class SettingsView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+
     return Scaffold(
-      backgroundColor: AppColors.background,
+      backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
         title: const Text(
           'Settings',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
-        backgroundColor: AppColors.card,
+        backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
         leading: IconButton(
@@ -116,10 +119,7 @@ class SettingsView extends StatelessWidget {
               children: [
                 Text(
                   'Account Security',
-                  style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                    color: AppColors.textSecondary,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  style: theme.textTheme.titleSmall,
                 ),
                 const SizedBox(height: 16),
                 const LogoutButton(),
@@ -129,7 +129,7 @@ class SettingsView extends StatelessWidget {
                   title: 'Delete Account',
                   iconColor: AppColors.error,
                   textColor: AppColors.error,
-                  iconBackgroundColor: AppColors.error.withOpacity(0.15),
+                  iconBackgroundColor: AppColors.error.withValues(alpha: 0.15),
                   onTap: () => _showDeleteAccountDialog(context),
                 ),
               ],

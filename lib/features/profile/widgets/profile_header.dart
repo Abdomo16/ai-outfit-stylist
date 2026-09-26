@@ -31,9 +31,7 @@ class ProfileHeader extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           profile.email,
-          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                color: AppColors.textSecondary,
-              ),
+          style: Theme.of(context).textTheme.bodyMedium,
         ),
         const SizedBox(height: 12),
         if (profile.isPremium)
@@ -43,7 +41,7 @@ class ProfileHeader extends StatelessWidget {
               color: AppColors.primary.withAlpha(38),
               borderRadius: BorderRadius.circular(20),
             ),
-            child: Text(
+            child: const Text(
               'PREMIUM MEMBER',
               style: TextStyle(
                 color: AppColors.primary,

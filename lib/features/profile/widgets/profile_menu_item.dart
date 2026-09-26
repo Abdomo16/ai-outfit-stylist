@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 
 class ProfileMenuItem extends StatelessWidget {
   final IconData icon;
@@ -21,35 +22,37 @@ class ProfileMenuItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: AppColors.card,
-        borderRadius: BorderRadius.circular(16),
+        color: colors.surface,
+        borderRadius: BorderRadius.circular(AppRadius.medium),
       ),
       child: ListTile(
         onTap: onTap,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(AppRadius.medium)),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         leading: Container(
           padding: const EdgeInsets.all(10),
           decoration: BoxDecoration(
             color: iconBackgroundColor ?? AppColors.primary.withAlpha(26),
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(AppRadius.small),
           ),
           child: Icon(icon, color: iconColor ?? AppColors.primary, size: 22),
         ),
         title: Text(
           title,
           style: TextStyle(
-            color: textColor ?? AppColors.textPrimary,
+            color: textColor ?? colors.onSurface,
             fontSize: 16,
             fontWeight: FontWeight.w600,
           ),
         ),
-        trailing: const Icon(
+        trailing: Icon(
           Icons.chevron_right,
-          color: AppColors.textSecondary,
+          color: colors.onSurfaceVariant,
           size: 24,
         ),
       ),
