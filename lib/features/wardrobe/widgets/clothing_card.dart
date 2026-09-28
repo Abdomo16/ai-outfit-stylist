@@ -40,53 +40,30 @@ class ClothingCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Expanded(
-              child: Stack(
-                fit: StackFit.expand,
-                children: [
-                  ClipRRect(
-                    borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(AppRadius.large),
-                      topRight: Radius.circular(AppRadius.large),
-                    ),
-                    child: (item.imageUrl ?? '').startsWith('http')
-                        ? Image.network(
-                            item.imageUrl!,
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Icon(
-                                  Icons.style,
-                                  size: 40,
-                                  color: colors.onSurfaceVariant,
-                                ),
-                          )
-                        : Image.file(
-                            File(item.imageUrl ?? ''),
-                            fit: BoxFit.cover,
-                            errorBuilder: (context, error, stackTrace) =>
-                                Icon(
-                                  Icons.style,
-                                  size: 40,
-                                  color: colors.onSurfaceVariant,
-                                ),
-                          ),
-                  ),
-                  Positioned(
-                    top: AppSpacing.md,
-                    right: AppSpacing.md,
-                    child: Container(
-                      padding: const EdgeInsets.all(6),
-                      decoration: BoxDecoration(
-                        color: colors.shadow.withValues(alpha: 0.4),
-                        shape: BoxShape.circle,
+              child: ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(AppRadius.large),
+                  topRight: Radius.circular(AppRadius.large),
+                ),
+                child: (item.imageUrl ?? '').startsWith('http')
+                    ? Image.network(
+                        item.imageUrl!,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Icon(
+                          Icons.style,
+                          size: 40,
+                          color: colors.onSurfaceVariant,
+                        ),
+                      )
+                    : Image.file(
+                        File(item.imageUrl ?? ''),
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) => Icon(
+                          Icons.style,
+                          size: 40,
+                          color: colors.onSurfaceVariant,
+                        ),
                       ),
-                      child: Icon(
-                        Icons.favorite_border,
-                        color: colors.onSurface,
-                        size: 18,
-                      ),
-                    ),
-                  ),
-                ],
               ),
             ),
             Padding(

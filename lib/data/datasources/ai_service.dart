@@ -11,7 +11,10 @@ import 'package:path/path.dart' as p;
 class AIService {
   final http.Client _client = http.Client();
 
-  Future<List<ClothingItemModel>> uploadWardrobeImage(File imageFile) async {
+  Future<List<ClothingItemModel>> uploadWardrobeImage(
+    File imageFile, {
+    required String userId,
+  }) async {
     final ext = p.extension(imageFile.path).toLowerCase();
     String mimeType = 'jpeg';
     if (ext == '.png') {
@@ -33,7 +36,9 @@ class AIService {
         '--$boundary\r\nContent-Disposition: form-data; name="file"; filename="$filename"\r\nContent-Type: image/$mimeType\r\n\r\n';
     bodyBytes.addAll(header.codeUnits);
     bodyBytes.addAll(fileBytes);
-    bodyBytes.addAll('\r\n--$boundary--\r\n'.codeUnits);
+    bodyBytes.addAll(
+        '\r\n--$boundary\r\nContent-Disposition: form-data; name="user_id"\r\n\r\n$userId\r\n--$boundary--\r\n'
+            .codeUnits);
 
     // Helper to POST to a given URL
     Future<http.Response> doPost(String url) async {

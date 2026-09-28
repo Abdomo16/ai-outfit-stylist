@@ -1,8 +1,8 @@
 import 'dart:io';
+
 import '../models/clothing_item_model.dart';
 import 'wardrobe_repository.dart';
 import '../datasources/ai_service.dart';
-import 'package:uuid/uuid.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class WardrobeRepositoryImpl implements WardrobeRepository {
@@ -48,50 +48,17 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
       throw Exception('User not logged in');
     }
 
-    ClothingItemModel itemToAdd = item;
-
-    // Check if there is an image to upload to AI backend
-    if (item.imageUrl != null && File(item.imageUrl!).existsSync()) {
-      final file = File(item.imageUrl!);
-
-      // 1. Upload the original image to Supabase Storage for a permanent public URL
-      final fileExt = file.path.split('.').last;
-      final storagePath = 'wardrobe/${const Uuid().v4()}.$fileExt';
-      await _supabaseClient.storage
-          .from('wardrobe-images')
-          .upload(storagePath, file);
-      final publicUrl = _supabaseClient.storage
-          .from('wardrobe-images')
-          .getPublicUrl(storagePath);
-
-      // 2. Send to AI backend for item extraction
-      final extractedItems = await aiService.uploadWardrobeImage(file);
-
-      // 3. Save all extracted items to Supabase with the public image URL
-      final newItems = extractedItems.map((e) {
-        final id = const Uuid().v4();
-        // Always use the public Supabase URL so both the app and backend can access it
-        return e.copyWith(id: id, imageUrl: publicUrl).toJson();
-      }).toList();
-
-      // 4. Attach ownership and insert
-      for (final json in newItems) {
-        json['user_id'] = userId;
-      }
-
-      if (newItems.isNotEmpty) {
-        await _supabaseClient.from('wardrobe_items').insert(newItems);
-      }
-      return;
+    final imagePath = item.imageUrl;
+    if (imagePath == null || !File(imagePath).existsSync()) {
+      throw Exception('No valid image file provided');
     }
 
-    // Fallback if no valid file
-    if (itemToAdd.id == null) {
-      itemToAdd = itemToAdd.copyWith(id: const Uuid().v4());
-    }
-    final json = itemToAdd.toJson();
-    json['user_id'] = userId;
-    await _supabaseClient.from('wardrobe_items').insert(json);
+    // The AI backend segments the image, uploads crops to Supabase Storage,
+    // and persists each detected item to the wardrobe_items table with user_id.
+    await aiService.uploadWardrobeImage(
+      File(imagePath),
+      userId: userId,
+    );
   }
 
   @override
