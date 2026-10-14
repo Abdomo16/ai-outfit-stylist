@@ -48,7 +48,7 @@ class ClothingCard extends StatelessWidget {
                 child: (item.imageUrl ?? '').startsWith('http')
                     ? Image.network(
                         item.imageUrl!,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) => Icon(
                           Icons.style,
                           size: 40,
@@ -57,7 +57,7 @@ class ClothingCard extends StatelessWidget {
                       )
                     : Image.file(
                         File(item.imageUrl ?? ''),
-                        fit: BoxFit.cover,
+                        fit: BoxFit.contain,
                         errorBuilder: (context, error, stackTrace) => Icon(
                           Icons.style,
                           size: 40,

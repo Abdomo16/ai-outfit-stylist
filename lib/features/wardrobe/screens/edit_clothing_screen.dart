@@ -98,18 +98,24 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
     if (url == null || url.isEmpty) return fallback;
 
     if (url.startsWith('http')) {
-      return Image.network(
-        url,
-        fit: BoxFit.cover,
-        errorBuilder: (_, _, _) => fallback,
+      return ColoredBox(
+        color: colors.surface,
+        child: Image.network(
+          url,
+          fit: BoxFit.contain,
+          errorBuilder: (_, _, _) => fallback,
+        ),
       );
     }
 
     if (File(url).existsSync()) {
-      return Image.file(
-        File(url),
-        fit: BoxFit.cover,
-        errorBuilder: (_, _, _) => fallback,
+      return ColoredBox(
+        color: colors.surface,
+        child: Image.file(
+          File(url),
+          fit: BoxFit.contain,
+          errorBuilder: (_, _, _) => fallback,
+        ),
       );
     }
 
