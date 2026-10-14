@@ -173,7 +173,7 @@ class OutfitPreviewCard extends StatelessWidget {
         color: Colors.white,
         child: Image.network(
           url,
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
           loadingBuilder: (context, child, progress) {
             if (progress == null) return child;
             return Container(
@@ -207,7 +207,7 @@ class OutfitPreviewCard extends StatelessWidget {
         color: Colors.white,
         child: Image.file(
           File(url),
-          fit: BoxFit.cover,
+          fit: BoxFit.contain,
           errorBuilder: (context, error, stackTrace) => Container(
             color: const Color(0xFFF5F5F5),
             child: Center(
