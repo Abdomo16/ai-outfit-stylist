@@ -81,34 +81,42 @@ class AIService {
   Future<OutfitModel> getRecommendations({
     required List<ClothingItemModel> wardrobe,
     required String occasion,
-    required String style,
+    String? style,
     required String weather,
     required String season,
+    List<String> lockIds = const [],
+    String? swapId,
   }) async {
     final uri = Uri.parse('${Env.aiBackendUrl}/recommend/');
 
-    final payload = {
-      "wardrobe": wardrobe.indexed.map((entry) {
-        final idx = entry.$1;
-        final item = entry.$2;
+    final payload = <String, dynamic>{
+      "wardrobe": wardrobe.map((item) {
         return {
-          "id": idx + 1,
+          "id": _encodeId(item.id),
           "type": item.category,
           "confidence": item.confidence ?? 1.0,
           "color": item.color,
           "hex": item.hex ?? '',
           "pattern": item.pattern ?? 'solid',
-          "style": item.style ?? 'casual',
+          "style": item.style,
           "season": item.season ?? 'all',
           "embedding": item.embedding ?? [],
           "image_path": item.imageUrl ?? '',
         };
       }).toList(),
       "occasion": occasion,
-      "style": style,
       "weather": weather,
       "season": season,
     };
+    if (style != null) {
+      payload["style"] = style;
+    }
+    if (lockIds.isNotEmpty) {
+      payload["lock_ids"] = lockIds.map(_encodeId).toList();
+    }
+    if (swapId != null) {
+      payload["swap_id"] = _encodeId(swapId);
+    }
 
     final response = await _client
         .post(
@@ -128,15 +136,20 @@ class AIService {
         final outfitList = jsonResponse['outfit'] as List<dynamic>;
         for (final rawItem in outfitList) {
           if (rawItem is Map<String, dynamic>) {
-            final itemId = rawItem['id'];
-            if (itemId is int && itemId >= 1 && itemId <= wardrobe.length) {
-              final wardrobeItem = wardrobe[itemId - 1];
-              // Prefer Supabase URL (starts with http) over any local path
-              if (wardrobeItem.imageUrl != null &&
-                  wardrobeItem.imageUrl!.startsWith('http')) {
-                rawItem['imageUrl'] = wardrobeItem.imageUrl;
-                rawItem['image_path'] = wardrobeItem.imageUrl;
+            final itemId = rawItem['id']?.toString();
+            if (itemId == null) continue;
+            ClothingItemModel? wardrobeItem;
+            for (final item in wardrobe) {
+              if (item.id == itemId) {
+                wardrobeItem = item;
+                break;
               }
+            }
+            if (wardrobeItem != null &&
+                wardrobeItem.imageUrl != null &&
+                wardrobeItem.imageUrl!.startsWith('http')) {
+              rawItem['imageUrl'] = wardrobeItem.imageUrl;
+              rawItem['image_path'] = wardrobeItem.imageUrl;
             }
           }
         }
@@ -144,9 +157,14 @@ class AIService {
 
       return OutfitModel.fromJson(jsonResponse, stylePreference: style);
     } else {
-      throw Exception(
-        'Failed to get recommendations. Status: ${response.statusCode}, Body: ${response.body}',
-      );
-    }
+    throw Exception(
+      'Failed to get recommendations. Status: ${response.statusCode}, Body: ${response.body}',
+    );
   }
+}
+
+Object? _encodeId(String? id) {
+  if (id == null || id.isEmpty) return null;
+  return int.tryParse(id) ?? id;
+}
 }

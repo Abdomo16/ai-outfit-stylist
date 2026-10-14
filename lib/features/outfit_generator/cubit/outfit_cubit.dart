@@ -2,17 +2,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'outfit_state.dart';
 
 import '../../../../data/datasources/ai_service.dart';
+import '../../../../data/datasources/weather_service.dart';
 import '../../../../data/repositories/wardrobe_repository.dart';
 
 class OutfitCubit extends Cubit<OutfitState> {
   final WardrobeRepository _wardrobeRepo;
   final AIService _aiService;
+  final WeatherService _weatherService;
 
-  OutfitCubit(this._wardrobeRepo, this._aiService)
-    : super(const OutfitInitial());
+  OutfitCubit(this._wardrobeRepo, this._aiService, {WeatherService? weatherService})
+    : _weatherService = weatherService ?? WeatherService(),
+      super(const OutfitInitial());
 
   String? selectedOccasion;
   String? selectedStyle;
+  final Set<String> lockIds = {};
   bool _isGenerating = false;
 
   void selectOccasion(String occasion) {
@@ -35,10 +39,33 @@ class OutfitCubit extends Cubit<OutfitState> {
     );
   }
 
-  Future<void> generateOutfit() async {
+  Future<void> generateToday() {
+    selectedOccasion = 'everyday';
+    selectedStyle = null;
+    lockIds.clear();
+    return generateOutfit();
+  }
+
+  Future<void> toggleLock(String id) {
+    if (!lockIds.add(id)) {
+      lockIds.remove(id);
+    }
+    return generateOutfit();
+  }
+
+  Future<void> swapPiece(String id) {
+    lockIds.remove(id);
+    return generateOutfit(swapId: id);
+  }
+
+  Future<void> generateOutfit({String? swapId}) async {
     if (_isGenerating) return;
 
-    if (selectedOccasion == null || selectedStyle == null) {
+    if (selectedOccasion == null) {
+      emit(const OutfitError("Please select both an occasion and a style."));
+      return;
+    }
+    if (selectedOccasion != 'everyday' && selectedStyle == null) {
       emit(const OutfitError("Please select both an occasion and a style."));
       return;
     }
@@ -64,15 +91,20 @@ class OutfitCubit extends Cubit<OutfitState> {
         return;
       }
 
+      final conditions = await _weatherService.current();
       final recommendation = await _aiService.getRecommendations(
         wardrobe: wardrobe,
         occasion: selectedOccasion!.toLowerCase(),
-        style: selectedStyle!.toLowerCase(),
-        weather: _weatherForOccasion(selectedOccasion!),
-        season: _seasonForOccasion(selectedOccasion!),
+        style: selectedStyle?.toLowerCase(),
+        weather: conditions.weather,
+        season: conditions.season,
+        lockIds: lockIds.toList(),
+        swapId: swapId,
       );
 
       emit(OutfitGenerated(recommendation));
+    } on LocationRequiredException catch (e) {
+      emit(OutfitError(e.message, previousOutfit: previousOutfit));
     } catch (e) {
       final msg = e.toString();
       if (msg.contains('404') || msg.contains('No valid combinations')) {
@@ -92,30 +124,6 @@ class OutfitCubit extends Cubit<OutfitState> {
       }
     } finally {
       _isGenerating = false;
-    }
-  }
-
-  String _weatherForOccasion(String occasion) {
-    switch (occasion.toLowerCase()) {
-      case 'gym':
-        return 'warm';
-      case 'party':
-        return 'warm';
-      case 'travel':
-        return 'mild';
-      default:
-        return 'sunny';
-    }
-  }
-
-  String _seasonForOccasion(String occasion) {
-    switch (occasion.toLowerCase()) {
-      case 'gym':
-        return 'summer';
-      case 'travel':
-        return 'all';
-      default:
-        return 'summer';
     }
   }
 }

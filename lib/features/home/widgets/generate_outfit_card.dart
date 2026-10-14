@@ -133,7 +133,8 @@ class GenerateOutfitCard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => const OutfitGeneratorScreen(),
+                      builder: (context) =>
+                          const OutfitGeneratorScreen(startWithToday: true),
                     ),
                   );
                 },
@@ -153,7 +154,7 @@ class GenerateOutfitCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'Style Me Now',
+                      "Today's outfit",
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: colors.onPrimary,
                         letterSpacing: 0.5,
@@ -162,6 +163,22 @@ class GenerateOutfitCard extends StatelessWidget {
                     const SizedBox(width: AppSpacing.md),
                     const Icon(Icons.auto_awesome, size: 20),
                   ],
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const OutfitGeneratorScreen(),
+                    ),
+                  );
+                },
+                child: Text(
+                  'Choose occasion and style',
+                  style: theme.textTheme.labelLarge?.copyWith(
+                    color: AppColors.white,
+                  ),
                 ),
               ),
             ],

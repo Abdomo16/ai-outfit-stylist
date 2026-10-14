@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../cubit/outfit_cubit.dart';
 import '../cubit/outfit_state.dart';
@@ -11,8 +12,13 @@ import '../../../../data/datasources/ai_service.dart';
 
 class OutfitGeneratorScreen extends StatelessWidget {
   final VoidCallback? onExit;
+  final bool startWithToday;
 
-  const OutfitGeneratorScreen({super.key, this.onExit});
+  const OutfitGeneratorScreen({
+    super.key,
+    this.onExit,
+    this.startWithToday = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +28,13 @@ class OutfitGeneratorScreen extends StatelessWidget {
     final colors = theme.colorScheme;
 
     return BlocProvider(
-      create: (context) => OutfitCubit(wardrobeRepo, aiService),
+      create: (context) {
+        final cubit = OutfitCubit(wardrobeRepo, aiService);
+        if (startWithToday) {
+          cubit.generateToday();
+        }
+        return cubit;
+      },
       child: Scaffold(
         appBar: AppBar(
           title: const Text('Create Your Look'),
@@ -48,7 +60,11 @@ class OutfitGeneratorScreen extends StatelessWidget {
                     child: const OutfitResultScreen(),
                   ),
                 ),
-              );
+              ).then((_) {
+                if (startWithToday && context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              });
             } else if (state is OutfitError &&
                 (ModalRoute.of(context)?.isCurrent ?? false)) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -62,6 +78,43 @@ class OutfitGeneratorScreen extends StatelessWidget {
           builder: (context, state) {
             final cubit = context.read<OutfitCubit>();
             final isLoading = state is OutfitLoading;
+
+            if (startWithToday) {
+              if (state is OutfitError) {
+                return SafeArea(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            state.message,
+                            textAlign: TextAlign.center,
+                            style: theme.textTheme.bodyLarge,
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: cubit.generateToday,
+                            child: const Text('Try again'),
+                          ),
+                          if (state.message.contains('location')) ...[
+                            const SizedBox(height: 8),
+                            TextButton(
+                              onPressed: Geolocator.openAppSettings,
+                              child: const Text('Allow location'),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return const SafeArea(
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
 
             return SafeArea(
               child: SingleChildScrollView(

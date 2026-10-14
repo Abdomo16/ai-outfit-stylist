@@ -13,6 +13,8 @@ class OutfitModel {
   final String explanation;
   final String? imageUrl;
   final double? score;
+  final double? colorScore;
+  final List<String> reasons;
   final List<ClothingItemModel> items;
 
   OutfitModel({
@@ -27,6 +29,8 @@ class OutfitModel {
     this.explanation = '',
     this.imageUrl,
     this.score,
+    this.colorScore,
+    this.reasons = const [],
     this.items = const [],
   });
 
@@ -83,6 +87,10 @@ class OutfitModel {
 
     final occasion = (json['occasion'] as String?) ?? 'casual';
     final rawId = json['id'];
+    final reasons = (json['reasons'] as List<dynamic>?)
+            ?.map((reason) => reason.toString())
+            .toList() ??
+        const <String>[];
 
     return OutfitModel(
       id: rawId is String && rawId.isNotEmpty ? rawId : const Uuid().v4(),
@@ -90,8 +98,12 @@ class OutfitModel {
       occasion: occasion,
       stylePreference:
           stylePreference ?? (json['style'] as String?) ?? occasion,
-      explanation: 'A curated outfit for $occasion.',
+      explanation: reasons.isNotEmpty
+          ? reasons.join('\n')
+          : 'A curated outfit for $occasion.',
       score: (json['score'] as num?)?.toDouble(),
+      colorScore: (json['color_score'] as num?)?.toDouble(),
+      reasons: reasons,
       items: parsedItems,
       top: top,
       bottom: bottom,
@@ -108,6 +120,8 @@ class OutfitModel {
       'stylePreference': stylePreference,
       'explanation': explanation,
       'score': score,
+      'color_score': colorScore,
+      'reasons': reasons,
       'imageUrl': imageUrl,
       'items': items.map((i) => i.toJson()).toList(),
     };
