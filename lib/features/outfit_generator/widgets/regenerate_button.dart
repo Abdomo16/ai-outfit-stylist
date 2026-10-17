@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class RegenerateButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -36,7 +37,7 @@ class RegenerateButton extends StatelessWidget {
               )
             : const Icon(Icons.refresh),
         label: Text(
-          isLoading ? 'Generating...' : 'Regenerate Outfit',
+          isLoading ? AppLocalizations.of(context).generating : AppLocalizations.of(context).regenerateOutfit,
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),

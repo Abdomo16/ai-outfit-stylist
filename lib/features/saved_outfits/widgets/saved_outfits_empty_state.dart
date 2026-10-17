@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 
 class SavedOutfitsEmptyState extends StatelessWidget {
@@ -29,7 +30,7 @@ class SavedOutfitsEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              'No Saved Outfits Yet',
+              AppLocalizations.of(context).noSavedOutfits,
               style: TextStyle(
                 fontSize: 20,
                 fontWeight: FontWeight.bold,
@@ -38,7 +39,7 @@ class SavedOutfitsEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: 12),
             Text(
-              'Generate an outfit and tap the ❤️ icon\nto save your favourite looks here.',
+              AppLocalizations.of(context).noSavedOutfitsBody,
               textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 14,

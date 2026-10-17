@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../cubit/profile_cubit.dart';
 
 class DeleteAccountDialog extends StatelessWidget {
@@ -8,24 +9,25 @@ class DeleteAccountDialog extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context);
     final colors = Theme.of(context).colorScheme;
 
     return AlertDialog(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       backgroundColor: colors.surface,
-      title: const Text(
-        'Delete Account',
+      title: Text(
+        l10n.deleteAccountTitle,
         style: TextStyle(color: AppColors.error, fontWeight: FontWeight.bold),
       ),
       content: Text(
-        'Are you sure you want to delete your account? This action cannot be undone and you will lose all saved data.',
+        l10n.deleteAccountBody,
         style: TextStyle(color: colors.onSurface, height: 1.5),
       ),
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
           child: Text(
-            'Cancel',
+            l10n.cancel,
             style: TextStyle(color: colors.onSurfaceVariant),
           ),
         ),
@@ -41,8 +43,8 @@ class DeleteAccountDialog extends StatelessWidget {
             Navigator.pop(context);
             context.read<ProfileCubit>().deleteAccount();
           },
-          child: const Text(
-            'Delete',
+          child: Text(
+            l10n.delete,
             style: TextStyle(fontWeight: FontWeight.bold),
           ),
         ),

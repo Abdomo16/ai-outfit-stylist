@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class WardrobeEmptyState extends StatelessWidget {
   final String? category;
@@ -16,6 +17,7 @@ class WardrobeEmptyState extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
     final isFiltered = category != null && category != 'All';
 
     return Center(
@@ -40,7 +42,7 @@ class WardrobeEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.lg),
             Text(
-              isFiltered ? 'No $category items yet' : 'Your wardrobe is empty',
+              isFiltered ? 'No $category items yet' : l10n.emptyWardrobeTitle,
               style: theme.textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
@@ -48,7 +50,7 @@ class WardrobeEmptyState extends StatelessWidget {
             Text(
               isFiltered
                   ? 'Try selecting another category or add your first $category piece.'
-                  : 'Start building your digital wardrobe by adding your favorite pieces.',
+                  : l10n.emptyWardrobeBody,
               style: theme.textTheme.bodyMedium,
               textAlign: TextAlign.center,
             ),
@@ -57,7 +59,7 @@ class WardrobeEmptyState extends StatelessWidget {
               ElevatedButton.icon(
                 onPressed: onAddPressed,
                 icon: const Icon(Icons.add),
-                label: const Text('Add First Item'),
+                label: Text(l10n.addClothes),
               ),
             ],
           ],

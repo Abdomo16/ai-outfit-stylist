@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/theme/theme_cubit.dart';
@@ -13,6 +14,7 @@ class ThemeModeCard extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
 
+    final l10n = AppLocalizations.of(context);
     return BlocBuilder<ThemeCubit, ThemeMode>(
       builder: (context, mode) {
         return Container(
@@ -41,7 +43,7 @@ class ThemeModeCard extends StatelessWidget {
                   const SizedBox(width: AppSpacing.md),
                   Expanded(
                     child: Text(
-                      'Appearance',
+                      l10n.appearance,
                       style: theme.textTheme.titleMedium?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
@@ -55,7 +57,7 @@ class ThemeModeCard extends StatelessWidget {
                   Expanded(
                     child: _ThemeSegment(
                       icon: Icons.light_mode_outlined,
-                      label: 'Light',
+                      label: l10n.light,
                       selected: mode == ThemeMode.light,
                       onTap: () => context
                           .read<ThemeCubit>()
@@ -67,7 +69,7 @@ class ThemeModeCard extends StatelessWidget {
                   Expanded(
                     child: _ThemeSegment(
                       icon: Icons.dark_mode_outlined,
-                      label: 'Dark',
+                      label: l10n.dark,
                       selected: mode == ThemeMode.dark,
                       onTap: () =>
                           context.read<ThemeCubit>().setMode(ThemeMode.dark),
@@ -78,7 +80,7 @@ class ThemeModeCard extends StatelessWidget {
                   Expanded(
                     child: _ThemeSegment(
                       icon: Icons.settings_suggest_outlined,
-                      label: 'System',
+                      label: l10n.system,
                       selected: mode == ThemeMode.system,
                       onTap: () => context
                           .read<ThemeCubit>()

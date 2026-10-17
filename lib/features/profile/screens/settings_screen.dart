@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../navigation/route_names.dart';
 import '../cubit/profile_cubit.dart';
 import '../cubit/profile_state.dart';
 import '../repository/profile_repository.dart';
 import '../widgets/logout_button.dart';
 import '../widgets/profile_menu_item.dart';
+import '../widgets/language_card.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -33,22 +35,22 @@ class SettingsView extends StatelessWidget {
             borderRadius: BorderRadius.circular(16),
           ),
           backgroundColor: colors.surface,
-          title: const Text(
-            'Delete Account',
+          title: Text(
+            AppLocalizations.of(dialogContext).deleteAccountTitle,
             style: TextStyle(
               color: AppColors.error,
               fontWeight: FontWeight.bold,
             ),
           ),
           content: Text(
-            'Are you sure you want to delete your account? This action cannot be undone and you will lose all saved settings, outfits, and wardrobe items.',
+            AppLocalizations.of(dialogContext).deleteAccountBody,
             style: TextStyle(color: colors.onSurface, height: 1.5),
           ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(dialogContext),
               child: Text(
-                'Cancel',
+                AppLocalizations.of(dialogContext).cancel,
                 style: TextStyle(color: colors.onSurfaceVariant),
               ),
             ),
@@ -64,8 +66,8 @@ class SettingsView extends StatelessWidget {
                 Navigator.pop(dialogContext);
                 context.read<ProfileCubit>().deleteAccount();
               },
-              child: const Text(
-                'Delete',
+              child: Text(
+                AppLocalizations.of(dialogContext).delete,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
             ),
@@ -82,10 +84,7 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text(
-          'Settings',
-          style: TextStyle(fontWeight: FontWeight.bold),
-        ),
+        title: Text(AppLocalizations.of(context).settings),
         backgroundColor: theme.scaffoldBackgroundColor,
         elevation: 0,
         centerTitle: true,
@@ -117,8 +116,10 @@ class SettingsView extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                const LanguageCard(),
+                const SizedBox(height: 16),
                 Text(
-                  'Account Security',
+                  AppLocalizations.of(context).accountSecurity,
                   style: theme.textTheme.titleSmall,
                 ),
                 const SizedBox(height: 16),
@@ -126,7 +127,7 @@ class SettingsView extends StatelessWidget {
                 const SizedBox(height: 12),
                 ProfileMenuItem(
                   icon: Icons.person_remove_rounded,
-                  title: 'Delete Account',
+                  title: AppLocalizations.of(context).deleteAccount,
                   iconColor: AppColors.error,
                   textColor: AppColors.error,
                   iconBackgroundColor: AppColors.error.withValues(alpha: 0.15),

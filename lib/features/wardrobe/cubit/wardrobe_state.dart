@@ -14,11 +14,31 @@ class WardrobeLoading extends WardrobeState {}
 
 class WardrobeLoaded extends WardrobeState {
   final List<ClothingItemModel> items;
+  final int analyzingCurrent;
+  final int analyzingTotal;
 
-  const WardrobeLoaded(this.items);
+  const WardrobeLoaded(
+    this.items, {
+    this.analyzingCurrent = 0,
+    this.analyzingTotal = 0,
+  });
+
+  bool get isAnalyzing => analyzingTotal > 0;
+
+  WardrobeLoaded copyWith({
+    List<ClothingItemModel>? items,
+    int? analyzingCurrent,
+    int? analyzingTotal,
+  }) {
+    return WardrobeLoaded(
+      items ?? this.items,
+      analyzingCurrent: analyzingCurrent ?? this.analyzingCurrent,
+      analyzingTotal: analyzingTotal ?? this.analyzingTotal,
+    );
+  }
 
   @override
-  List<Object?> get props => [items];
+  List<Object?> get props => [items, analyzingCurrent, analyzingTotal];
 }
 
 class WardrobeError extends WardrobeState {

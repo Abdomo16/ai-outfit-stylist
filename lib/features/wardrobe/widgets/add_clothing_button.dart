@@ -9,12 +9,14 @@ class AddClothingButton extends StatelessWidget {
   const AddClothingButton({super.key});
 
   static Future<void> pickAndUpload(BuildContext context) async {
-    final imagePath = await ImagePickerHelper.pickImageFromGallery();
-    if (imagePath == null) return;
+    final imagePaths = await ImagePickerHelper.pickImagesFromGallery();
+    if (imagePaths.isEmpty) return;
 
     if (!context.mounted) return;
 
-    context.read<WardrobeCubit>().addClothingItem(File(imagePath));
+    context.read<WardrobeCubit>().addClothingItems(
+      imagePaths.map((path) => File(path)).toList(),
+    );
   }
 
   @override

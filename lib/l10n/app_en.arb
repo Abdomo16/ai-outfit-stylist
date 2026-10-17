@@ -1,0 +1,178 @@
+{
+  "@@locale": "en",
+  "appName": "AI Outfit Stylist",
+  "welcomeTagline": "Your personal AI fashion assistant.",
+  "welcomeBack": "WELCOME BACK",
+  "hiUser": "Hi, {name}",
+  "@hiUser": {
+    "placeholders": {
+      "name": {"type": "String"}
+    }
+  },
+  "aiReady": "AI Ready",
+  "premiumAi": "PREMIUM AI",
+  "generateYourOutfit": "Generate\nYour Outfit",
+  "generateSubtitle": "Discover your perfect look with AI\ntailored to your unique style.",
+  "todayOutfit": "Today's outfit",
+  "chooseOccasionStyle": "Choose occasion and style",
+  "thisWeek": "This week",
+  "planTrip": "Plan a trip",
+  "navHome": "Home",
+  "navWardrobe": "Wardrobe",
+  "navGenerate": "Generate",
+  "navSaved": "Saved",
+  "navProfile": "Profile",
+  "login": "Login",
+  "register": "Register",
+  "createAccount": "Create Account",
+  "email": "Email",
+  "password": "Password",
+  "forgotPassword": "Forgot Password?",
+  "dontHaveAccount": "Don't have an account? Register",
+  "alreadyHaveAccount": "Already have an account? Login",
+  "welcomeTitle": "Welcome",
+  "getStarted": "Get Started",
+  "outfitDetails": "Outfit Details",
+  "stepOf": "Step {step} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "step": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
+  "whatsTheOccasion": "What's the occasion?",
+  "selectWhere": "Select where you're headed today",
+  "pickStyle": "Pick your style preference",
+  "chooseAesthetic": "Choose an aesthetic for your outfit AI",
+  "occasionUniversity": "University",
+  "occasionWork": "Work",
+  "occasionDateNight": "Date Night",
+  "occasionGym": "Gym",
+  "occasionParty": "Party",
+  "occasionTravel": "Travel",
+  "occasionEveryday": "Everyday",
+  "styleStreetwear": "Streetwear",
+  "styleElegant": "Elegant",
+  "styleMinimal": "Minimal",
+  "styleVintage": "Vintage",
+  "generate": "Generate",
+  "regenerateOutfit": "Regenerate Outfit",
+  "generating": "Generating...",
+  "aiSuggestion": "AI Suggestion",
+  "curatedLook": "Your Curated Look",
+  "colorMatch": "{percent}% color match",
+  "@colorMatch": {
+    "placeholders": {
+      "percent": {"type": "int"}
+    }
+  },
+  "outfitReady": "Your outfit is ready",
+  "pieces": "Pieces",
+  "itemCount": "{count} items",
+  "@itemCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "piecesHint": "Pin a piece to keep it, or swap it for another.",
+  "pin": "Pin",
+  "pinned": "Pinned",
+  "unpin": "Unpin",
+  "swap": "Swap",
+  "iWoreThis": "I wore this",
+  "wornToday": "Saved to today's wear log",
+  "couldNotSaveWear": "Could not save what you wore.",
+  "outfitSaved": "Outfit saved!",
+  "couldNotSaveOutfit": "Could not save outfit. Please try again.",
+  "noOutfitGenerated": "No outfit generated. Please try again.",
+  "selectOccasionAndStyle": "Please select both an occasion and a style.",
+  "emptyWardrobe": "Your wardrobe is empty. Please add items first.",
+  "noMatchingOutfit": "No matching outfit found. Try a different occasion or add more clothes to your wardrobe!",
+  "generateFailed": "Failed to generate outfit. Please check your connection and try again.",
+  "allowLocation": "Allow location to build today's outfit.",
+  "tryAgain": "Try again",
+  "allowLocationButton": "Allow location",
+  "createYourLook": "Create Your Look",
+  "savedOutfits": "Saved Outfits",
+  "noSavedOutfits": "No Saved Outfits Yet",
+  "noSavedOutfitsBody": "Outfits you save will show up here.",
+  "profile": "Profile",
+  "appearance": "Appearance",
+  "language": "Language",
+  "english": "English",
+  "arabic": "Arabic",
+  "accountSecurity": "Account Security",
+  "logout": "Logout",
+  "deleteAccount": "Delete Account",
+  "deleteAccountTitle": "Delete Account",
+  "deleteAccountBody": "Are you sure you want to delete your account? This action cannot be undone and you will lose all saved settings, outfits, and wardrobe items.",
+  "cancel": "Cancel",
+  "delete": "Delete",
+  "settings": "Settings",
+  "errorLoadingProfile": "Error loading profile",
+  "retry": "Retry",
+  "failedToPickImage": "Failed to pick image",
+  "light": "Light",
+  "dark": "Dark",
+  "system": "System",
+  "wardrobe": "Wardrobe",
+  "categoryAll": "All",
+  "categoryShirts": "Shirts",
+  "categoryPants": "Pants",
+  "categoryJackets": "Jackets",
+  "categoryShoes": "Shoes",
+  "categoryAccessories": "Accessories",
+  "emptyWardrobeTitle": "Your wardrobe is empty",
+  "emptyWardrobeBody": "Add clothes so the stylist can build outfits.",
+  "addClothes": "Add clothes",
+  "reasonWeather": "Works in {weather} weather.",
+  "@reasonWeather": {
+    "placeholders": {
+      "weather": {"type": "String"}
+    }
+  },
+  "reasonSeason": "Works for {season}.",
+  "@reasonSeason": {
+    "placeholders": {
+      "season": {"type": "String"}
+    }
+  },
+  "reasonStyleRelaxed": "Style filter relaxed so an outfit could be made.",
+  "reasonStyleMatch": "Matches {style}.",
+  "@reasonStyleMatch": {
+    "placeholders": {
+      "style": {"type": "String"}
+    }
+  },
+  "reasonRepeated": "Repeated a piece because the wardrobe is small.",
+  "reasonColorPair": "{left} pairs with {right}.",
+  "@reasonColorPair": {
+    "placeholders": {
+      "left": {"type": "String"},
+      "right": {"type": "String"}
+    }
+  },
+  "reasonColorClash": "{left} clashes with {right}.",
+  "@reasonColorClash": {
+    "placeholders": {
+      "left": {"type": "String"},
+      "right": {"type": "String"}
+    }
+  },
+  "reasonNeutral": "Some colors have no rule, so they stay neutral.",
+  "generateWeek": "Generate this week",
+  "markWorn": "I wore this",
+  "regenerateDay": "Regenerate",
+  "packingList": "Packing list",
+  "searchCity": "Search a city",
+  "search": "Search",
+  "addStop": "Add stop",
+  "startDate": "Start",
+  "endDate": "End",
+  "generateTrip": "Generate trip",
+  "noCities": "Add at least one city.",
+  "tripTitle": "Trip",
+  "weekEmpty": "Generate a week from the forecast and your calendar.",
+  "couldNotReadWeather": "Could not read the weather. Try again.",
+  "userNotLoggedIn": "User not logged in"
+}

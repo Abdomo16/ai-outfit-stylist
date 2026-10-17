@@ -1,9 +1,9 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import '../../../../data/models/clothing_item_model.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../widgets/item_info_card.dart';
 import '../widgets/detail_action_buttons.dart';
+import '../widgets/wardrobe_item_image.dart';
 import 'edit_clothing_screen.dart';
 
 class ClothingDetailScreen extends StatefulWidget {
@@ -35,38 +35,13 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
   }
 
   Widget _buildImage() {
-    final url = _item.imageUrl;
-    final colors = Theme.of(context).colorScheme;
-    final Widget fallback = Container(
-      color: colors.surface,
-      child: Center(
-        child: Icon(
-          Icons.checkroom,
-          size: 48,
-          color: colors.onSurfaceVariant,
-        ),
-      ),
+    final dpr = MediaQuery.of(context).devicePixelRatio;
+    final width = MediaQuery.of(context).size.width;
+    return WardrobeItemImage(
+      imageUrl: _item.imageUrl,
+      iconSize: 48,
+      memCacheWidth: (width * dpr).round().clamp(400, 1200),
     );
-
-    if (url == null || url.isEmpty) return fallback;
-
-    if (url.startsWith('http')) {
-      return Image.network(
-        url,
-        fit: BoxFit.cover,
-        errorBuilder: (_, _, _) => fallback,
-      );
-    }
-
-    if (File(url).existsSync()) {
-      return Image.file(
-        File(url),
-        fit: BoxFit.cover,
-        errorBuilder: (_, _, _) => fallback,
-      );
-    }
-
-    return fallback;
   }
 
   @override

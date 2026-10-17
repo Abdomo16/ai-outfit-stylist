@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import '../../../../data/models/clothing_item_model.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../screens/clothing_detail_screen.dart';
+import 'wardrobe_item_image.dart';
 
 class ClothingCard extends StatelessWidget {
   final ClothingItemModel item;
@@ -45,25 +45,7 @@ class ClothingCard extends StatelessWidget {
                   topLeft: Radius.circular(AppRadius.large),
                   topRight: Radius.circular(AppRadius.large),
                 ),
-                child: (item.imageUrl ?? '').startsWith('http')
-                    ? Image.network(
-                        item.imageUrl!,
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Icon(
-                          Icons.style,
-                          size: 40,
-                          color: colors.onSurfaceVariant,
-                        ),
-                      )
-                    : Image.file(
-                        File(item.imageUrl ?? ''),
-                        fit: BoxFit.cover,
-                        errorBuilder: (context, error, stackTrace) => Icon(
-                          Icons.style,
-                          size: 40,
-                          color: colors.onSurfaceVariant,
-                        ),
-                      ),
+                child: WardrobeItemImage(imageUrl: item.imageUrl),
               ),
             ),
             Padding(

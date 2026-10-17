@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../l10n/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class BottomNavBar extends StatelessWidget {
@@ -17,11 +18,11 @@ class BottomNavBar extends StatelessWidget {
     final colors = Theme.of(context).colorScheme;
 
     final items = [
-      (Icons.home_outlined, Icons.home_rounded, 'Home'),
-      (Icons.checkroom_outlined, Icons.checkroom_rounded, 'Wardrobe'),
-      (Icons.auto_awesome_outlined, Icons.auto_awesome, 'Generate'),
-      (Icons.favorite_border_rounded, Icons.favorite_rounded, 'Saved'),
-      (Icons.person_outline_rounded, Icons.person_rounded, 'Profile'),
+      (Icons.home_outlined, Icons.home_rounded, AppLocalizations.of(context).navHome),
+      (Icons.checkroom_outlined, Icons.checkroom_rounded, AppLocalizations.of(context).navWardrobe),
+      (Icons.auto_awesome_outlined, Icons.auto_awesome, AppLocalizations.of(context).navGenerate),
+      (Icons.favorite_border_rounded, Icons.favorite_rounded, AppLocalizations.of(context).navSaved),
+      (Icons.person_outline_rounded, Icons.person_rounded, AppLocalizations.of(context).navProfile),
     ];
 
     return Padding(

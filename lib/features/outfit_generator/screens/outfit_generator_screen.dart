@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../cubit/outfit_cubit.dart';
 import '../cubit/outfit_state.dart';
 import '../widgets/occasion_selector.dart';
@@ -11,8 +13,13 @@ import '../../../../data/datasources/ai_service.dart';
 
 class OutfitGeneratorScreen extends StatelessWidget {
   final VoidCallback? onExit;
+  final bool startWithToday;
 
-  const OutfitGeneratorScreen({super.key, this.onExit});
+  const OutfitGeneratorScreen({
+    super.key,
+    this.onExit,
+    this.startWithToday = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +29,16 @@ class OutfitGeneratorScreen extends StatelessWidget {
     final colors = theme.colorScheme;
 
     return BlocProvider(
-      create: (context) => OutfitCubit(wardrobeRepo, aiService),
+      create: (context) {
+        final cubit = OutfitCubit(wardrobeRepo, aiService);
+        if (startWithToday) {
+          cubit.generateToday();
+        }
+        return cubit;
+      },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Create Your Look'),
+          title: Text(AppLocalizations.of(context).createYourLook),
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: colors.onSurface),
@@ -48,7 +61,11 @@ class OutfitGeneratorScreen extends StatelessWidget {
                     child: const OutfitResultScreen(),
                   ),
                 ),
-              );
+              ).then((_) {
+                if (startWithToday && context.mounted) {
+                  Navigator.of(context).pop();
+                }
+              });
             } else if (state is OutfitError &&
                 (ModalRoute.of(context)?.isCurrent ?? false)) {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -63,6 +80,43 @@ class OutfitGeneratorScreen extends StatelessWidget {
             final cubit = context.read<OutfitCubit>();
             final isLoading = state is OutfitLoading;
 
+            if (startWithToday) {
+              if (state is OutfitError) {
+                return SafeArea(
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(24),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            state.message,
+                            textAlign: TextAlign.center,
+                            style: theme.textTheme.bodyLarge,
+                          ),
+                          const SizedBox(height: 16),
+                          ElevatedButton(
+                            onPressed: cubit.generateToday,
+                            child: Text(AppLocalizations.of(context).tryAgain),
+                          ),
+                          if (state.message.contains('location')) ...[
+                            const SizedBox(height: 8),
+                            TextButton(
+                              onPressed: Geolocator.openAppSettings,
+                              child: Text(AppLocalizations.of(context).allowLocationButton),
+                            ),
+                          ],
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+              return const SafeArea(
+                child: Center(child: CircularProgressIndicator()),
+              );
+            }
+
             return SafeArea(
               child: SingleChildScrollView(
                 padding: const EdgeInsets.all(24.0),
@@ -73,12 +127,12 @@ class OutfitGeneratorScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Outfit Details',
+                          AppLocalizations.of(context).outfitDetails,
                           style: theme.textTheme.titleMedium
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'Step 1 of 2',
+                          AppLocalizations.of(context).stepOf(1, 2),
                           style: theme.textTheme.bodyMedium
                               ?.copyWith(color: colors.onSurfaceVariant),
                         ),

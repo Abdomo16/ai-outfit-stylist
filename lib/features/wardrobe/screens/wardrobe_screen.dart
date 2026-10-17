@@ -86,35 +86,74 @@ class _WardrobeScreenState extends State<WardrobeScreen> {
                               )
                               .toList();
 
-                    if (filteredItems.isEmpty) {
-                      return WardrobeEmptyState(
-                        category: _selectedCategory,
-                        onAddPressed: () => AddClothingButton.pickAndUpload(context),
-                      );
-                    }
-
-                    return RefreshIndicator(
-                      color: AppColors.primary,
-                      backgroundColor: colors.surface,
-                      onRefresh: () =>
-                          context.read<WardrobeCubit>().refreshWardrobe(),
-                      child: GridView.builder(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: AppSpacing.lg,
-                          vertical: AppSpacing.md,
-                        ),
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              crossAxisSpacing: AppSpacing.md,
-                              mainAxisSpacing: AppSpacing.md,
-                              childAspectRatio: 0.65,
+                    return Column(
+                      children: [
+                        if (state.isAnalyzing)
+                          Material(
+                            color: AppColors.primary.withValues(alpha: 0.12),
+                            child: Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: AppSpacing.lg,
+                                vertical: AppSpacing.sm,
+                              ),
+                              child: Row(
+                                children: [
+                                  const SizedBox(
+                                    width: 18,
+                                    height: 18,
+                                    child: CircularProgressIndicator(
+                                      strokeWidth: 2,
+                                      color: AppColors.primary,
+                                    ),
+                                  ),
+                                  const SizedBox(width: AppSpacing.sm),
+                                  Expanded(
+                                    child: Text(
+                                      'Analyzing ${state.analyzingCurrent}/${state.analyzingTotal}',
+                                      style: theme.textTheme.bodyMedium?.copyWith(
+                                        color: colors.onSurface,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
-                        itemCount: filteredItems.length,
-                        itemBuilder: (context, index) {
-                          return ClothingCard(item: filteredItems[index]);
-                        },
-                      ),
+                          ),
+                        Expanded(
+                          child: filteredItems.isEmpty
+                              ? WardrobeEmptyState(
+                                  category: _selectedCategory,
+                                  onAddPressed: () =>
+                                      AddClothingButton.pickAndUpload(context),
+                                )
+                              : RefreshIndicator(
+                                  color: AppColors.primary,
+                                  backgroundColor: colors.surface,
+                                  onRefresh: () => context
+                                      .read<WardrobeCubit>()
+                                      .refreshWardrobe(),
+                                  child: GridView.builder(
+                                    padding: const EdgeInsets.symmetric(
+                                      horizontal: AppSpacing.lg,
+                                      vertical: AppSpacing.md,
+                                    ),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          crossAxisSpacing: AppSpacing.md,
+                                          mainAxisSpacing: AppSpacing.md,
+                                          childAspectRatio: 0.65,
+                                        ),
+                                    itemCount: filteredItems.length,
+                                    itemBuilder: (context, index) {
+                                      return ClothingCard(
+                                        item: filteredItems[index],
+                                      );
+                                    },
+                                  ),
+                                ),
+                        ),
+                      ],
                     );
                   }
                   return const SizedBox.shrink();
