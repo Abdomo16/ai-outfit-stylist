@@ -4,15 +4,25 @@ import 'outfit_state.dart';
 import '../../../../data/datasources/ai_service.dart';
 import '../../../../data/datasources/weather_service.dart';
 import '../../../../data/repositories/wardrobe_repository.dart';
+import '../../../../data/repositories/wear_log_repository.dart';
 
 class OutfitCubit extends Cubit<OutfitState> {
   final WardrobeRepository _wardrobeRepo;
   final AIService _aiService;
   final WeatherService _weatherService;
 
-  OutfitCubit(this._wardrobeRepo, this._aiService, {WeatherService? weatherService})
-    : _weatherService = weatherService ?? WeatherService(),
-      super(const OutfitInitial());
+  final WearLogRepository _wearLog;
+  String? lastWeather;
+  String? lastSeason;
+
+  OutfitCubit(
+    this._wardrobeRepo,
+    this._aiService, {
+    WeatherService? weatherService,
+    WearLogRepository? wearLog,
+  }) : _weatherService = weatherService ?? WeatherService(),
+       _wearLog = wearLog ?? WearLogRepository(),
+       super(const OutfitInitial());
 
   String? selectedOccasion;
   String? selectedStyle;
@@ -92,6 +102,12 @@ class OutfitCubit extends Cubit<OutfitState> {
       }
 
       final conditions = await _weatherService.current();
+      lastWeather = conditions.weather;
+      lastSeason = conditions.season;
+      List<String> excludeIds = const [];
+      try {
+        excludeIds = await _wearLog.recentItemIds();
+      } catch (_) {}
       final recommendation = await _aiService.getRecommendations(
         wardrobe: wardrobe,
         occasion: selectedOccasion!.toLowerCase(),
@@ -100,6 +116,7 @@ class OutfitCubit extends Cubit<OutfitState> {
         season: conditions.season,
         lockIds: lockIds.toList(),
         swapId: swapId,
+        excludeIds: excludeIds,
       );
 
       emit(OutfitGenerated(recommendation));

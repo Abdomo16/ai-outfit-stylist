@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -161,14 +162,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         ),
                         const SizedBox(height: AppSpacing.md),
                         Text(
-                          'Your personal AI fashion assistant for the perfect look, every single day.',
+                          AppLocalizations.of(context).welcomeTagline,
                           style: theme.textTheme.bodyLarge?.copyWith(
                             color: colors.onSurfaceVariant,
                           ),
                         ),
                         const SizedBox(height: AppSpacing.xxl),
                         CustomButton(
-                          text: 'Create Account',
+                          text: AppLocalizations.of(context).createAccount,
                           color: AppColors.primary,
                           textColor: colors.onPrimary,
                           hasGlow: true,
@@ -177,7 +178,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                         ),
                         const SizedBox(height: AppSpacing.md),
                         CustomButton(
-                          text: 'Login',
+                          text: AppLocalizations.of(context).login,
                           isOutlined: true,
                           color: AppColors.primary,
                           textColor: colors.onSurface,

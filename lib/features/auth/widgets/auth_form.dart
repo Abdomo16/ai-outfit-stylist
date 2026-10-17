@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../../../core/widgets/custom_button.dart';
@@ -73,7 +74,7 @@ class _AuthFormState extends State<AuthForm> {
           ],
           CustomTextField(
             controller: _emailController,
-            label: 'Email Address',
+            label: AppLocalizations.of(context).email,
             hintText: 'name@example.com',
             keyboardType: TextInputType.emailAddress,
             prefixIcon: Icon(
@@ -89,7 +90,7 @@ class _AuthFormState extends State<AuthForm> {
           const SizedBox(height: AppSpacing.md),
           CustomTextField(
             controller: _passwordController,
-            label: 'Password',
+            label: AppLocalizations.of(context).password,
             hintText: '••••••••',
             isPassword: true,
             prefixIcon: Icon(
@@ -116,7 +117,7 @@ class _AuthFormState extends State<AuthForm> {
                   tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                 ),
                 child: Text(
-                  'Forgot Password?',
+                  AppLocalizations.of(context).forgotPassword,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: AppColors.primary,
                     fontWeight: FontWeight.w600,
@@ -158,7 +159,9 @@ class _AuthFormState extends State<AuthForm> {
             const SizedBox(height: AppSpacing.lg),
           ],
           CustomButton(
-            text: widget.isLogin ? 'Login' : 'Register',
+            text: widget.isLogin
+                ? AppLocalizations.of(context).login
+                : AppLocalizations.of(context).register,
             onPressed: _submit,
             isLoading: widget.isLoading,
             hasGlow: true,

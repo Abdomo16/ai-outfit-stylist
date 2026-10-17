@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class StyleSelector extends StatelessWidget {
   final String? selectedStyle;
@@ -21,19 +22,20 @@ class StyleSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'Pick your style preference',
+          l10n.pickStyle,
           style: Theme.of(
             context,
           ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 4),
         Text(
-          'Choose an aesthetic for your outfit AI',
+          l10n.chooseAesthetic,
           style: Theme.of(
             context,
           ).textTheme.bodyMedium?.copyWith(color: colors.onSurfaceVariant),
@@ -111,7 +113,7 @@ class StyleSelector extends StatelessWidget {
                   ),
                   const SizedBox(height: 12),
                   Text(
-                    style['name']!,
+                    _styleLabel(l10n, style['name']!),
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: colors.onSurface,
@@ -129,4 +131,14 @@ class StyleSelector extends StatelessWidget {
       ],
     );
   }
+}
+
+String _styleLabel(AppLocalizations l10n, String name) {
+  return switch (name) {
+    'Streetwear' => l10n.styleStreetwear,
+    'Elegant' => l10n.styleElegant,
+    'Minimal' => l10n.styleMinimal,
+    'Vintage' => l10n.styleVintage,
+    _ => name,
+  };
 }

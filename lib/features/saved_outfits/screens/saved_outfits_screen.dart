@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../cubit/saved_outfits_cubit.dart';
 import '../cubit/saved_outfits_state.dart';
 import '../widgets/saved_outfits_empty_state.dart';
@@ -35,8 +36,8 @@ class _SavedOutfitsScreenState extends State<SavedOutfitsScreen> {
             return Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Saved Outfits',
+                Text(
+                  AppLocalizations.of(context).savedOutfits,
                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                 ),
                 if (count != null && count > 0) ...[

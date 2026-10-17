@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:geolocator/geolocator.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../cubit/outfit_cubit.dart';
 import '../cubit/outfit_state.dart';
 import '../widgets/occasion_selector.dart';
@@ -37,7 +38,7 @@ class OutfitGeneratorScreen extends StatelessWidget {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Create Your Look'),
+          title: Text(AppLocalizations.of(context).createYourLook),
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back, color: colors.onSurface),
@@ -96,13 +97,13 @@ class OutfitGeneratorScreen extends StatelessWidget {
                           const SizedBox(height: 16),
                           ElevatedButton(
                             onPressed: cubit.generateToday,
-                            child: const Text('Try again'),
+                            child: Text(AppLocalizations.of(context).tryAgain),
                           ),
                           if (state.message.contains('location')) ...[
                             const SizedBox(height: 8),
                             TextButton(
                               onPressed: Geolocator.openAppSettings,
-                              child: const Text('Allow location'),
+                              child: Text(AppLocalizations.of(context).allowLocationButton),
                             ),
                           ],
                         ],
@@ -126,12 +127,12 @@ class OutfitGeneratorScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Outfit Details',
+                          AppLocalizations.of(context).outfitDetails,
                           style: theme.textTheme.titleMedium
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         Text(
-                          'Step 1 of 2',
+                          AppLocalizations.of(context).stepOf(1, 2),
                           style: theme.textTheme.bodyMedium
                               ?.copyWith(color: colors.onSurfaceVariant),
                         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/theme/app_theme.dart';
 
 class WardrobeHeader extends StatelessWidget {
@@ -30,7 +31,7 @@ class WardrobeHeader extends StatelessWidget {
             child: const Icon(Icons.person, color: AppColors.primary, size: 20),
           ),
           Text(
-            'My Digital Wardrobe',
+            AppLocalizations.of(context).wardrobe,
             style: theme.textTheme.headlineSmall,
           ),
           Container(

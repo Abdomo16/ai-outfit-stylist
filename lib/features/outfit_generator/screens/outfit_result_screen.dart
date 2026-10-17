@@ -4,10 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../data/models/clothing_item_model.dart';
+import '../../../../data/repositories/wear_log_repository.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../cubit/outfit_cubit.dart';
 import '../cubit/outfit_state.dart';
 import '../widgets/outfit_preview_card.dart';
 import '../widgets/regenerate_button.dart';
+import '../../plans/reason_text.dart';
 import '../../saved_outfits/cubit/saved_outfits_cubit.dart';
 
 class OutfitResultScreen extends StatefulWidget {
@@ -54,6 +57,17 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
 
           final theme = Theme.of(context);
           final pageColor = theme.scaffoldBackgroundColor;
+          final l10n = AppLocalizations.of(context);
+          final cubit = context.read<OutfitCubit>();
+          final reasons = outfit == null
+              ? const <String>[]
+              : localizedReasons(
+                  l10n,
+                  outfit,
+                  weather: cubit.lastWeather,
+                  season: cubit.lastSeason,
+                  style: cubit.selectedStyle,
+                );
 
           return PopScope(
             canPop: !isLoading,
@@ -61,7 +75,7 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
               backgroundColor: pageColor,
               extendBodyBehindAppBar: false,
               appBar: AppBar(
-                title: const Text('AI Suggestion'),
+                title: Text(l10n.aiSuggestion),
                 centerTitle: true,
                 backgroundColor: pageColor,
                 surfaceTintColor: Colors.transparent,
@@ -94,9 +108,9 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text(
-                                  saved
-                                      ? 'Outfit saved!'
-                                      : 'Could not save outfit. Please try again.',
+                                      saved
+                                          ? l10n.outfitSaved
+                                          : l10n.couldNotSaveOutfit,
                                 ),
                                 duration: const Duration(seconds: 2),
                               ),
@@ -124,7 +138,7 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
               body: outfit == null
                   ? Center(
                       child: Text(
-                        'No outfit generated. Please try again.',
+                        l10n.noOutfitGenerated,
                         style: TextStyle(color: colors.onSurface),
                       ),
                     )
@@ -132,7 +146,7 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
                       padding: const EdgeInsets.fromLTRB(24, 8, 24, 24),
                       children: [
                         Text(
-                          'Your Curated Look',
+                          l10n.curatedLook,
                           style: theme.textTheme.headlineMedium,
                         ),
                         const SizedBox(height: 12),
@@ -140,30 +154,55 @@ class _OutfitResultScreenState extends State<OutfitResultScreen> {
                           alignment: Alignment.centerLeft,
                           child: _ScorePill(
                             label: outfit.colorScore == null
-                                ? 'Your outfit is ready'
-                                : '${(outfit.colorScore! * 100).round()}% color match',
+                                ? l10n.outfitReady
+                                : l10n.colorMatch((outfit.colorScore! * 100).round()),
                           ),
                         ),
-                        if (outfit.reasons.isNotEmpty) ...[
+                        if (reasons.isNotEmpty) ...[
                           const SizedBox(height: 16),
-                          _ReasonsCard(reasons: outfit.reasons),
+                          _ReasonsCard(reasons: reasons),
                         ],
+                        const SizedBox(height: 12),
+                        OutlinedButton(
+                          onPressed: isLoading
+                              ? null
+                              : () async {
+                                  try {
+                                    await WearLogRepository().saveWorn(
+                                      outfit,
+                                      DateTime.now(),
+                                    );
+                                    if (!context.mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(l10n.wornToday)),
+                                    );
+                                  } catch (_) {
+                                    if (!context.mounted) return;
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(content: Text(l10n.couldNotSaveWear)),
+                                    );
+                                  }
+                                },
+                          child: Text(l10n.iWoreThis),
+                        ),
                         const SizedBox(height: 20),
                         OutfitPreviewCard(outfit: outfit),
                         const SizedBox(height: 20),
                         Row(
                           children: [
-                            Text('Pieces', style: theme.textTheme.titleMedium),
+                            Text(l10n.pieces, style: theme.textTheme.titleMedium),
                             const Spacer(),
                             Text(
-                              '${outfit.items.where((item) => item.id != null).length} items',
+                              l10n.itemCount(
+                                outfit.items.where((item) => item.id != null).length,
+                              ),
                               style: theme.textTheme.bodySmall,
                             ),
                           ],
                         ),
                         const SizedBox(height: 4),
                         Text(
-                          'Pin a piece to keep it, or swap it for another.',
+                          l10n.piecesHint,
                           style: theme.textTheme.bodySmall,
                         ),
                         const SizedBox(height: 12),
@@ -280,6 +319,7 @@ class _PieceTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
     final theme = Theme.of(context);
+    final l10n = AppLocalizations.of(context);
 
     final swatch = _swatch(item.hex);
 
@@ -347,7 +387,7 @@ class _PieceTile extends StatelessWidget {
           ),
           const SizedBox(width: 8),
           _PieceAction(
-            label: locked ? 'Pinned' : 'Pin',
+            label: locked ? l10n.pinned : l10n.pin,
             icon: locked ? Icons.push_pin : Icons.push_pin_outlined,
             selected: locked,
             enabled: enabled,
@@ -355,7 +395,7 @@ class _PieceTile extends StatelessWidget {
           ),
           const SizedBox(width: 6),
           _PieceAction(
-            label: 'Swap',
+            label: l10n.swap,
             icon: Icons.swap_horiz,
             selected: false,
             enabled: enabled,

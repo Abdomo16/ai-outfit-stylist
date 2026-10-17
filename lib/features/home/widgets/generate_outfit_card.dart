@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../outfit_generator/screens/outfit_generator_screen.dart';
+import '../../plans/screens/trip_plan_screen.dart';
+import '../../plans/screens/week_plan_screen.dart';
+import '../../../l10n/app_localizations.dart';
 
 class GenerateOutfitCard extends StatelessWidget {
   const GenerateOutfitCard({super.key});
@@ -10,6 +13,7 @@ class GenerateOutfitCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Container(
       width: double.infinity,
@@ -97,7 +101,7 @@ class GenerateOutfitCard extends StatelessWidget {
                         ),
                         const SizedBox(width: AppSpacing.sm),
                         Text(
-                          'PREMIUM AI',
+                          l10n.premiumAi,
                           style: theme.textTheme.labelSmall?.copyWith(
                             color: AppColors.primary,
                             letterSpacing: 1.5,
@@ -111,7 +115,7 @@ class GenerateOutfitCard extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.lg),
               Text(
-                'Generate\nYour Outfit',
+                l10n.generateYourOutfit,
                 style: theme.textTheme.displaySmall?.copyWith(
                   color: AppColors.white,
                   fontWeight: FontWeight.w900,
@@ -121,7 +125,7 @@ class GenerateOutfitCard extends StatelessWidget {
               ),
               const SizedBox(height: AppSpacing.md),
               Text(
-                'Discover your perfect look with AI\ntailored to your unique style.',
+                l10n.generateSubtitle,
                 style: theme.textTheme.bodyLarge?.copyWith(
                   color: AppColors.white.withValues(alpha: 0.8),
                   height: 1.4,
@@ -154,7 +158,7 @@ class GenerateOutfitCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      "Today's outfit",
+                      l10n.todayOutfit,
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: colors.onPrimary,
                         letterSpacing: 0.5,
@@ -175,10 +179,34 @@ class GenerateOutfitCard extends StatelessWidget {
                   );
                 },
                 child: Text(
-                  'Choose occasion and style',
+                  l10n.chooseOccasionStyle,
                   style: theme.textTheme.labelLarge?.copyWith(
                     color: AppColors.white,
                   ),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const WeekPlanScreen()),
+                  );
+                },
+                child: Text(
+                  l10n.thisWeek,
+                  style: theme.textTheme.labelLarge?.copyWith(color: AppColors.white),
+                ),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const TripPlanScreen()),
+                  );
+                },
+                child: Text(
+                  l10n.planTrip,
+                  style: theme.textTheme.labelLarge?.copyWith(color: AppColors.white),
                 ),
               ),
             ],

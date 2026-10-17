@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../auth/cubit/auth_cubit.dart';
@@ -36,9 +37,9 @@ class LogoutButton extends StatelessWidget {
             size: 22,
           ),
         ),
-        title: const Text(
-          'Logout',
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context).logout,
+          style: const TextStyle(
             color: AppColors.error,
             fontSize: 16,
             fontWeight: FontWeight.w600,

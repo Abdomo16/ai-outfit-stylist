@@ -46,7 +46,10 @@ dependencies:
   google_fonts: ^6.2.1
   shared_preferences: ^2.3.2
   geolocator: ^14.1.1
-
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  device_calendar: ^4.3.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -69,6 +72,7 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  generate: true
 
   # To add assets to your application, add an assets section, like this:
   assets:

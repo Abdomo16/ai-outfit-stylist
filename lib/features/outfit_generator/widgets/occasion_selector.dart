@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
 
 class OccasionSelector extends StatelessWidget {
   final String? selectedOccasion;
@@ -23,19 +24,20 @@ class OccasionSelector extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = Theme.of(context).colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          'What\'s the occasion?',
+          l10n.whatsTheOccasion,
           style: Theme.of(
             context,
           ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
         ),
         const SizedBox(height: 4),
         Text(
-          'Select where you\'re headed today',
+          l10n.selectWhere,
           style: Theme.of(
             context,
           ).textTheme.bodyMedium?.copyWith(color: colors.onSurfaceVariant),
@@ -75,7 +77,7 @@ class OccasionSelector extends StatelessWidget {
                     ),
                     const SizedBox(width: 8),
                     Text(
-                      occasion['name'] as String,
+                      _occasionLabel(l10n, occasion['name'] as String),
                       style: TextStyle(
                         color: isSelected
                             ? colors.onPrimary
@@ -94,4 +96,16 @@ class OccasionSelector extends StatelessWidget {
       ],
     );
   }
+}
+
+String _occasionLabel(AppLocalizations l10n, String name) {
+  return switch (name) {
+    'University' => l10n.occasionUniversity,
+    'Work' => l10n.occasionWork,
+    'Date Night' => l10n.occasionDateNight,
+    'Gym' => l10n.occasionGym,
+    'Party' => l10n.occasionParty,
+    'Travel' => l10n.occasionTravel,
+    _ => name,
+  };
 }

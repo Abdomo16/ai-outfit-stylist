@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../core/constants/app_colors.dart';
+import '../../../l10n/app_localizations.dart';
 import '../../auth/cubit/auth_cubit.dart';
 import '../../auth/cubit/auth_state.dart';
 
@@ -68,14 +69,14 @@ class HomeHeader extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'WELCOME BACK',
+                  AppLocalizations.of(context).welcomeBack,
                   style: theme.textTheme.labelSmall?.copyWith(
                     color: colors.onSurfaceVariant,
                     letterSpacing: 1.2,
                   ),
                 ),
                 Text(
-                  'Hi, $username',
+                  AppLocalizations.of(context).hiUser(username),
                   style: theme.textTheme.titleLarge?.copyWith(
                     fontWeight: FontWeight.bold,
                   ),
@@ -100,7 +101,7 @@ class HomeHeader extends StatelessWidget {
               ),
               const SizedBox(width: 4),
               Text(
-                'AI Ready',
+                AppLocalizations.of(context).aiReady,
                 style: theme.textTheme.labelMedium?.copyWith(
                   color: AppColors.primary,
                   fontWeight: FontWeight.bold,
