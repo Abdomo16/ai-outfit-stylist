@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../data/models/clothing_item_model.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../utils/wardrobe_labels.dart';
+import '../widgets/color_dots.dart';
 import '../widgets/item_info_card.dart';
 import '../widgets/detail_action_buttons.dart';
 import '../widgets/wardrobe_item_image.dart';
@@ -48,6 +51,7 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -111,9 +115,7 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
                     children: [
                       Expanded(
                         child: Text(
-                          _item.name.isEmpty
-                              ? '${_item.color} ${_item.category}'.toUpperCase()
-                              : _item.name,
+                          WardrobeLabels.title(l10n, _item),
                           style: TextStyle(
                             color: colors.onSurface,
                             fontSize: 28,
@@ -149,13 +151,23 @@ class _ClothingDetailScreenState extends State<ClothingDetailScreen> {
                   ItemInfoCard(
                     icon: Icons.category,
                     label: 'CATEGORY',
-                    value: _item.category.toUpperCase(),
+                    value: WardrobeLabels.category(
+                      l10n,
+                      _item.category ?? '-',
+                    ).toUpperCase(),
+                  ),
+                  const SizedBox(height: 16),
+                  ItemInfoCard(
+                    icon: Icons.checkroom,
+                    label: 'TYPE',
+                    value: WardrobeLabels.type(l10n, _item.type).toUpperCase(),
                   ),
                   const SizedBox(height: 16),
                   ItemInfoCard(
                     icon: Icons.palette,
                     label: 'COLOR',
-                    value: _item.color.toUpperCase(),
+                    value: WardrobeLabels.colors(l10n, _item).toUpperCase(),
+                    trailing: ColorDots(item: _item, size: 18),
                   ),
                   const SizedBox(height: 16),
                   if (_item.season != null && _item.season!.isNotEmpty)

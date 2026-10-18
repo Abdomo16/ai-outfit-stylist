@@ -6,11 +6,15 @@ class ItemInfoCard extends StatelessWidget {
   final String label;
   final String value;
 
+  /// Shown instead of the chevron, e.g. color swatches.
+  final Widget? trailing;
+
   const ItemInfoCard({
     super.key,
     required this.icon,
     required this.label,
     required this.value,
+    this.trailing,
   });
 
   @override
@@ -60,7 +64,7 @@ class ItemInfoCard extends StatelessWidget {
               ],
             ),
           ),
-          Icon(Icons.chevron_right, color: colors.onSurfaceVariant),
+          trailing ?? Icon(Icons.chevron_right, color: colors.onSurfaceVariant),
         ],
       ),
     );

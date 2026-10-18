@@ -674,23 +674,29 @@ abstract class AppLocalizations {
   /// **'All'**
   String get categoryAll;
 
-  /// No description provided for @categoryShirts.
+  /// No description provided for @categoryTops.
   ///
   /// In en, this message translates to:
-  /// **'Shirts'**
-  String get categoryShirts;
+  /// **'Tops'**
+  String get categoryTops;
 
-  /// No description provided for @categoryPants.
+  /// No description provided for @categoryBottoms.
   ///
   /// In en, this message translates to:
-  /// **'Pants'**
-  String get categoryPants;
+  /// **'Bottoms'**
+  String get categoryBottoms;
 
-  /// No description provided for @categoryJackets.
+  /// No description provided for @categoryOuterwear.
   ///
   /// In en, this message translates to:
-  /// **'Jackets'**
-  String get categoryJackets;
+  /// **'Outerwear'**
+  String get categoryOuterwear;
+
+  /// No description provided for @categoryDresses.
+  ///
+  /// In en, this message translates to:
+  /// **'Dresses'**
+  String get categoryDresses;
 
   /// No description provided for @categoryShoes.
   ///
@@ -698,11 +704,557 @@ abstract class AppLocalizations {
   /// **'Shoes'**
   String get categoryShoes;
 
+  /// No description provided for @categoryBags.
+  ///
+  /// In en, this message translates to:
+  /// **'Bags'**
+  String get categoryBags;
+
   /// No description provided for @categoryAccessories.
   ///
   /// In en, this message translates to:
   /// **'Accessories'**
   String get categoryAccessories;
+
+  /// No description provided for @typeTShirt.
+  ///
+  /// In en, this message translates to:
+  /// **'T-shirt'**
+  String get typeTShirt;
+
+  /// No description provided for @typeShirt.
+  ///
+  /// In en, this message translates to:
+  /// **'Shirt'**
+  String get typeShirt;
+
+  /// No description provided for @typeBlouse.
+  ///
+  /// In en, this message translates to:
+  /// **'Blouse'**
+  String get typeBlouse;
+
+  /// No description provided for @typePolo.
+  ///
+  /// In en, this message translates to:
+  /// **'Polo'**
+  String get typePolo;
+
+  /// No description provided for @typeTankTop.
+  ///
+  /// In en, this message translates to:
+  /// **'Tank top'**
+  String get typeTankTop;
+
+  /// No description provided for @typeSweater.
+  ///
+  /// In en, this message translates to:
+  /// **'Sweater'**
+  String get typeSweater;
+
+  /// No description provided for @typeHoodie.
+  ///
+  /// In en, this message translates to:
+  /// **'Hoodie'**
+  String get typeHoodie;
+
+  /// No description provided for @typeSweatshirt.
+  ///
+  /// In en, this message translates to:
+  /// **'Sweatshirt'**
+  String get typeSweatshirt;
+
+  /// No description provided for @typeCardigan.
+  ///
+  /// In en, this message translates to:
+  /// **'Cardigan'**
+  String get typeCardigan;
+
+  /// No description provided for @typeJeans.
+  ///
+  /// In en, this message translates to:
+  /// **'Jeans'**
+  String get typeJeans;
+
+  /// No description provided for @typeTrousers.
+  ///
+  /// In en, this message translates to:
+  /// **'Trousers'**
+  String get typeTrousers;
+
+  /// No description provided for @typeChinos.
+  ///
+  /// In en, this message translates to:
+  /// **'Chinos'**
+  String get typeChinos;
+
+  /// No description provided for @typeJoggers.
+  ///
+  /// In en, this message translates to:
+  /// **'Joggers'**
+  String get typeJoggers;
+
+  /// No description provided for @typeShorts.
+  ///
+  /// In en, this message translates to:
+  /// **'Shorts'**
+  String get typeShorts;
+
+  /// No description provided for @typeSkirt.
+  ///
+  /// In en, this message translates to:
+  /// **'Skirt'**
+  String get typeSkirt;
+
+  /// No description provided for @typeLeggings.
+  ///
+  /// In en, this message translates to:
+  /// **'Leggings'**
+  String get typeLeggings;
+
+  /// No description provided for @typeJacket.
+  ///
+  /// In en, this message translates to:
+  /// **'Jacket'**
+  String get typeJacket;
+
+  /// No description provided for @typeDenimJacket.
+  ///
+  /// In en, this message translates to:
+  /// **'Denim jacket'**
+  String get typeDenimJacket;
+
+  /// No description provided for @typeLeatherJacket.
+  ///
+  /// In en, this message translates to:
+  /// **'Leather jacket'**
+  String get typeLeatherJacket;
+
+  /// No description provided for @typePufferJacket.
+  ///
+  /// In en, this message translates to:
+  /// **'Puffer jacket'**
+  String get typePufferJacket;
+
+  /// No description provided for @typeCoat.
+  ///
+  /// In en, this message translates to:
+  /// **'Coat'**
+  String get typeCoat;
+
+  /// No description provided for @typeBlazer.
+  ///
+  /// In en, this message translates to:
+  /// **'Blazer'**
+  String get typeBlazer;
+
+  /// No description provided for @typeVest.
+  ///
+  /// In en, this message translates to:
+  /// **'Vest'**
+  String get typeVest;
+
+  /// No description provided for @typeDress.
+  ///
+  /// In en, this message translates to:
+  /// **'Dress'**
+  String get typeDress;
+
+  /// No description provided for @typeJumpsuit.
+  ///
+  /// In en, this message translates to:
+  /// **'Jumpsuit'**
+  String get typeJumpsuit;
+
+  /// No description provided for @typeSneakers.
+  ///
+  /// In en, this message translates to:
+  /// **'Sneakers'**
+  String get typeSneakers;
+
+  /// No description provided for @typeBoots.
+  ///
+  /// In en, this message translates to:
+  /// **'Boots'**
+  String get typeBoots;
+
+  /// No description provided for @typeHeels.
+  ///
+  /// In en, this message translates to:
+  /// **'Heels'**
+  String get typeHeels;
+
+  /// No description provided for @typeFlats.
+  ///
+  /// In en, this message translates to:
+  /// **'Flats'**
+  String get typeFlats;
+
+  /// No description provided for @typeSandals.
+  ///
+  /// In en, this message translates to:
+  /// **'Sandals'**
+  String get typeSandals;
+
+  /// No description provided for @typeFlipFlops.
+  ///
+  /// In en, this message translates to:
+  /// **'Flip flops'**
+  String get typeFlipFlops;
+
+  /// No description provided for @typeLoafers.
+  ///
+  /// In en, this message translates to:
+  /// **'Loafers'**
+  String get typeLoafers;
+
+  /// No description provided for @typeFormalShoes.
+  ///
+  /// In en, this message translates to:
+  /// **'Formal shoes'**
+  String get typeFormalShoes;
+
+  /// No description provided for @typeHandbag.
+  ///
+  /// In en, this message translates to:
+  /// **'Handbag'**
+  String get typeHandbag;
+
+  /// No description provided for @typeBackpack.
+  ///
+  /// In en, this message translates to:
+  /// **'Backpack'**
+  String get typeBackpack;
+
+  /// No description provided for @typeCrossbodyBag.
+  ///
+  /// In en, this message translates to:
+  /// **'Crossbody bag'**
+  String get typeCrossbodyBag;
+
+  /// No description provided for @typeToteBag.
+  ///
+  /// In en, this message translates to:
+  /// **'Tote bag'**
+  String get typeToteBag;
+
+  /// No description provided for @typeWallet.
+  ///
+  /// In en, this message translates to:
+  /// **'Wallet'**
+  String get typeWallet;
+
+  /// No description provided for @typeCap.
+  ///
+  /// In en, this message translates to:
+  /// **'Cap'**
+  String get typeCap;
+
+  /// No description provided for @typeHat.
+  ///
+  /// In en, this message translates to:
+  /// **'Hat'**
+  String get typeHat;
+
+  /// No description provided for @typeSunglasses.
+  ///
+  /// In en, this message translates to:
+  /// **'Sunglasses'**
+  String get typeSunglasses;
+
+  /// No description provided for @typeWatch.
+  ///
+  /// In en, this message translates to:
+  /// **'Watch'**
+  String get typeWatch;
+
+  /// No description provided for @typeBelt.
+  ///
+  /// In en, this message translates to:
+  /// **'Belt'**
+  String get typeBelt;
+
+  /// No description provided for @typeScarf.
+  ///
+  /// In en, this message translates to:
+  /// **'Scarf'**
+  String get typeScarf;
+
+  /// No description provided for @typeTie.
+  ///
+  /// In en, this message translates to:
+  /// **'Tie'**
+  String get typeTie;
+
+  /// No description provided for @typeSocks.
+  ///
+  /// In en, this message translates to:
+  /// **'Socks'**
+  String get typeSocks;
+
+  /// No description provided for @typeJewelry.
+  ///
+  /// In en, this message translates to:
+  /// **'Jewelry'**
+  String get typeJewelry;
+
+  /// No description provided for @colorWhite.
+  ///
+  /// In en, this message translates to:
+  /// **'White'**
+  String get colorWhite;
+
+  /// No description provided for @colorCream.
+  ///
+  /// In en, this message translates to:
+  /// **'Cream'**
+  String get colorCream;
+
+  /// No description provided for @colorBeige.
+  ///
+  /// In en, this message translates to:
+  /// **'Beige'**
+  String get colorBeige;
+
+  /// No description provided for @colorTan.
+  ///
+  /// In en, this message translates to:
+  /// **'Tan'**
+  String get colorTan;
+
+  /// No description provided for @colorKhaki.
+  ///
+  /// In en, this message translates to:
+  /// **'Khaki'**
+  String get colorKhaki;
+
+  /// No description provided for @colorBrown.
+  ///
+  /// In en, this message translates to:
+  /// **'Brown'**
+  String get colorBrown;
+
+  /// No description provided for @colorLightGrey.
+  ///
+  /// In en, this message translates to:
+  /// **'Light grey'**
+  String get colorLightGrey;
+
+  /// No description provided for @colorGrey.
+  ///
+  /// In en, this message translates to:
+  /// **'Grey'**
+  String get colorGrey;
+
+  /// No description provided for @colorCharcoal.
+  ///
+  /// In en, this message translates to:
+  /// **'Charcoal'**
+  String get colorCharcoal;
+
+  /// No description provided for @colorBlack.
+  ///
+  /// In en, this message translates to:
+  /// **'Black'**
+  String get colorBlack;
+
+  /// No description provided for @colorNavy.
+  ///
+  /// In en, this message translates to:
+  /// **'Navy'**
+  String get colorNavy;
+
+  /// No description provided for @colorBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Blue'**
+  String get colorBlue;
+
+  /// No description provided for @colorLightBlue.
+  ///
+  /// In en, this message translates to:
+  /// **'Light blue'**
+  String get colorLightBlue;
+
+  /// No description provided for @colorTeal.
+  ///
+  /// In en, this message translates to:
+  /// **'Teal'**
+  String get colorTeal;
+
+  /// No description provided for @colorGreen.
+  ///
+  /// In en, this message translates to:
+  /// **'Green'**
+  String get colorGreen;
+
+  /// No description provided for @colorOlive.
+  ///
+  /// In en, this message translates to:
+  /// **'Olive'**
+  String get colorOlive;
+
+  /// No description provided for @colorYellow.
+  ///
+  /// In en, this message translates to:
+  /// **'Yellow'**
+  String get colorYellow;
+
+  /// No description provided for @colorOrange.
+  ///
+  /// In en, this message translates to:
+  /// **'Orange'**
+  String get colorOrange;
+
+  /// No description provided for @colorRed.
+  ///
+  /// In en, this message translates to:
+  /// **'Red'**
+  String get colorRed;
+
+  /// No description provided for @colorBurgundy.
+  ///
+  /// In en, this message translates to:
+  /// **'Burgundy'**
+  String get colorBurgundy;
+
+  /// No description provided for @colorPink.
+  ///
+  /// In en, this message translates to:
+  /// **'Pink'**
+  String get colorPink;
+
+  /// No description provided for @colorPurple.
+  ///
+  /// In en, this message translates to:
+  /// **'Purple'**
+  String get colorPurple;
+
+  /// No description provided for @colorNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None'**
+  String get colorNone;
+
+  /// No description provided for @twoColors.
+  ///
+  /// In en, this message translates to:
+  /// **'{first} & {second}'**
+  String twoColors(String first, String second);
+
+  /// No description provided for @itemTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{color} {type}'**
+  String itemTitle(String color, String type);
+
+  /// No description provided for @selectedCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} selected'**
+  String selectedCount(int count);
+
+  /// No description provided for @selectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Select all'**
+  String get selectAll;
+
+  /// No description provided for @deselectAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Deselect all'**
+  String get deselectAll;
+
+  /// No description provided for @deleteSelected.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete ({count})'**
+  String deleteSelected(int count);
+
+  /// No description provided for @deleteItemsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Delete 1 item?} other{Delete {count} items?}}'**
+  String deleteItemsTitle(int count);
+
+  /// No description provided for @deleteItemsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'They and their photos will be removed. This can\'t be undone.'**
+  String get deleteItemsBody;
+
+  /// No description provided for @itemsDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 item deleted} other{{count} items deleted}}'**
+  String itemsDeleted(int count);
+
+  /// No description provided for @deleteFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t delete. Please try again.'**
+  String get deleteFailed;
+
+  /// No description provided for @partialItemsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Partly visible items'**
+  String get partialItemsTitle;
+
+  /// No description provided for @partialItemsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'These weren\'t fully in the photo. Choose which to add anyway.'**
+  String get partialItemsBody;
+
+  /// No description provided for @partialReasonCutOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Only part of it is in the photo'**
+  String get partialReasonCutOff;
+
+  /// No description provided for @partialReasonHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Mostly hidden under another item'**
+  String get partialReasonHidden;
+
+  /// No description provided for @partialItemsTip.
+  ///
+  /// In en, this message translates to:
+  /// **'For a full card, photograph it alone, laid flat or on a hanger.'**
+  String get partialItemsTip;
+
+  /// No description provided for @partialKeepCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{Add selected} =1{Add 1 item} other{Add {count} items}}'**
+  String partialKeepCount(int count);
+
+  /// No description provided for @partialSkip.
+  ///
+  /// In en, this message translates to:
+  /// **'Skip'**
+  String get partialSkip;
+
+  /// No description provided for @analyzingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Analyzing your clothes'**
+  String get analyzingTitle;
+
+  /// No description provided for @analyzingSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI is finding each item and its details'**
+  String get analyzingSubtitle;
+
+  /// No description provided for @analyzingCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total}'**
+  String analyzingCount(int done, int total);
 
   /// No description provided for @emptyWardrobeTitle.
   ///

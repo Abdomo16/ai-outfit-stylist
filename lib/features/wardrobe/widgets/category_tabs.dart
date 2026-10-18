@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../l10n/app_localizations.dart';
+import '../utils/wardrobe_labels.dart';
 
 class CategoryTabs extends StatelessWidget {
   final List<String> categories;
@@ -50,7 +52,7 @@ class CategoryTabs extends StatelessWidget {
                 ),
                 alignment: Alignment.center,
                 child: Text(
-                  category,
+                  WardrobeLabels.category(AppLocalizations.of(context), category),
                   style: theme.textTheme.labelMedium?.copyWith(
                     color: isSelected
                         ? colors.onPrimary

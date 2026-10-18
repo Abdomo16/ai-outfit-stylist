@@ -307,19 +307,339 @@ class AppLocalizationsAr extends AppLocalizations {
   String get categoryAll => 'الكل';
 
   @override
-  String get categoryShirts => 'قمصان';
+  String get categoryTops => 'توبات';
 
   @override
-  String get categoryPants => 'بناطيل';
+  String get categoryBottoms => 'بناطيل وجيبات';
 
   @override
-  String get categoryJackets => 'جاكيتات';
+  String get categoryOuterwear => 'جواكت وبالطوهات';
+
+  @override
+  String get categoryDresses => 'فساتين';
 
   @override
   String get categoryShoes => 'أحذية';
 
   @override
+  String get categoryBags => 'شنط';
+
+  @override
   String get categoryAccessories => 'إكسسوارات';
+
+  @override
+  String get typeTShirt => 'تيشيرت';
+
+  @override
+  String get typeShirt => 'قميص';
+
+  @override
+  String get typeBlouse => 'بلوزة';
+
+  @override
+  String get typePolo => 'بولو';
+
+  @override
+  String get typeTankTop => 'توب حمالات';
+
+  @override
+  String get typeSweater => 'بلوفر';
+
+  @override
+  String get typeHoodie => 'هودي';
+
+  @override
+  String get typeSweatshirt => 'سويت شيرت';
+
+  @override
+  String get typeCardigan => 'كارديجان';
+
+  @override
+  String get typeJeans => 'جينز';
+
+  @override
+  String get typeTrousers => 'بنطلون';
+
+  @override
+  String get typeChinos => 'بنطلون تشينو';
+
+  @override
+  String get typeJoggers => 'بنطلون رياضي';
+
+  @override
+  String get typeShorts => 'شورت';
+
+  @override
+  String get typeSkirt => 'جيبة';
+
+  @override
+  String get typeLeggings => 'ليجن';
+
+  @override
+  String get typeJacket => 'جاكيت';
+
+  @override
+  String get typeDenimJacket => 'جاكيت جينز';
+
+  @override
+  String get typeLeatherJacket => 'جاكيت جلد';
+
+  @override
+  String get typePufferJacket => 'جاكيت منفوخ';
+
+  @override
+  String get typeCoat => 'بالطو';
+
+  @override
+  String get typeBlazer => 'بليزر';
+
+  @override
+  String get typeVest => 'صديري';
+
+  @override
+  String get typeDress => 'فستان';
+
+  @override
+  String get typeJumpsuit => 'جمبسوت';
+
+  @override
+  String get typeSneakers => 'كوتشي';
+
+  @override
+  String get typeBoots => 'بوت';
+
+  @override
+  String get typeHeels => 'كعب عالي';
+
+  @override
+  String get typeFlats => 'فلات';
+
+  @override
+  String get typeSandals => 'صندل';
+
+  @override
+  String get typeFlipFlops => 'شبشب';
+
+  @override
+  String get typeLoafers => 'لوفر';
+
+  @override
+  String get typeFormalShoes => 'جزمة كلاسيك';
+
+  @override
+  String get typeHandbag => 'شنطة إيد';
+
+  @override
+  String get typeBackpack => 'شنطة ضهر';
+
+  @override
+  String get typeCrossbodyBag => 'شنطة كروس';
+
+  @override
+  String get typeToteBag => 'شنطة توت';
+
+  @override
+  String get typeWallet => 'محفظة';
+
+  @override
+  String get typeCap => 'كاب';
+
+  @override
+  String get typeHat => 'برنيطة';
+
+  @override
+  String get typeSunglasses => 'نضارة شمس';
+
+  @override
+  String get typeWatch => 'ساعة';
+
+  @override
+  String get typeBelt => 'حزام';
+
+  @override
+  String get typeScarf => 'إيشارب';
+
+  @override
+  String get typeTie => 'كرافتة';
+
+  @override
+  String get typeSocks => 'شرابات';
+
+  @override
+  String get typeJewelry => 'مجوهرات';
+
+  @override
+  String get colorWhite => 'أبيض';
+
+  @override
+  String get colorCream => 'كريمي';
+
+  @override
+  String get colorBeige => 'بيج';
+
+  @override
+  String get colorTan => 'كاميل';
+
+  @override
+  String get colorKhaki => 'كاكي';
+
+  @override
+  String get colorBrown => 'بني';
+
+  @override
+  String get colorLightGrey => 'رمادي فاتح';
+
+  @override
+  String get colorGrey => 'رمادي';
+
+  @override
+  String get colorCharcoal => 'رمادي غامق';
+
+  @override
+  String get colorBlack => 'أسود';
+
+  @override
+  String get colorNavy => 'كحلي';
+
+  @override
+  String get colorBlue => 'أزرق';
+
+  @override
+  String get colorLightBlue => 'لبني';
+
+  @override
+  String get colorTeal => 'بترولي';
+
+  @override
+  String get colorGreen => 'أخضر';
+
+  @override
+  String get colorOlive => 'زيتي';
+
+  @override
+  String get colorYellow => 'أصفر';
+
+  @override
+  String get colorOrange => 'برتقالي';
+
+  @override
+  String get colorRed => 'أحمر';
+
+  @override
+  String get colorBurgundy => 'نبيتي';
+
+  @override
+  String get colorPink => 'بينك';
+
+  @override
+  String get colorPurple => 'بنفسجي';
+
+  @override
+  String get colorNone => 'بدون';
+
+  @override
+  String twoColors(String first, String second) {
+    return '$first و$second';
+  }
+
+  @override
+  String itemTitle(String color, String type) {
+    return '$type $color';
+  }
+
+  @override
+  String selectedCount(int count) {
+    return 'اتحدد $count';
+  }
+
+  @override
+  String get selectAll => 'تحديد الكل';
+
+  @override
+  String get deselectAll => 'إلغاء التحديد';
+
+  @override
+  String deleteSelected(int count) {
+    return 'حذف ($count)';
+  }
+
+  @override
+  String deleteItemsTitle(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'تمسح $count قطعة؟',
+      few: 'تمسح $count قطع؟',
+      two: 'تمسح قطعتين؟',
+      one: 'تمسح قطعة واحدة؟',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteItemsBody => 'هيتمسحوا هما وصورهم، ومش هتقدر ترجعهم.';
+
+  @override
+  String itemsDeleted(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'اتمسحت $count قطعة',
+      few: 'اتمسحت $count قطع',
+      two: 'اتمسحت قطعتين',
+      one: 'اتمسحت قطعة واحدة',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteFailed => 'معرفناش نمسح، جرب تاني.';
+
+  @override
+  String get partialItemsTitle => 'قطع باين جزء منها بس';
+
+  @override
+  String get partialItemsBody =>
+      'القطع دي مش باينة كاملة في الصورة. اختار اللي عايز تضيفه برضه.';
+
+  @override
+  String get partialReasonCutOff => 'جزء بس منها باين في الصورة';
+
+  @override
+  String get partialReasonHidden => 'معظمها مستخبي تحت قطعة تانية';
+
+  @override
+  String get partialItemsTip =>
+      'عشان كارت كامل، صوّرها لوحدها مفرودة أو على شماعة.';
+
+  @override
+  String partialKeepCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'ضيف $count قطعة',
+      few: 'ضيف $count قطع',
+      two: 'ضيف قطعتين',
+      one: 'ضيف قطعة',
+      zero: 'ضيف المختار',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get partialSkip => 'تخطّي';
+
+  @override
+  String get analyzingTitle => 'بنحلل هدومك';
+
+  @override
+  String get analyzingSubtitle =>
+      'الذكاء الاصطناعي بيتعرف على كل قطعة وتفاصيلها';
+
+  @override
+  String analyzingCount(int done, int total) {
+    return '$done من $total';
+  }
 
   @override
   String get emptyWardrobeTitle => 'الدولاب فاضي';

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../data/models/clothing_item_model.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/wardrobe_colors.dart';
+import '../../../../core/constants/wardrobe_taxonomy.dart';
+import '../../../../l10n/app_localizations.dart';
 import '../cubit/wardrobe_cubit.dart';
+import '../utils/wardrobe_labels.dart';
 import '../widgets/wardrobe_item_image.dart';
 
 class EditClothingScreen extends StatefulWidget {
@@ -17,53 +21,47 @@ class EditClothingScreen extends StatefulWidget {
 class _EditClothingScreenState extends State<EditClothingScreen> {
   late TextEditingController _nameController;
   late String _selectedCategory;
+  late String _selectedType;
   late String _selectedColor;
 
-  final _categories = [
-    'Shirts',
-    'Pants',
-    'Jackets',
-    'Shoes',
-    'Accessories',
-    'Outerwear',
-  ];
-  final _colors = [
-    'Black',
-    'White',
-    'Red',
-    'Blue',
-    'Green',
-    'Yellow',
-    'Indigo',
-    'Beige',
-    'Pattern',
-  ];
+  /// Empty means the item has a single color.
+  late String _selectedSecondary;
+  late final List<String> _colorOptions;
 
-  static const _colorValues = <String, Color>{
-    'Black': Colors.black,
-    'White': Colors.white,
-    'Red': Colors.red,
-    'Blue': Colors.blue,
-    'Green': Colors.green,
-    'Yellow': Colors.yellow,
-    'Indigo': Colors.indigo,
-    'Beige': Color(0xFFE8DCC8),
-    'Pattern': AppColors.primary,
-  };
+  static const _noColor = '';
 
   @override
   void initState() {
     super.initState();
-    _nameController = TextEditingController(text: widget.item.name);
+    final name = widget.item.name;
+    _nameController = TextEditingController(
+      text: name.toLowerCase() == widget.item.type.toLowerCase() ? '' : name,
+    );
 
     // Ensure the initial value exists in the list, otherwise default to the first
-    _selectedCategory = _categories.contains(widget.item.category)
-        ? widget.item.category
-        : _categories.first;
+    _selectedCategory =
+        widget.item.category ?? WardrobeTaxonomy.categories.first;
+    final type = WardrobeTaxonomy.canonicalType(widget.item.type);
+    final types = WardrobeTaxonomy.typesFor(_selectedCategory);
+    _selectedType = types.contains(type) ? type : types.first;
 
-    _selectedColor = _colors.contains(widget.item.color)
-        ? widget.item.color
-        : _colors.first;
+    // An unknown stored color stays selectable so saving does not change it.
+    _selectedColor = WardrobeColors.canonical(widget.item.color);
+    _colorOptions = [
+      ...WardrobeColors.names,
+      if (!WardrobeColors.isKnown(_selectedColor) && _selectedColor.isNotEmpty)
+        _selectedColor,
+    ];
+    if (_selectedColor.isEmpty) _selectedColor = WardrobeColors.names.first;
+    final secondary = WardrobeColors.canonical(widget.item.secondaryColor);
+    _selectedSecondary = WardrobeColors.isKnown(secondary) ? secondary : _noColor;
+  }
+
+  void _selectCategory(String category) {
+    setState(() {
+      _selectedCategory = category;
+      _selectedType = WardrobeTaxonomy.typesFor(category).first;
+    });
   }
 
   @override
@@ -73,14 +71,65 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
   }
 
   void _saveChanges() {
-    final updatedItem = widget.item.copyWith(
+    final item = widget.item;
+    // Keep the measured shade unless the user picked a different color.
+    final colorChanged = WardrobeColors.canonical(item.color) != _selectedColor;
+    final secondaryChanged =
+        WardrobeColors.canonical(item.secondaryColor) != _selectedSecondary;
+    final updatedItem = item.copyWith(
       name: _nameController.text.trim(),
       category: _selectedCategory,
+      type: _selectedType,
       color: _selectedColor,
+      hex: colorChanged ? WardrobeColors.hexOf(_selectedColor) : null,
+      clearSecondary: _selectedSecondary == _noColor,
+      secondaryColor: _selectedSecondary == _noColor ? null : _selectedSecondary,
+      secondaryHex: secondaryChanged && _selectedSecondary != _noColor
+          ? WardrobeColors.hexOf(_selectedSecondary)
+          : null,
     );
 
     context.read<WardrobeCubit>().updateClothingItem(updatedItem);
     Navigator.pop(context, updatedItem); // Return the updated item
+  }
+
+  List<DropdownMenuItem<String>> _colorItems(
+    AppLocalizations l10n,
+    ColorScheme colors,
+    List<String> options,
+    String selected,
+  ) {
+    return options.map((color) {
+      final swatch = WardrobeColors.swatches[color];
+      return DropdownMenuItem(
+        value: color,
+        child: Row(
+          children: [
+            Container(
+              width: 18,
+              height: 18,
+              margin: const EdgeInsetsDirectional.only(end: 12),
+              decoration: BoxDecoration(
+                shape: BoxShape.circle,
+                color: swatch ?? Colors.transparent,
+                border: Border.all(
+                  color: selected == color ? AppColors.primary : colors.outline,
+                  width: 2,
+                ),
+              ),
+              child: swatch == null
+                  ? Icon(Icons.block, size: 12, color: colors.onSurfaceVariant)
+                  : null,
+            ),
+            Text(
+              color == _noColor
+                  ? l10n.colorNone
+                  : WardrobeLabels.color(l10n, color),
+            ),
+          ],
+        ),
+      );
+    }).toList();
   }
 
   Widget _buildImagePreview() {
@@ -97,6 +146,7 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
+    final l10n = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: theme.scaffoldBackgroundColor,
@@ -243,11 +293,58 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                       color: colors.onSurfaceVariant,
                     ),
                     style: TextStyle(color: colors.onSurface, fontSize: 16),
-                    items: _categories.map((cat) {
-                      return DropdownMenuItem(value: cat, child: Text(cat));
+                    items: WardrobeTaxonomy.categories.map((cat) {
+                      return DropdownMenuItem(
+                        value: cat,
+                        child: Text(WardrobeLabels.category(l10n, cat)),
+                      );
                     }).toList(),
                     onChanged: (val) {
-                      if (val != null) setState(() => _selectedCategory = val);
+                      if (val != null) _selectCategory(val);
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 24),
+
+              // Type Field
+              Text(
+                'TYPE',
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: colors.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: colors.surface,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: colors.outline),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedType,
+                    dropdownColor: colors.surface,
+                    isExpanded: true,
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      color: colors.onSurfaceVariant,
+                    ),
+                    style: TextStyle(color: colors.onSurface, fontSize: 16),
+                    items: WardrobeTaxonomy.typesFor(_selectedCategory).map((
+                      type,
+                    ) {
+                      return DropdownMenuItem(
+                        value: type,
+                        child: Text(WardrobeLabels.type(l10n, type)),
+                      );
+                    }).toList(),
+                    onChanged: (val) {
+                      if (val != null) setState(() => _selectedType = val);
                     },
                   ),
                 ),
@@ -282,39 +379,56 @@ class _EditClothingScreenState extends State<EditClothingScreen> {
                       color: colors.onSurfaceVariant,
                     ),
                     style: TextStyle(color: colors.onSurface, fontSize: 16),
-                    items: _colors.map((color) {
-                      return DropdownMenuItem(
-                        value: color,
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 18,
-                              height: 18,
-                              margin: const EdgeInsets.only(right: 12),
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: _colorValues[color],
-                                border: Border.all(
-                                  color: color == 'White'
-                                      ? Colors.white38
-                                      : _selectedColor == color
-                                      ? AppColors.primary
-                                      : colors.outline,
-                                  width: 2,
-                                ),
-                              ),
-                            ),
-                            Text(color),
-                          ],
-                        ),
-                      );
-                    }).toList(),
+                    items: _colorItems(l10n, colors, _colorOptions, _selectedColor),
                     onChanged: (val) {
                       if (val != null) setState(() => _selectedColor = val);
                     },
                   ),
                 ),
               ),
+              const SizedBox(height: 24),
+
+              // Second color, for stripes, plaid and other patterns
+              Text(
+                'SECOND COLOR',
+                style: theme.textTheme.labelMedium?.copyWith(
+                  color: colors.onSurfaceVariant,
+                ),
+              ),
+              const SizedBox(height: 8),
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: colors.surface,
+                  borderRadius: BorderRadius.circular(16),
+                  border: Border.all(color: colors.outline),
+                ),
+                child: DropdownButtonHideUnderline(
+                  child: DropdownButton<String>(
+                    value: _selectedSecondary,
+                    dropdownColor: colors.surface,
+                    isExpanded: true,
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      color: colors.onSurfaceVariant,
+                    ),
+                    style: TextStyle(color: colors.onSurface, fontSize: 16),
+                    items: _colorItems(
+                      l10n,
+                      colors,
+                      [_noColor, ...WardrobeColors.names],
+                      _selectedSecondary,
+                    ),
+                    onChanged: (val) {
+                      if (val != null) setState(() => _selectedSecondary = val);
+                    },
+                  ),
+                ),
+              ),
+              const SizedBox(height: 32),
 
               // Bottom Actions
               Container(

@@ -4,6 +4,7 @@ import 'dart:io';
 import 'dart:math';
 import '../models/clothing_item_model.dart';
 import '../models/outfit_model.dart';
+import '../models/pending_wardrobe_item.dart';
 import '../../config/env.dart';
 import 'package:http/http.dart' as http;
 import 'package:path/path.dart' as p;
@@ -12,12 +13,16 @@ class UploadJobStatus {
   final String jobId;
   final String status;
   final List<ClothingItemModel> items;
+
+  /// Partly visible items waiting for the user to keep or skip them.
+  final List<PendingWardrobeItem> pending;
   final String? error;
 
   const UploadJobStatus({
     required this.jobId,
     required this.status,
     this.items = const [],
+    this.pending = const [],
     this.error,
   });
 
@@ -32,7 +37,9 @@ class AIService {
   static const Duration _pollInterval = Duration(milliseconds: 800);
   static const Duration _jobTimeout = Duration(minutes: 3);
 
-  Future<List<ClothingItemModel>> uploadWardrobeImage(
+  /// Uploads a photo and waits for it. The result holds the saved items and
+  /// the partly visible ones still waiting for [keepPendingItems].
+  Future<UploadJobStatus> uploadWardrobeImage(
     File imageFile, {
     required String userId,
   }) async {
@@ -41,7 +48,32 @@ class AIService {
     if (result.isFailed) {
       throw Exception(result.error ?? 'Upload job failed');
     }
-    return result.items;
+    return result;
+  }
+
+  /// Saves the pending items in [ids] and drops the job's other pending
+  /// items. An empty list skips them all.
+  Future<void> keepPendingItems(
+    String jobId,
+    List<String> ids,
+    String accessToken,
+  ) async {
+    final response = await _client
+        .post(
+          Uri.parse('${Env.aiBackendUrl}/wardrobe/jobs/$jobId/keep'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $accessToken',
+          },
+          body: jsonEncode({'ids': ids}),
+        )
+        .timeout(const Duration(seconds: 60));
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Failed to keep items. Status: ${response.statusCode}, Body: ${response.body}',
+      );
+    }
   }
 
   Future<String> startWardrobeUpload(
@@ -127,12 +159,21 @@ class AIService {
 
     final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
     final itemsList = jsonResponse['items'] as List<dynamic>? ?? [];
+    final pendingList = jsonResponse['pending'] as List<dynamic>? ?? [];
     return UploadJobStatus(
       jobId: jobId,
       status: (jsonResponse['status'] as String?) ?? 'processing',
       items: itemsList
           .map(
             (item) => ClothingItemModel.fromJson(item as Map<String, dynamic>),
+          )
+          .toList(),
+      pending: pendingList
+          .map(
+            (item) => PendingWardrobeItem.fromJson(
+              jobId,
+              item as Map<String, dynamic>,
+            ),
           )
           .toList(),
       error: jsonResponse['error'] as String?,
@@ -155,6 +196,34 @@ class AIService {
     throw Exception('Upload job timed out');
   }
 
+  /// Deletes the signed-in user's items and their photos. Returns the ids the
+  /// backend deleted; ids owned by someone else are ignored.
+  Future<List<String>> deleteWardrobeItems(
+    List<String> ids,
+    String accessToken,
+  ) async {
+    final response = await _client
+        .post(
+          Uri.parse('${Env.aiBackendUrl}/wardrobe/items/delete'),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $accessToken',
+          },
+          body: jsonEncode({'ids': ids}),
+        )
+        .timeout(const Duration(seconds: 30));
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Failed to delete items. Status: ${response.statusCode}, Body: ${response.body}',
+      );
+    }
+    final body = jsonDecode(response.body) as Map<String, dynamic>;
+    return (body['deleted'] as List<dynamic>? ?? [])
+        .map((id) => id.toString())
+        .toList();
+  }
+
   Future<OutfitModel> getRecommendations({
     required List<ClothingItemModel> wardrobe,
     required String occasion,
@@ -171,7 +240,8 @@ class AIService {
       "wardrobe": wardrobe.map((item) {
         return {
           "id": _encodeId(item.id),
-          "type": item.category,
+          "type": item.type,
+          "category": item.category,
           "confidence": item.confidence ?? 1.0,
           "color": item.color,
           "hex": item.hex ?? '',

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../../core/constants/app_colors.dart';
+import '../../../../core/constants/wardrobe_colors.dart';
 import '../../../../data/models/clothing_item_model.dart';
 import '../../../../data/repositories/wear_log_repository.dart';
 import '../../../../l10n/app_localizations.dart';
@@ -12,6 +13,7 @@ import '../widgets/outfit_preview_card.dart';
 import '../widgets/regenerate_button.dart';
 import '../../plans/reason_text.dart';
 import '../../saved_outfits/cubit/saved_outfits_cubit.dart';
+import '../../wardrobe/utils/wardrobe_labels.dart';
 
 class OutfitResultScreen extends StatefulWidget {
   const OutfitResultScreen({super.key});
@@ -321,7 +323,7 @@ class _PieceTile extends StatelessWidget {
     final theme = Theme.of(context);
     final l10n = AppLocalizations.of(context);
 
-    final swatch = _swatch(item.hex);
+    final swatch = WardrobeColors.swatchFor(item.color, item.hex);
 
     return Container(
       margin: const EdgeInsets.only(bottom: 10),
@@ -353,7 +355,7 @@ class _PieceTile extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  item.category,
+                  WardrobeLabels.type(AppLocalizations.of(context), item.type),
                   style: theme.textTheme.titleSmall,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
@@ -375,7 +377,7 @@ class _PieceTile extends StatelessWidget {
                     ],
                     Flexible(
                       child: Text(
-                        _label(item.color),
+                        WardrobeLabels.colors(l10n, item),
                         style: theme.textTheme.bodySmall,
                         overflow: TextOverflow.ellipsis,
                       ),
@@ -404,21 +406,6 @@ class _PieceTile extends StatelessWidget {
         ],
       ),
     );
-  }
-
-  String _label(String value) {
-    final trimmed = value.trim();
-    if (trimmed.isEmpty) return trimmed;
-    return trimmed[0].toUpperCase() + trimmed.substring(1);
-  }
-
-  Color? _swatch(String? hex) {
-    if (hex == null) return null;
-    var value = hex.trim().replaceFirst('#', '');
-    if (value.length == 6) value = 'FF$value';
-    final parsed = int.tryParse(value, radix: 16);
-    if (parsed == null) return null;
-    return Color(parsed);
   }
 
   Widget _thumb(String? url) {

@@ -117,11 +117,146 @@
   "system": "System",
   "wardrobe": "Wardrobe",
   "categoryAll": "All",
-  "categoryShirts": "Shirts",
-  "categoryPants": "Pants",
-  "categoryJackets": "Jackets",
+  "categoryTops": "Tops",
+  "categoryBottoms": "Bottoms",
+  "categoryOuterwear": "Outerwear",
+  "categoryDresses": "Dresses",
   "categoryShoes": "Shoes",
+  "categoryBags": "Bags",
   "categoryAccessories": "Accessories",
+  "typeTShirt": "T-shirt",
+  "typeShirt": "Shirt",
+  "typeBlouse": "Blouse",
+  "typePolo": "Polo",
+  "typeTankTop": "Tank top",
+  "typeSweater": "Sweater",
+  "typeHoodie": "Hoodie",
+  "typeSweatshirt": "Sweatshirt",
+  "typeCardigan": "Cardigan",
+  "typeJeans": "Jeans",
+  "typeTrousers": "Trousers",
+  "typeChinos": "Chinos",
+  "typeJoggers": "Joggers",
+  "typeShorts": "Shorts",
+  "typeSkirt": "Skirt",
+  "typeLeggings": "Leggings",
+  "typeJacket": "Jacket",
+  "typeDenimJacket": "Denim jacket",
+  "typeLeatherJacket": "Leather jacket",
+  "typePufferJacket": "Puffer jacket",
+  "typeCoat": "Coat",
+  "typeBlazer": "Blazer",
+  "typeVest": "Vest",
+  "typeDress": "Dress",
+  "typeJumpsuit": "Jumpsuit",
+  "typeSneakers": "Sneakers",
+  "typeBoots": "Boots",
+  "typeHeels": "Heels",
+  "typeFlats": "Flats",
+  "typeSandals": "Sandals",
+  "typeFlipFlops": "Flip flops",
+  "typeLoafers": "Loafers",
+  "typeFormalShoes": "Formal shoes",
+  "typeHandbag": "Handbag",
+  "typeBackpack": "Backpack",
+  "typeCrossbodyBag": "Crossbody bag",
+  "typeToteBag": "Tote bag",
+  "typeWallet": "Wallet",
+  "typeCap": "Cap",
+  "typeHat": "Hat",
+  "typeSunglasses": "Sunglasses",
+  "typeWatch": "Watch",
+  "typeBelt": "Belt",
+  "typeScarf": "Scarf",
+  "typeTie": "Tie",
+  "typeSocks": "Socks",
+  "typeJewelry": "Jewelry",
+  "colorWhite": "White",
+  "colorCream": "Cream",
+  "colorBeige": "Beige",
+  "colorTan": "Tan",
+  "colorKhaki": "Khaki",
+  "colorBrown": "Brown",
+  "colorLightGrey": "Light grey",
+  "colorGrey": "Grey",
+  "colorCharcoal": "Charcoal",
+  "colorBlack": "Black",
+  "colorNavy": "Navy",
+  "colorBlue": "Blue",
+  "colorLightBlue": "Light blue",
+  "colorTeal": "Teal",
+  "colorGreen": "Green",
+  "colorOlive": "Olive",
+  "colorYellow": "Yellow",
+  "colorOrange": "Orange",
+  "colorRed": "Red",
+  "colorBurgundy": "Burgundy",
+  "colorPink": "Pink",
+  "colorPurple": "Purple",
+  "colorNone": "None",
+  "twoColors": "{first} & {second}",
+  "@twoColors": {
+    "placeholders": {
+      "first": {"type": "String"},
+      "second": {"type": "String"}
+    }
+  },
+  "itemTitle": "{color} {type}",
+  "@itemTitle": {
+    "placeholders": {
+      "color": {"type": "String"},
+      "type": {"type": "String"}
+    }
+  },
+  "selectedCount": "{count} selected",
+  "@selectedCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "selectAll": "Select all",
+  "deselectAll": "Deselect all",
+  "deleteSelected": "Delete ({count})",
+  "@deleteSelected": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "deleteItemsTitle": "{count, plural, =1{Delete 1 item?} other{Delete {count} items?}}",
+  "@deleteItemsTitle": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "deleteItemsBody": "They and their photos will be removed. This can't be undone.",
+  "itemsDeleted": "{count, plural, =1{1 item deleted} other{{count} items deleted}}",
+  "@itemsDeleted": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "deleteFailed": "Couldn't delete. Please try again.",
+  "partialItemsTitle": "Partly visible items",
+  "partialItemsBody": "These weren't fully in the photo. Choose which to add anyway.",
+  "partialReasonCutOff": "Only part of it is in the photo",
+  "partialReasonHidden": "Mostly hidden under another item",
+  "partialItemsTip": "For a full card, photograph it alone, laid flat or on a hanger.",
+  "partialKeepCount": "{count, plural, =0{Add selected} =1{Add 1 item} other{Add {count} items}}",
+  "@partialKeepCount": {
+    "placeholders": {
+      "count": {"type": "int"}
+    }
+  },
+  "partialSkip": "Skip",
+  "analyzingTitle": "Analyzing your clothes",
+  "analyzingSubtitle": "AI is finding each item and its details",
+  "analyzingCount": "{done} of {total}",
+  "@analyzingCount": {
+    "placeholders": {
+      "done": {"type": "int"},
+      "total": {"type": "int"}
+    }
+  },
   "emptyWardrobeTitle": "Your wardrobe is empty",
   "emptyWardrobeBody": "Add clothes so the stylist can build outfits.",
   "addClothes": "Add clothes",

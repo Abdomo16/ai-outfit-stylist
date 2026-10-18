@@ -49,46 +49,20 @@ class OutfitModel {
         .map((v) => ClothingItemModel.fromJson(v as Map<String, dynamic>))
         .toList();
 
-    // Try to assign items to top/bottom/shoes by category
-    ClothingItemModel? top;
-    ClothingItemModel? bottom;
-    ClothingItemModel? shoes;
-    ClothingItemModel? accessories;
-
-    for (final item in parsedItems) {
-      final cat = item.category.toLowerCase();
-      if (top == null &&
-          (cat.contains('shirt') ||
-              cat.contains('top') ||
-              cat.contains('jacket') ||
-              cat.contains('coat') ||
-              cat.contains('sweater') ||
-              cat.contains('hoodie') ||
-              cat.contains('blouse'))) {
-        top = item;
-      } else if (bottom == null &&
-          (cat.contains('pant') ||
-              cat.contains('jean') ||
-              cat.contains('trouser') ||
-              cat.contains('skirt') ||
-              cat.contains('chino') ||
-              cat.contains('jogger') ||
-              cat.contains('shorts'))) {
-        bottom = item;
-      } else if (shoes == null &&
-          (cat.contains('shoe') ||
-              cat.contains('boot') ||
-              cat.contains('sneaker') ||
-              cat.contains('sandal'))) {
-        shoes = item;
-      } else if (accessories == null &&
-          (cat.contains('hat') ||
-              cat.contains('bag') ||
-              cat.contains('belt') ||
-              cat.contains('accessory'))) {
-        accessories = item;
+    // Assign items to outfit slots by wardrobe tab. A dress fills the top
+    // slot; outerwear only fills it when there is no top or dress.
+    ClothingItemModel? firstIn(Set<String> categories) {
+      for (final item in parsedItems) {
+        if (categories.contains(item.category)) return item;
       }
+      return null;
     }
+
+    final top =
+        firstIn(const {'Tops', 'Dresses'}) ?? firstIn(const {'Outerwear'});
+    final bottom = firstIn(const {'Bottoms'});
+    final shoes = firstIn(const {'Shoes'});
+    final accessories = firstIn(const {'Accessories', 'Bags'});
 
     final occasion = (json['occasion'] as String?) ?? 'casual';
     final rawId = json['id'];
