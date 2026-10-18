@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import '../models/clothing_item_model.dart';
+import '../models/pending_wardrobe_item.dart';
 import 'wardrobe_repository.dart';
 import '../datasources/ai_service.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -42,7 +43,7 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
   }
 
   @override
-  Future<void> addClothingItem(ClothingItemModel item) async {
+  Future<List<PendingWardrobeItem>> addClothingItem(ClothingItemModel item) async {
     final userId = _supabaseClient.auth.currentUser?.id;
     if (userId == null) {
       throw Exception('User not logged in');
@@ -55,9 +56,35 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
 
     // The AI backend segments the image, uploads crops to Supabase Storage,
     // and persists each detected item to the wardrobe_items table with user_id.
-    await aiService.uploadWardrobeImage(
+    final result = await aiService.uploadWardrobeImage(
       File(imagePath),
       userId: userId,
+    );
+    return result.pending;
+  }
+
+  @override
+  Future<void> keepPendingItems(
+    List<PendingWardrobeItem> all,
+    List<PendingWardrobeItem> keep,
+  ) async {
+    if (all.isEmpty) return;
+    final token = _supabaseClient.auth.currentSession?.accessToken;
+    if (token == null) {
+      throw Exception('User not logged in');
+    }
+    final jobs = {for (final item in all) item.jobId};
+    await Future.wait(
+      jobs.map(
+        (jobId) => aiService.keepPendingItems(
+          jobId,
+          [
+            for (final item in keep)
+              if (item.jobId == jobId) item.id,
+          ],
+          token,
+        ),
+      ),
     );
   }
 
@@ -75,15 +102,17 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
   }
 
   @override
-  Future<void> deleteClothingItem(String id) async {
-    final userId = _supabaseClient.auth.currentUser?.id;
-    if (userId == null) {
+  Future<void> deleteClothingItem(String id) => deleteClothingItems([id]);
+
+  /// Goes through the AI backend: photos are stored with its service key, so
+  /// only the backend can remove them along with the rows.
+  @override
+  Future<void> deleteClothingItems(List<String> ids) async {
+    if (ids.isEmpty) return;
+    final token = _supabaseClient.auth.currentSession?.accessToken;
+    if (token == null) {
       throw Exception('User not logged in');
     }
-    await _supabaseClient
-        .from('wardrobe_items')
-        .delete()
-        .eq('id', id)
-        .eq('user_id', userId);
+    await aiService.deleteWardrobeItems(ids, token);
   }
 }

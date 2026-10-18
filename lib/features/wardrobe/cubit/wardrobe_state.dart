@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import '../../../../data/models/clothing_item_model.dart';
+import '../../../../data/models/pending_wardrobe_item.dart';
 
 abstract class WardrobeState extends Equatable {
   const WardrobeState();
@@ -17,10 +18,14 @@ class WardrobeLoaded extends WardrobeState {
   final int analyzingCurrent;
   final int analyzingTotal;
 
+  /// Partly visible items from finished uploads, waiting for keep or skip.
+  final List<PendingWardrobeItem> pending;
+
   const WardrobeLoaded(
     this.items, {
     this.analyzingCurrent = 0,
     this.analyzingTotal = 0,
+    this.pending = const [],
   });
 
   bool get isAnalyzing => analyzingTotal > 0;
@@ -29,16 +34,18 @@ class WardrobeLoaded extends WardrobeState {
     List<ClothingItemModel>? items,
     int? analyzingCurrent,
     int? analyzingTotal,
+    List<PendingWardrobeItem>? pending,
   }) {
     return WardrobeLoaded(
       items ?? this.items,
       analyzingCurrent: analyzingCurrent ?? this.analyzingCurrent,
       analyzingTotal: analyzingTotal ?? this.analyzingTotal,
+      pending: pending ?? this.pending,
     );
   }
 
   @override
-  List<Object?> get props => [items, analyzingCurrent, analyzingTotal];
+  List<Object?> get props => [items, analyzingCurrent, analyzingTotal, pending];
 }
 
 class WardrobeError extends WardrobeState {

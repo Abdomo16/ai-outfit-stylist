@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
+import '../../../../core/constants/wardrobe_taxonomy.dart';
 import '../../../../l10n/app_localizations.dart';
+import '../utils/wardrobe_labels.dart';
 
 class WardrobeEmptyState extends StatelessWidget {
   final String? category;
@@ -18,7 +20,8 @@ class WardrobeEmptyState extends StatelessWidget {
     final theme = Theme.of(context);
     final colors = theme.colorScheme;
     final l10n = AppLocalizations.of(context);
-    final isFiltered = category != null && category != 'All';
+    final isFiltered = category != null && category != WardrobeTaxonomy.all;
+    final label = isFiltered ? WardrobeLabels.category(l10n, category!) : '';
 
     return Center(
       child: Padding(
@@ -42,14 +45,14 @@ class WardrobeEmptyState extends StatelessWidget {
             ),
             const SizedBox(height: AppSpacing.lg),
             Text(
-              isFiltered ? 'No $category items yet' : l10n.emptyWardrobeTitle,
+              isFiltered ? 'No $label items yet' : l10n.emptyWardrobeTitle,
               style: theme.textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: AppSpacing.sm),
             Text(
               isFiltered
-                  ? 'Try selecting another category or add your first $category piece.'
+                  ? 'Try selecting another category or add your first $label piece.'
                   : l10n.emptyWardrobeBody,
               style: theme.textTheme.bodyMedium,
               textAlign: TextAlign.center,

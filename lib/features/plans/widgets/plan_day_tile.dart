@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../data/datasources/weather_service.dart';
 import '../../../data/models/clothing_item_model.dart';
 import '../../../l10n/app_localizations.dart';
+import '../../wardrobe/utils/wardrobe_labels.dart';
 import '../cubit/plan_cubit.dart';
 import '../plan_day.dart';
 import '../reason_text.dart';
@@ -46,7 +47,11 @@ class PlanDayTile extends StatelessWidget {
           for (final item in day.outfit.items)
             Row(
               children: [
-                Expanded(child: Text('${item.category} · ${item.color}')),
+                Expanded(
+                  child: Text(
+                    '${WardrobeLabels.type(l10n, item.type)} · ${WardrobeLabels.colors(l10n, item)}',
+                  ),
+                ),
                 if (item.id != null) ...[
                   IconButton(
                     tooltip: l10n.pin,
@@ -106,7 +111,7 @@ class PackingList extends StatelessWidget {
     final pieces = <ClothingItemModel>[];
     for (final day in days) {
       for (final item in day.outfit.items) {
-        final id = item.id ?? '${item.category}-${item.color}';
+        final id = item.id ?? '${item.type}-${item.color}';
         if (seen.add(id)) pieces.add(item);
       }
     }
@@ -118,7 +123,9 @@ class PackingList extends StatelessWidget {
         for (final item in pieces)
           Padding(
             padding: const EdgeInsets.only(bottom: 6),
-            child: Text('${item.category} · ${item.color}'),
+            child: Text(
+              '${WardrobeLabels.type(l10n, item.type)} · ${WardrobeLabels.colors(l10n, item)}',
+            ),
           ),
       ],
     );
