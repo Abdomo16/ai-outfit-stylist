@@ -35,10 +35,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get generateSubtitle => 'اكتشف إطلالة تناسبك\nبأسلوبك الخاص.';
 
   @override
-  String get todayOutfit => 'إطلالة النهاردة';
+  String get styleMeNow => 'نسّقلي دلوقتي';
 
   @override
-  String get chooseOccasionStyle => 'اختار المناسبة والستايل';
+  String get todayOutfit => 'إطلالة النهاردة';
 
   @override
   String get thisWeek => 'الأسبوع ده';
@@ -92,24 +92,10 @@ class AppLocalizationsAr extends AppLocalizations {
   String get getStarted => 'ابدأ';
 
   @override
-  String get outfitDetails => 'تفاصيل الإطلالة';
-
-  @override
-  String stepOf(int step, int total) {
-    return 'خطوة $step من $total';
-  }
-
-  @override
   String get whatsTheOccasion => 'إيه المناسبة؟';
 
   @override
   String get selectWhere => 'اختار رايح فين النهاردة';
-
-  @override
-  String get pickStyle => 'اختار الستايل';
-
-  @override
-  String get chooseAesthetic => 'اختار الشكل اللي عايزه للإطلالة';
 
   @override
   String get occasionUniversity => 'جامعة';
@@ -133,16 +119,7 @@ class AppLocalizationsAr extends AppLocalizations {
   String get occasionEveryday => 'يوم عادي';
 
   @override
-  String get styleStreetwear => 'ستريت وير';
-
-  @override
-  String get styleElegant => 'أنيق';
-
-  @override
-  String get styleMinimal => 'بسيط';
-
-  @override
-  String get styleVintage => 'فينتج';
+  String get occasionFormal => 'رسمي';
 
   @override
   String get generate => 'توليد';
@@ -169,6 +146,9 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get pieces => 'القطع';
+
+  @override
+  String get onMannequin => 'على المانيكان';
 
   @override
   String itemCount(int count) {
@@ -728,4 +708,394 @@ class AppLocalizationsAr extends AppLocalizations {
 
   @override
   String get userNotLoggedIn => 'مش مسجّل دخول';
+
+  @override
+  String get askAiTitle => 'اسأل المنسّق الذكي';
+
+  @override
+  String get askAiSubtitle => 'قوله رايح فين، وهو يختار من دولابك.';
+
+  @override
+  String get askAiHint => 'رايح فين النهاردة؟';
+
+  @override
+  String get askExampleGym => 'جيم بعد الشغل';
+
+  @override
+  String get askExampleDate => 'عشا خروجة النهاردة';
+
+  @override
+  String get askExampleInterview => 'مقابلة شغل بكرة';
+
+  @override
+  String get quickPicks => 'اختيارات سريعة';
+
+  @override
+  String get todayOutfitHint => 'حسب الطقس دلوقتي';
+
+  @override
+  String get thisWeekHint => 'خطة ٧ أيام';
+
+  @override
+  String get planTripHint => 'جهّز حسب المدينة';
+
+  @override
+  String get chatTitle => 'المنسّق الذكي';
+
+  @override
+  String get chatIntro => 'قولي خطتك وأنا أظبطلك إطلالة من دولابك.';
+
+  @override
+  String get chatHint => 'اكتب للمنسّق';
+
+  @override
+  String get chatHereIsLook => 'دي إطلالة ليك.';
+
+  @override
+  String get chatNoMatch =>
+      'معرفتش أعمل ده من دولابك. جرّب فكرة تانية أو ضيف هدوم أكتر.';
+
+  @override
+  String get chatError => 'مقدرتش أوصل للمنسّق. اتأكد من النت وحاول تاني.';
+
+  @override
+  String get chatViewLook => 'شوف الإطلالة';
+
+  @override
+  String get chatThinking => 'بنسّق...';
+
+  @override
+  String get tweakTitle => 'اطلب تعديل من الذكاء';
+
+  @override
+  String get tweakWarmer => 'أدفى';
+
+  @override
+  String get tweakCasual => 'كاجوال أكتر';
+
+  @override
+  String get tweakShoes => 'غيّر الجزمة';
+
+  @override
+  String get tweakColor => 'لون تاني';
+
+  @override
+  String get tweakAsk => 'اسأل...';
+
+  @override
+  String get whyItWorks => 'ليه مناسبة';
+
+  @override
+  String get save => 'حفظ';
+
+  @override
+  String get stepWeather => 'بنشوف الطقس';
+
+  @override
+  String get stepPieces => 'بنختار القطع';
+
+  @override
+  String get stepColors => 'بنظبط الألوان';
+
+  @override
+  String get weatherHot => 'حر';
+
+  @override
+  String get weatherMild => 'معتدل';
+
+  @override
+  String get weatherCold => 'برد';
+
+  @override
+  String get weatherRain => 'مطر';
+
+  @override
+  String get seasonSummer => 'صيف';
+
+  @override
+  String get seasonWinter => 'شتا';
+
+  @override
+  String get seasonSpring => 'ربيع';
+
+  @override
+  String get seasonAutumn => 'خريف';
+
+  @override
+  String get loadingWeekPlan => 'جارٍ تحميل خطة الأسبوع…';
+
+  @override
+  String get voiceStart => 'الإملاء الصوتي';
+
+  @override
+  String get voiceStop => 'إيقاف الإملاء';
+
+  @override
+  String get voiceUnavailable => 'التعرف على الكلام غير متاح على هذا الجهاز.';
+
+  @override
+  String get voicePermissionDenied =>
+      'اسمح باستخدام الميكروفون والتعرف على الكلام للإملاء.';
+
+  @override
+  String get voiceListening => 'جارٍ الاستماع…';
+
+  @override
+  String get send => 'إرسال';
+
+  @override
+  String get myWeek => 'أسبوعي';
+
+  @override
+  String get routineTitle => 'أسبوعك المعتاد';
+
+  @override
+  String get routineHint =>
+      'اختار بتعمل إيه عادةً كل يوم، لحد حاجتين. الأولى هي اللي بيتحدد عليها اللبس، والتانية بتظهر إنها بعدين في نفس اليوم.';
+
+  @override
+  String get routineFreeDay => 'يوم فاضي';
+
+  @override
+  String get saveRoutine => 'احفظ وجهّز أسبوعي';
+
+  @override
+  String get setUpWeek => 'ظبّط أسبوعك';
+
+  @override
+  String get routinePrompt =>
+      'قول لنا أيامك المعتادة (جامعة، شغل، جيم) وكل لبس هيبقى مناسب للي هتعمله.';
+
+  @override
+  String laterToday(String occasion) {
+    return 'بعدين: $occasion';
+  }
+
+  @override
+  String get dayOccasionTitle => 'اليوم ده لإيه؟';
+
+  @override
+  String get myLocation => 'موقعي';
+
+  @override
+  String get homeCityTitle => 'ساكن فين؟';
+
+  @override
+  String get searchGovernorate => 'دوّر على المحافظة';
+
+  @override
+  String get useMyLocation => 'استخدم موقع الموبايل';
+
+  @override
+  String get pickCityTitle => 'اختار محافظتك';
+
+  @override
+  String get pickCityPrompt =>
+      'ما قدرناش نعرف موقعك. اختار محافظتك وهنجهّز الخطة على طقسها.';
+
+  @override
+  String get pickGovernorate => 'اختار المحافظة';
+
+  @override
+  String get tipRain =>
+      'متوقع مطر. خد جاكيت خفيف ضد المية وابعد عن الجزم الشمواه.';
+
+  @override
+  String get tipVeryHot => 'اليوم حر جدًا. البس قماش خفيف بيهوّي وألوان فاتحة.';
+
+  @override
+  String get tipCold => 'اليوم برد. البس طبقات وخد جاكيت.';
+
+  @override
+  String get tipCoolEvening =>
+      'الجو بيبرد بالليل. خد حاجة خفيفة لو هتتأخر برا.';
+
+  @override
+  String get tipRamadan =>
+      'رمضان: خارج بعد الفطار؟ حاجة خفيفة فوق اللبس هتفرق آخر الليل.';
+
+  @override
+  String get tipEid => 'العيد! يوم حلو تلبس فيه أجدد وأشيك حاجة عندك.';
+
+  @override
+  String get ramadan => 'رمضان';
+
+  @override
+  String get eidFitr => 'عيد الفطر';
+
+  @override
+  String get eidAdha => 'عيد الأضحى';
+
+  @override
+  String get occasionFamily => 'عيلة';
+
+  @override
+  String get describeWeekTitle => 'احكي لنا أسبوعك';
+
+  @override
+  String get describeWeekSubtitle => 'اكتبه أو قوله، وإحنا نملا الأيام.';
+
+  @override
+  String get describeWeekHint => 'مثلًا: جامعة من الحد للأربع وجيم التلات';
+
+  @override
+  String get describeWeekExample1 => 'شغل من الحد للخميس وجيم الاتنين';
+
+  @override
+  String get describeWeekExample2 => 'جامعة السبت والاتنين وعيلة يوم الجمعة';
+
+  @override
+  String get routineNotUnderstood =>
+      'ما لقيناش أيام في الكلام ده. جرّب تقول الأيام وبتعمل فيها إيه.';
+
+  @override
+  String get routineFilled => 'تمام! راجع الأيام تحت وبعدين احفظ.';
+
+  @override
+  String get routineReadFailed =>
+      'مش قادرين نقرا أسبوعك دلوقتي. جرّب تاني أو اختار الأيام تحت.';
+
+  @override
+  String get reminderTitle => 'تذكير لبس بكرة';
+
+  @override
+  String get reminderSubtitle => 'الساعة 9 بالليل، شوف هتلبس إيه بكرة.';
+
+  @override
+  String get reminderDenied => 'اسمح بالإشعارات عشان يوصلك التذكير.';
+
+  @override
+  String reminderNotificationTitle(String occasion) {
+    return 'بكرة: $occasion';
+  }
+
+  @override
+  String get occasionBeach => 'بحر';
+
+  @override
+  String get occasionSightseeing => 'فسح ومزارات';
+
+  @override
+  String get occasionWedding => 'فرح';
+
+  @override
+  String get searchDestination => 'دوّر على مدينة أو مكان في مصر';
+
+  @override
+  String get popularDestinations => 'أماكن مشهورة';
+
+  @override
+  String get searchOutsideEgypt => 'دوّر برّه مصر';
+
+  @override
+  String get noDestinationMatch => 'مفيش مكان في مصر بالاسم ده.';
+
+  @override
+  String get searchFailed => 'مش قادرين ندوّر دلوقتي. جرّب تاني.';
+
+  @override
+  String get yourTrip => 'رحلتك';
+
+  @override
+  String get tripEmptyTitle => 'رايح فين؟';
+
+  @override
+  String get tripEmptyMessage =>
+      'اختار المكان والتواريخ، وإحنا هنشوف الجو هناك ونجهّزلك لبس لكل يوم.';
+
+  @override
+  String get checkingWeather => 'بنشوف الجو…';
+
+  @override
+  String typicalWeather(String month) {
+    return 'الجو المعتاد في $month';
+  }
+
+  @override
+  String get typicalWeatherHint =>
+      'لسه بدري على توقعات الطقس، فده الجو المعتاد في التواريخ دي.';
+
+  @override
+  String get tripDatesOverlap => 'التواريخ دي متداخلة مع مكان تاني في رحلتك.';
+
+  @override
+  String tripTooLong(int days) {
+    return 'الرحلة ممكن تبقى لحد $days يوم.';
+  }
+
+  @override
+  String get changeDates => 'غيّر التواريخ';
+
+  @override
+  String get removeStop => 'شيل';
+
+  @override
+  String tripDayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count يوم',
+      few: '$count أيام',
+      two: 'يومين',
+      one: 'يوم واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get loadingTripPlan => 'بنجهّز رحلتك…';
+
+  @override
+  String get noPlaceFound => 'مفيش مكان بالاسم ده.';
+
+  @override
+  String tripDatesTitle(String city) {
+    return 'هتبقى في $city إمتى؟';
+  }
+
+  @override
+  String get tripDatesHint => 'اختار يوم الوصول، وبعدين هتقعد كام يوم.';
+
+  @override
+  String get arriving => 'الوصول';
+
+  @override
+  String get today => 'النهارده';
+
+  @override
+  String get tomorrow => 'بكرة';
+
+  @override
+  String get otherDay => 'يوم تاني';
+
+  @override
+  String get howManyDays => 'هتقعد كام يوم؟';
+
+  @override
+  String get fewerDays => 'أيام أقل';
+
+  @override
+  String get moreDays => 'أيام أكتر';
+
+  @override
+  String get presetWeekend => 'ويك إند';
+
+  @override
+  String get presetWeek => 'أسبوع';
+
+  @override
+  String get calendarPickStart => 'دوس على يوم الوصول';
+
+  @override
+  String get calendarPickEnd => 'دلوقتي دوس على آخر يوم هناك';
+
+  @override
+  String addTripDays(String days, String city) {
+    return 'أضف $days في $city';
+  }
+
+  @override
+  String saveTripDates(String days) {
+    return 'احفظ · $days';
+  }
 }

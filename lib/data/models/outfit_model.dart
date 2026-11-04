@@ -66,13 +66,18 @@ class OutfitModel {
 
     final occasion = (json['occasion'] as String?) ?? 'casual';
     final rawId = json['id'];
-    final reasons = (json['reasons'] as List<dynamic>?)
+    final reasons =
+        (json['reasons'] as List<dynamic>?)
             ?.map((reason) => reason.toString())
             .toList() ??
         const <String>[];
-    final reasonCodes = (json['reason_codes'] as List<dynamic>?)
+    final reasonCodes =
+        (json['reason_codes'] as List<dynamic>?)
             ?.whereType<Map>()
-            .map((code) => ReasonCodeModel.fromJson(Map<String, dynamic>.from(code)))
+            .map(
+              (code) =>
+                  ReasonCodeModel.fromJson(Map<String, dynamic>.from(code)),
+            )
             .toList() ??
         const <ReasonCodeModel>[];
 
@@ -124,7 +129,8 @@ class ReasonCodeModel {
   factory ReasonCodeModel.fromJson(Map<String, dynamic> json) {
     return ReasonCodeModel(
       code: json['code']?.toString() ?? '',
-      colors: (json['colors'] as List<dynamic>?)
+      colors:
+          (json['colors'] as List<dynamic>?)
               ?.map((color) => color.toString())
               .toList() ??
           const [],

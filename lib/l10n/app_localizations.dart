@@ -146,17 +146,17 @@ abstract class AppLocalizations {
   /// **'Discover your perfect look with AI\ntailored to your unique style.'**
   String get generateSubtitle;
 
+  /// No description provided for @styleMeNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Style Me Now'**
+  String get styleMeNow;
+
   /// No description provided for @todayOutfit.
   ///
   /// In en, this message translates to:
   /// **'Today\'s outfit'**
   String get todayOutfit;
-
-  /// No description provided for @chooseOccasionStyle.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose occasion and style'**
-  String get chooseOccasionStyle;
 
   /// No description provided for @thisWeek.
   ///
@@ -260,18 +260,6 @@ abstract class AppLocalizations {
   /// **'Get Started'**
   String get getStarted;
 
-  /// No description provided for @outfitDetails.
-  ///
-  /// In en, this message translates to:
-  /// **'Outfit Details'**
-  String get outfitDetails;
-
-  /// No description provided for @stepOf.
-  ///
-  /// In en, this message translates to:
-  /// **'Step {step} of {total}'**
-  String stepOf(int step, int total);
-
   /// No description provided for @whatsTheOccasion.
   ///
   /// In en, this message translates to:
@@ -283,18 +271,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Select where you\'re headed today'**
   String get selectWhere;
-
-  /// No description provided for @pickStyle.
-  ///
-  /// In en, this message translates to:
-  /// **'Pick your style preference'**
-  String get pickStyle;
-
-  /// No description provided for @chooseAesthetic.
-  ///
-  /// In en, this message translates to:
-  /// **'Choose an aesthetic for your outfit AI'**
-  String get chooseAesthetic;
 
   /// No description provided for @occasionUniversity.
   ///
@@ -338,29 +314,11 @@ abstract class AppLocalizations {
   /// **'Everyday'**
   String get occasionEveryday;
 
-  /// No description provided for @styleStreetwear.
+  /// No description provided for @occasionFormal.
   ///
   /// In en, this message translates to:
-  /// **'Streetwear'**
-  String get styleStreetwear;
-
-  /// No description provided for @styleElegant.
-  ///
-  /// In en, this message translates to:
-  /// **'Elegant'**
-  String get styleElegant;
-
-  /// No description provided for @styleMinimal.
-  ///
-  /// In en, this message translates to:
-  /// **'Minimal'**
-  String get styleMinimal;
-
-  /// No description provided for @styleVintage.
-  ///
-  /// In en, this message translates to:
-  /// **'Vintage'**
-  String get styleVintage;
+  /// **'Formal'**
+  String get occasionFormal;
 
   /// No description provided for @generate.
   ///
@@ -409,6 +367,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Pieces'**
   String get pieces;
+
+  /// No description provided for @onMannequin.
+  ///
+  /// In en, this message translates to:
+  /// **'On mannequin'**
+  String get onMannequin;
 
   /// No description provided for @itemCount.
   ///
@@ -1411,6 +1375,714 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'User not logged in'**
   String get userNotLoggedIn;
+
+  /// No description provided for @askAiTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask your AI stylist'**
+  String get askAiTitle;
+
+  /// No description provided for @askAiSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Say where you\'re going. It picks from your wardrobe.'**
+  String get askAiSubtitle;
+
+  /// No description provided for @askAiHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Where are you going today?'**
+  String get askAiHint;
+
+  /// No description provided for @askExampleGym.
+  ///
+  /// In en, this message translates to:
+  /// **'Gym after work'**
+  String get askExampleGym;
+
+  /// No description provided for @askExampleDate.
+  ///
+  /// In en, this message translates to:
+  /// **'Dinner date tonight'**
+  String get askExampleDate;
+
+  /// No description provided for @askExampleInterview.
+  ///
+  /// In en, this message translates to:
+  /// **'Job interview tomorrow'**
+  String get askExampleInterview;
+
+  /// No description provided for @quickPicks.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick picks'**
+  String get quickPicks;
+
+  /// No description provided for @todayOutfitHint.
+  ///
+  /// In en, this message translates to:
+  /// **'From live weather'**
+  String get todayOutfitHint;
+
+  /// No description provided for @thisWeekHint.
+  ///
+  /// In en, this message translates to:
+  /// **'7-day plan'**
+  String get thisWeekHint;
+
+  /// No description provided for @planTripHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pack by city'**
+  String get planTripHint;
+
+  /// No description provided for @chatTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI Stylist'**
+  String get chatTitle;
+
+  /// No description provided for @chatIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell me the plan and I\'ll put together a look from your wardrobe.'**
+  String get chatIntro;
+
+  /// No description provided for @chatHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Message your stylist'**
+  String get chatHint;
+
+  /// No description provided for @chatHereIsLook.
+  ///
+  /// In en, this message translates to:
+  /// **'Here\'s a look for you.'**
+  String get chatHereIsLook;
+
+  /// No description provided for @chatNoMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'t build that from your wardrobe. Try another idea or add more clothes.'**
+  String get chatNoMatch;
+
+  /// No description provided for @chatError.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn\'t reach the stylist. Check your connection and try again.'**
+  String get chatError;
+
+  /// No description provided for @chatViewLook.
+  ///
+  /// In en, this message translates to:
+  /// **'View look'**
+  String get chatViewLook;
+
+  /// No description provided for @chatThinking.
+  ///
+  /// In en, this message translates to:
+  /// **'Styling...'**
+  String get chatThinking;
+
+  /// No description provided for @tweakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask AI to tweak'**
+  String get tweakTitle;
+
+  /// No description provided for @tweakWarmer.
+  ///
+  /// In en, this message translates to:
+  /// **'Warmer'**
+  String get tweakWarmer;
+
+  /// No description provided for @tweakCasual.
+  ///
+  /// In en, this message translates to:
+  /// **'More casual'**
+  String get tweakCasual;
+
+  /// No description provided for @tweakShoes.
+  ///
+  /// In en, this message translates to:
+  /// **'Swap shoes'**
+  String get tweakShoes;
+
+  /// No description provided for @tweakColor.
+  ///
+  /// In en, this message translates to:
+  /// **'Different color'**
+  String get tweakColor;
+
+  /// No description provided for @tweakAsk.
+  ///
+  /// In en, this message translates to:
+  /// **'Ask...'**
+  String get tweakAsk;
+
+  /// No description provided for @whyItWorks.
+  ///
+  /// In en, this message translates to:
+  /// **'Why it works'**
+  String get whyItWorks;
+
+  /// No description provided for @save.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get save;
+
+  /// No description provided for @stepWeather.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking the weather'**
+  String get stepWeather;
+
+  /// No description provided for @stepPieces.
+  ///
+  /// In en, this message translates to:
+  /// **'Picking your pieces'**
+  String get stepPieces;
+
+  /// No description provided for @stepColors.
+  ///
+  /// In en, this message translates to:
+  /// **'Matching colors'**
+  String get stepColors;
+
+  /// No description provided for @weatherHot.
+  ///
+  /// In en, this message translates to:
+  /// **'Hot'**
+  String get weatherHot;
+
+  /// No description provided for @weatherMild.
+  ///
+  /// In en, this message translates to:
+  /// **'Mild'**
+  String get weatherMild;
+
+  /// No description provided for @weatherCold.
+  ///
+  /// In en, this message translates to:
+  /// **'Cold'**
+  String get weatherCold;
+
+  /// No description provided for @weatherRain.
+  ///
+  /// In en, this message translates to:
+  /// **'Rainy'**
+  String get weatherRain;
+
+  /// No description provided for @seasonSummer.
+  ///
+  /// In en, this message translates to:
+  /// **'Summer'**
+  String get seasonSummer;
+
+  /// No description provided for @seasonWinter.
+  ///
+  /// In en, this message translates to:
+  /// **'Winter'**
+  String get seasonWinter;
+
+  /// No description provided for @seasonSpring.
+  ///
+  /// In en, this message translates to:
+  /// **'Spring'**
+  String get seasonSpring;
+
+  /// No description provided for @seasonAutumn.
+  ///
+  /// In en, this message translates to:
+  /// **'Autumn'**
+  String get seasonAutumn;
+
+  /// No description provided for @loadingWeekPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading your week plan…'**
+  String get loadingWeekPlan;
+
+  /// No description provided for @voiceStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Dictate prompt'**
+  String get voiceStart;
+
+  /// No description provided for @voiceStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop dictation'**
+  String get voiceStop;
+
+  /// No description provided for @voiceUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech recognition isn\'t available on this device.'**
+  String get voiceUnavailable;
+
+  /// No description provided for @voicePermissionDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow microphone and speech recognition access to dictate.'**
+  String get voicePermissionDenied;
+
+  /// No description provided for @voiceListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening…'**
+  String get voiceListening;
+
+  /// No description provided for @send.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get send;
+
+  /// No description provided for @myWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'My week'**
+  String get myWeek;
+
+  /// No description provided for @routineTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your usual week'**
+  String get routineTitle;
+
+  /// No description provided for @routineHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick what you usually do each day, up to two. The first one sets the outfit; the second shows as later that day.'**
+  String get routineHint;
+
+  /// No description provided for @routineFreeDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Free day'**
+  String get routineFreeDay;
+
+  /// No description provided for @saveRoutine.
+  ///
+  /// In en, this message translates to:
+  /// **'Save and plan my week'**
+  String get saveRoutine;
+
+  /// No description provided for @setUpWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'Set up your week'**
+  String get setUpWeek;
+
+  /// No description provided for @routinePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us your usual days (university, work, gym) and every outfit will fit what you\'re doing.'**
+  String get routinePrompt;
+
+  /// No description provided for @laterToday.
+  ///
+  /// In en, this message translates to:
+  /// **'Later: {occasion}'**
+  String laterToday(String occasion);
+
+  /// No description provided for @dayOccasionTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What\'s this day for?'**
+  String get dayOccasionTitle;
+
+  /// No description provided for @myLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'My location'**
+  String get myLocation;
+
+  /// No description provided for @homeCityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where do you live?'**
+  String get homeCityTitle;
+
+  /// No description provided for @searchGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Search governorates'**
+  String get searchGovernorate;
+
+  /// No description provided for @useMyLocation.
+  ///
+  /// In en, this message translates to:
+  /// **'Use my phone\'s location'**
+  String get useMyLocation;
+
+  /// No description provided for @pickCityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick your governorate'**
+  String get pickCityTitle;
+
+  /// No description provided for @pickCityPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t read your location. Pick your governorate and we\'ll plan with its weather.'**
+  String get pickCityPrompt;
+
+  /// No description provided for @pickGovernorate.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick governorate'**
+  String get pickGovernorate;
+
+  /// No description provided for @tipRain.
+  ///
+  /// In en, this message translates to:
+  /// **'Rain expected. Take a light waterproof jacket and skip suede shoes.'**
+  String get tipRain;
+
+  /// No description provided for @tipVeryHot.
+  ///
+  /// In en, this message translates to:
+  /// **'Very hot day. Go for light, breathable fabrics and light colors.'**
+  String get tipVeryHot;
+
+  /// No description provided for @tipCold.
+  ///
+  /// In en, this message translates to:
+  /// **'Cold day. Layer up and add a jacket.'**
+  String get tipCold;
+
+  /// No description provided for @tipCoolEvening.
+  ///
+  /// In en, this message translates to:
+  /// **'Cooler in the evening. Bring a light layer if you\'ll be out late.'**
+  String get tipCoolEvening;
+
+  /// No description provided for @tipRamadan.
+  ///
+  /// In en, this message translates to:
+  /// **'Ramadan: going out after iftar? A light layer helps for the late night.'**
+  String get tipRamadan;
+
+  /// No description provided for @tipEid.
+  ///
+  /// In en, this message translates to:
+  /// **'Eid! A good day for your newest, smartest pieces.'**
+  String get tipEid;
+
+  /// No description provided for @ramadan.
+  ///
+  /// In en, this message translates to:
+  /// **'Ramadan'**
+  String get ramadan;
+
+  /// No description provided for @eidFitr.
+  ///
+  /// In en, this message translates to:
+  /// **'Eid al-Fitr'**
+  String get eidFitr;
+
+  /// No description provided for @eidAdha.
+  ///
+  /// In en, this message translates to:
+  /// **'Eid al-Adha'**
+  String get eidAdha;
+
+  /// No description provided for @occasionFamily.
+  ///
+  /// In en, this message translates to:
+  /// **'Family'**
+  String get occasionFamily;
+
+  /// No description provided for @describeWeekTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us your week'**
+  String get describeWeekTitle;
+
+  /// No description provided for @describeWeekSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Type or say it, and we\'ll fill the days for you.'**
+  String get describeWeekSubtitle;
+
+  /// No description provided for @describeWeekHint.
+  ///
+  /// In en, this message translates to:
+  /// **'e.g. university Sunday to Wednesday, gym on Tuesday'**
+  String get describeWeekHint;
+
+  /// No description provided for @describeWeekExample1.
+  ///
+  /// In en, this message translates to:
+  /// **'Work Sunday to Thursday, gym Monday'**
+  String get describeWeekExample1;
+
+  /// No description provided for @describeWeekExample2.
+  ///
+  /// In en, this message translates to:
+  /// **'University Saturday and Monday, family on Friday'**
+  String get describeWeekExample2;
+
+  /// No description provided for @routineNotUnderstood.
+  ///
+  /// In en, this message translates to:
+  /// **'We couldn\'t find days in that. Try naming the days and what you do.'**
+  String get routineNotUnderstood;
+
+  /// No description provided for @routineFilled.
+  ///
+  /// In en, this message translates to:
+  /// **'Done! Check the days below, then save.'**
+  String get routineFilled;
+
+  /// No description provided for @routineReadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t read your week right now. Try again or pick the days below.'**
+  String get routineReadFailed;
+
+  /// No description provided for @reminderTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Evening outfit reminder'**
+  String get reminderTitle;
+
+  /// No description provided for @reminderSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'At 9 pm, see what you\'ll wear tomorrow.'**
+  String get reminderSubtitle;
+
+  /// No description provided for @reminderDenied.
+  ///
+  /// In en, this message translates to:
+  /// **'Allow notifications to get the evening reminder.'**
+  String get reminderDenied;
+
+  /// No description provided for @reminderNotificationTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow: {occasion}'**
+  String reminderNotificationTitle(String occasion);
+
+  /// No description provided for @occasionBeach.
+  ///
+  /// In en, this message translates to:
+  /// **'Beach'**
+  String get occasionBeach;
+
+  /// No description provided for @occasionSightseeing.
+  ///
+  /// In en, this message translates to:
+  /// **'Sightseeing'**
+  String get occasionSightseeing;
+
+  /// No description provided for @occasionWedding.
+  ///
+  /// In en, this message translates to:
+  /// **'Wedding'**
+  String get occasionWedding;
+
+  /// No description provided for @searchDestination.
+  ///
+  /// In en, this message translates to:
+  /// **'Search a city or place in Egypt'**
+  String get searchDestination;
+
+  /// No description provided for @popularDestinations.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular destinations'**
+  String get popularDestinations;
+
+  /// No description provided for @searchOutsideEgypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Search outside Egypt'**
+  String get searchOutsideEgypt;
+
+  /// No description provided for @noDestinationMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No place in Egypt by that name.'**
+  String get noDestinationMatch;
+
+  /// No description provided for @searchFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t search right now. Try again.'**
+  String get searchFailed;
+
+  /// No description provided for @yourTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Your trip'**
+  String get yourTrip;
+
+  /// No description provided for @tripEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where are you going?'**
+  String get tripEmptyTitle;
+
+  /// No description provided for @tripEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a place and your dates. We\'ll check the weather there and plan an outfit for every day.'**
+  String get tripEmptyMessage;
+
+  /// No description provided for @checkingWeather.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking the weather…'**
+  String get checkingWeather;
+
+  /// No description provided for @typicalWeather.
+  ///
+  /// In en, this message translates to:
+  /// **'Typical for {month}'**
+  String typicalWeather(String month);
+
+  /// No description provided for @typicalWeatherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Too far ahead for a forecast, so this is the usual weather for these dates.'**
+  String get typicalWeatherHint;
+
+  /// No description provided for @tripDatesOverlap.
+  ///
+  /// In en, this message translates to:
+  /// **'These dates overlap another stop on your trip.'**
+  String get tripDatesOverlap;
+
+  /// No description provided for @tripTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'A trip can be up to {days} days.'**
+  String tripTooLong(int days);
+
+  /// No description provided for @changeDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Change dates'**
+  String get changeDates;
+
+  /// No description provided for @removeStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get removeStop;
+
+  /// No description provided for @tripDayCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String tripDayCount(int count);
+
+  /// No description provided for @loadingTripPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Planning your trip…'**
+  String get loadingTripPlan;
+
+  /// No description provided for @noPlaceFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No place found by that name.'**
+  String get noPlaceFound;
+
+  /// No description provided for @tripDatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When are you in {city}?'**
+  String tripDatesTitle(String city);
+
+  /// No description provided for @tripDatesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the day you arrive, then how many days you\'ll stay.'**
+  String get tripDatesHint;
+
+  /// No description provided for @arriving.
+  ///
+  /// In en, this message translates to:
+  /// **'Arriving'**
+  String get arriving;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @tomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tomorrow;
+
+  /// No description provided for @otherDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Other day'**
+  String get otherDay;
+
+  /// No description provided for @howManyDays.
+  ///
+  /// In en, this message translates to:
+  /// **'How many days?'**
+  String get howManyDays;
+
+  /// No description provided for @fewerDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Fewer days'**
+  String get fewerDays;
+
+  /// No description provided for @moreDays.
+  ///
+  /// In en, this message translates to:
+  /// **'More days'**
+  String get moreDays;
+
+  /// No description provided for @presetWeekend.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekend'**
+  String get presetWeekend;
+
+  /// No description provided for @presetWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'A week'**
+  String get presetWeek;
+
+  /// No description provided for @calendarPickStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the day you arrive'**
+  String get calendarPickStart;
+
+  /// No description provided for @calendarPickEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Now tap your last day there'**
+  String get calendarPickEnd;
+
+  /// No description provided for @addTripDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Add {days} in {city}'**
+  String addTripDays(String days, String city);
+
+  /// No description provided for @saveTripDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Save · {days}'**
+  String saveTripDates(String days);
 }
 
 class _AppLocalizationsDelegate

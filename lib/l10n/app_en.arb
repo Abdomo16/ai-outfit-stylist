@@ -6,15 +6,17 @@
   "hiUser": "Hi, {name}",
   "@hiUser": {
     "placeholders": {
-      "name": {"type": "String"}
+      "name": {
+        "type": "String"
+      }
     }
   },
   "aiReady": "AI Ready",
   "premiumAi": "PREMIUM AI",
   "generateYourOutfit": "Generate\nYour Outfit",
   "generateSubtitle": "Discover your perfect look with AI\ntailored to your unique style.",
+  "styleMeNow": "Style Me Now",
   "todayOutfit": "Today's outfit",
-  "chooseOccasionStyle": "Choose occasion and style",
   "thisWeek": "This week",
   "planTrip": "Plan a trip",
   "navHome": "Home",
@@ -32,18 +34,8 @@
   "alreadyHaveAccount": "Already have an account? Login",
   "welcomeTitle": "Welcome",
   "getStarted": "Get Started",
-  "outfitDetails": "Outfit Details",
-  "stepOf": "Step {step} of {total}",
-  "@stepOf": {
-    "placeholders": {
-      "step": {"type": "int"},
-      "total": {"type": "int"}
-    }
-  },
   "whatsTheOccasion": "What's the occasion?",
   "selectWhere": "Select where you're headed today",
-  "pickStyle": "Pick your style preference",
-  "chooseAesthetic": "Choose an aesthetic for your outfit AI",
   "occasionUniversity": "University",
   "occasionWork": "Work",
   "occasionDateNight": "Date Night",
@@ -51,10 +43,7 @@
   "occasionParty": "Party",
   "occasionTravel": "Travel",
   "occasionEveryday": "Everyday",
-  "styleStreetwear": "Streetwear",
-  "styleElegant": "Elegant",
-  "styleMinimal": "Minimal",
-  "styleVintage": "Vintage",
+  "occasionFormal": "Formal",
   "generate": "Generate",
   "regenerateOutfit": "Regenerate Outfit",
   "generating": "Generating...",
@@ -63,15 +52,20 @@
   "colorMatch": "{percent}% color match",
   "@colorMatch": {
     "placeholders": {
-      "percent": {"type": "int"}
+      "percent": {
+        "type": "int"
+      }
     }
   },
   "outfitReady": "Your outfit is ready",
   "pieces": "Pieces",
+  "onMannequin": "On mannequin",
   "itemCount": "{count} items",
   "@itemCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "piecesHint": "Pin a piece to keep it, or swap it for another.",
@@ -197,21 +191,31 @@
   "twoColors": "{first} & {second}",
   "@twoColors": {
     "placeholders": {
-      "first": {"type": "String"},
-      "second": {"type": "String"}
+      "first": {
+        "type": "String"
+      },
+      "second": {
+        "type": "String"
+      }
     }
   },
   "itemTitle": "{color} {type}",
   "@itemTitle": {
     "placeholders": {
-      "color": {"type": "String"},
-      "type": {"type": "String"}
+      "color": {
+        "type": "String"
+      },
+      "type": {
+        "type": "String"
+      }
     }
   },
   "selectedCount": "{count} selected",
   "@selectedCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "selectAll": "Select all",
@@ -219,20 +223,26 @@
   "deleteSelected": "Delete ({count})",
   "@deleteSelected": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "deleteItemsTitle": "{count, plural, =1{Delete 1 item?} other{Delete {count} items?}}",
   "@deleteItemsTitle": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "deleteItemsBody": "They and their photos will be removed. This can't be undone.",
   "itemsDeleted": "{count, plural, =1{1 item deleted} other{{count} items deleted}}",
   "@itemsDeleted": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "deleteFailed": "Couldn't delete. Please try again.",
@@ -244,7 +254,9 @@
   "partialKeepCount": "{count, plural, =0{Add selected} =1{Add 1 item} other{Add {count} items}}",
   "@partialKeepCount": {
     "placeholders": {
-      "count": {"type": "int"}
+      "count": {
+        "type": "int"
+      }
     }
   },
   "partialSkip": "Skip",
@@ -253,8 +265,12 @@
   "analyzingCount": "{done} of {total}",
   "@analyzingCount": {
     "placeholders": {
-      "done": {"type": "int"},
-      "total": {"type": "int"}
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
     }
   },
   "emptyWardrobeTitle": "Your wardrobe is empty",
@@ -263,35 +279,49 @@
   "reasonWeather": "Works in {weather} weather.",
   "@reasonWeather": {
     "placeholders": {
-      "weather": {"type": "String"}
+      "weather": {
+        "type": "String"
+      }
     }
   },
   "reasonSeason": "Works for {season}.",
   "@reasonSeason": {
     "placeholders": {
-      "season": {"type": "String"}
+      "season": {
+        "type": "String"
+      }
     }
   },
   "reasonStyleRelaxed": "Style filter relaxed so an outfit could be made.",
   "reasonStyleMatch": "Matches {style}.",
   "@reasonStyleMatch": {
     "placeholders": {
-      "style": {"type": "String"}
+      "style": {
+        "type": "String"
+      }
     }
   },
   "reasonRepeated": "Repeated a piece because the wardrobe is small.",
   "reasonColorPair": "{left} pairs with {right}.",
   "@reasonColorPair": {
     "placeholders": {
-      "left": {"type": "String"},
-      "right": {"type": "String"}
+      "left": {
+        "type": "String"
+      },
+      "right": {
+        "type": "String"
+      }
     }
   },
   "reasonColorClash": "{left} clashes with {right}.",
   "@reasonColorClash": {
     "placeholders": {
-      "left": {"type": "String"},
-      "right": {"type": "String"}
+      "left": {
+        "type": "String"
+      },
+      "right": {
+        "type": "String"
+      }
     }
   },
   "reasonNeutral": "Some colors have no rule, so they stay neutral.",
@@ -309,5 +339,182 @@
   "tripTitle": "Trip",
   "weekEmpty": "Generate a week from the forecast and your calendar.",
   "couldNotReadWeather": "Could not read the weather. Try again.",
-  "userNotLoggedIn": "User not logged in"
+  "userNotLoggedIn": "User not logged in",
+  "askAiTitle": "Ask your AI stylist",
+  "askAiSubtitle": "Say where you're going. It picks from your wardrobe.",
+  "askAiHint": "Where are you going today?",
+  "askExampleGym": "Gym after work",
+  "askExampleDate": "Dinner date tonight",
+  "askExampleInterview": "Job interview tomorrow",
+  "quickPicks": "Quick picks",
+  "todayOutfitHint": "From live weather",
+  "thisWeekHint": "7-day plan",
+  "planTripHint": "Pack by city",
+  "chatTitle": "AI Stylist",
+  "chatIntro": "Tell me the plan and I'll put together a look from your wardrobe.",
+  "chatHint": "Message your stylist",
+  "chatHereIsLook": "Here's a look for you.",
+  "chatNoMatch": "I couldn't build that from your wardrobe. Try another idea or add more clothes.",
+  "chatError": "I couldn't reach the stylist. Check your connection and try again.",
+  "chatViewLook": "View look",
+  "chatThinking": "Styling...",
+  "tweakTitle": "Ask AI to tweak",
+  "tweakWarmer": "Warmer",
+  "tweakCasual": "More casual",
+  "tweakShoes": "Swap shoes",
+  "tweakColor": "Different color",
+  "tweakAsk": "Ask...",
+  "whyItWorks": "Why it works",
+  "save": "Save",
+  "stepWeather": "Checking the weather",
+  "stepPieces": "Picking your pieces",
+  "stepColors": "Matching colors",
+  "weatherHot": "Hot",
+  "weatherMild": "Mild",
+  "weatherCold": "Cold",
+  "weatherRain": "Rainy",
+  "seasonSummer": "Summer",
+  "seasonWinter": "Winter",
+  "seasonSpring": "Spring",
+  "seasonAutumn": "Autumn",
+  "loadingWeekPlan": "Loading your week plan…",
+  "voiceStart": "Dictate prompt",
+  "voiceStop": "Stop dictation",
+  "voiceUnavailable": "Speech recognition isn't available on this device.",
+  "voicePermissionDenied": "Allow microphone and speech recognition access to dictate.",
+  "voiceListening": "Listening…",
+  "send": "Send",
+  "myWeek": "My week",
+  "routineTitle": "Your usual week",
+  "routineHint": "Pick what you usually do each day, up to two. The first one sets the outfit; the second shows as later that day.",
+  "routineFreeDay": "Free day",
+  "saveRoutine": "Save and plan my week",
+  "setUpWeek": "Set up your week",
+  "routinePrompt": "Tell us your usual days (university, work, gym) and every outfit will fit what you're doing.",
+  "laterToday": "Later: {occasion}",
+  "@laterToday": {
+    "placeholders": {
+      "occasion": {
+        "type": "String"
+      }
+    }
+  },
+  "dayOccasionTitle": "What's this day for?",
+  "myLocation": "My location",
+  "homeCityTitle": "Where do you live?",
+  "searchGovernorate": "Search governorates",
+  "useMyLocation": "Use my phone's location",
+  "pickCityTitle": "Pick your governorate",
+  "pickCityPrompt": "We couldn't read your location. Pick your governorate and we'll plan with its weather.",
+  "pickGovernorate": "Pick governorate",
+  "tipRain": "Rain expected. Take a light waterproof jacket and skip suede shoes.",
+  "tipVeryHot": "Very hot day. Go for light, breathable fabrics and light colors.",
+  "tipCold": "Cold day. Layer up and add a jacket.",
+  "tipCoolEvening": "Cooler in the evening. Bring a light layer if you'll be out late.",
+  "tipRamadan": "Ramadan: going out after iftar? A light layer helps for the late night.",
+  "tipEid": "Eid! A good day for your newest, smartest pieces.",
+  "ramadan": "Ramadan",
+  "eidFitr": "Eid al-Fitr",
+  "eidAdha": "Eid al-Adha",
+  "occasionFamily": "Family",
+  "describeWeekTitle": "Tell us your week",
+  "describeWeekSubtitle": "Type or say it, and we'll fill the days for you.",
+  "describeWeekHint": "e.g. university Sunday to Wednesday, gym on Tuesday",
+  "describeWeekExample1": "Work Sunday to Thursday, gym Monday",
+  "describeWeekExample2": "University Saturday and Monday, family on Friday",
+  "routineNotUnderstood": "We couldn't find days in that. Try naming the days and what you do.",
+  "routineFilled": "Done! Check the days below, then save.",
+  "routineReadFailed": "Couldn't read your week right now. Try again or pick the days below.",
+  "reminderTitle": "Evening outfit reminder",
+  "reminderSubtitle": "At 9 pm, see what you'll wear tomorrow.",
+  "reminderDenied": "Allow notifications to get the evening reminder.",
+  "reminderNotificationTitle": "Tomorrow: {occasion}",
+  "@reminderNotificationTitle": {
+    "placeholders": {
+      "occasion": {
+        "type": "String"
+      }
+    }
+  },
+  "occasionBeach": "Beach",
+  "occasionSightseeing": "Sightseeing",
+  "occasionWedding": "Wedding",
+  "searchDestination": "Search a city or place in Egypt",
+  "popularDestinations": "Popular destinations",
+  "searchOutsideEgypt": "Search outside Egypt",
+  "noDestinationMatch": "No place in Egypt by that name.",
+  "searchFailed": "Couldn't search right now. Try again.",
+  "yourTrip": "Your trip",
+  "tripEmptyTitle": "Where are you going?",
+  "tripEmptyMessage": "Pick a place and your dates. We'll check the weather there and plan an outfit for every day.",
+  "checkingWeather": "Checking the weather…",
+  "typicalWeather": "Typical for {month}",
+  "@typicalWeather": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "typicalWeatherHint": "Too far ahead for a forecast, so this is the usual weather for these dates.",
+  "tripDatesOverlap": "These dates overlap another stop on your trip.",
+  "tripTooLong": "A trip can be up to {days} days.",
+  "@tripTooLong": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "changeDates": "Change dates",
+  "removeStop": "Remove",
+  "tripDayCount": "{count, plural, =1{1 day} other{{count} days}}",
+  "@tripDayCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "loadingTripPlan": "Planning your trip…",
+  "noPlaceFound": "No place found by that name.",
+  "tripDatesTitle": "When are you in {city}?",
+  "@tripDatesTitle": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "tripDatesHint": "Pick the day you arrive, then how many days you'll stay.",
+  "arriving": "Arriving",
+  "today": "Today",
+  "tomorrow": "Tomorrow",
+  "otherDay": "Other day",
+  "howManyDays": "How many days?",
+  "fewerDays": "Fewer days",
+  "moreDays": "More days",
+  "presetWeekend": "Weekend",
+  "presetWeek": "A week",
+  "calendarPickStart": "Tap the day you arrive",
+  "calendarPickEnd": "Now tap your last day there",
+  "addTripDays": "Add {days} in {city}",
+  "@addTripDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "saveTripDates": "Save · {days}",
+  "@saveTripDates": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
+  }
 }

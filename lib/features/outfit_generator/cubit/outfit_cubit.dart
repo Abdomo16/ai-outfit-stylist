@@ -3,6 +3,7 @@ import 'outfit_state.dart';
 
 import '../../../../data/datasources/ai_service.dart';
 import '../../../../data/datasources/weather_service.dart';
+import '../../../../data/models/outfit_model.dart';
 import '../../../../data/repositories/wardrobe_repository.dart';
 import '../../../../data/repositories/wear_log_repository.dart';
 
@@ -25,35 +26,29 @@ class OutfitCubit extends Cubit<OutfitState> {
        super(const OutfitInitial());
 
   String? selectedOccasion;
-  String? selectedStyle;
   final Set<String> lockIds = {};
   bool _isGenerating = false;
 
   void selectOccasion(String occasion) {
     selectedOccasion = occasion;
-    emit(
-      OutfitInitial(
-        selectedOccasion: selectedOccasion,
-        selectedStyle: selectedStyle,
-      ),
-    ); // Re-emit to trigger UI update
-  }
-
-  void selectStyle(String style) {
-    selectedStyle = style;
-    emit(
-      OutfitInitial(
-        selectedOccasion: selectedOccasion,
-        selectedStyle: selectedStyle,
-      ),
-    );
+    lockIds.clear();
+    emit(OutfitInitial(selectedOccasion: selectedOccasion));
   }
 
   Future<void> generateToday() {
     selectedOccasion = 'everyday';
-    selectedStyle = null;
     lockIds.clear();
     return generateOutfit();
+  }
+
+  /// Shows an outfit made elsewhere, such as the AI chat, so it can be
+  /// pinned, swapped and regenerated like a generated one.
+  void show(OutfitModel outfit, {String? weather, String? season}) {
+    selectedOccasion = outfit.occasion;
+    lastWeather = weather ?? lastWeather;
+    lastSeason = season ?? lastSeason;
+    lockIds.clear();
+    emit(OutfitGenerated(outfit));
   }
 
   Future<void> toggleLock(String id) {
@@ -72,11 +67,7 @@ class OutfitCubit extends Cubit<OutfitState> {
     if (_isGenerating) return;
 
     if (selectedOccasion == null) {
-      emit(const OutfitError("Please select both an occasion and a style."));
-      return;
-    }
-    if (selectedOccasion != 'everyday' && selectedStyle == null) {
-      emit(const OutfitError("Please select both an occasion and a style."));
+      emit(const OutfitError("Please pick an occasion."));
       return;
     }
 
@@ -111,7 +102,6 @@ class OutfitCubit extends Cubit<OutfitState> {
       final recommendation = await _aiService.getRecommendations(
         wardrobe: wardrobe,
         occasion: selectedOccasion!.toLowerCase(),
-        style: selectedStyle?.toLowerCase(),
         weather: conditions.weather,
         season: conditions.season,
         lockIds: lockIds.toList(),

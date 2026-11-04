@@ -3,6 +3,10 @@ import '../../core/constants/wardrobe_taxonomy.dart';
 class ClothingItemModel {
   final String? id;
   final String? imageUrl;
+
+  /// Server-generated transparent PNG (background removed). When present the
+  /// mannequin skips the on-device flood-fill entirely.
+  final String? cutoutUrl;
   final String name;
 
   /// Detailed label, e.g. "jeans" or "sneakers".
@@ -25,6 +29,7 @@ class ClothingItemModel {
   ClothingItemModel({
     this.id,
     this.imageUrl,
+    this.cutoutUrl,
     this.name = 'Clothing Item',
     required this.type,
     String? category,
@@ -44,11 +49,11 @@ class ClothingItemModel {
   /// Reads wardrobe rows and recommend responses. In a recommend response
   /// `category` is the detailed type and `wardrobeCategory` is the tab.
   factory ClothingItemModel.fromJson(Map<String, dynamic> json) {
-    final type =
-        (json['type'] ?? json['category'] ?? 'Unknown') as String;
+    final type = (json['type'] ?? json['category'] ?? 'Unknown') as String;
     return ClothingItemModel(
       id: json['id']?.toString(),
       imageUrl: (json['image_path'] ?? json['imageUrl']) as String?,
+      cutoutUrl: json['cutout_path'] as String?,
       name: (json['name'] ?? type) as String,
       type: type,
       category: (json['wardrobeCategory'] ?? json['category']) as String?,
@@ -89,6 +94,7 @@ class ClothingItemModel {
   ClothingItemModel copyWith({
     String? id,
     String? imageUrl,
+    String? cutoutUrl,
     String? name,
     String? type,
     String? category,
@@ -106,6 +112,7 @@ class ClothingItemModel {
     return ClothingItemModel(
       id: id ?? this.id,
       imageUrl: imageUrl ?? this.imageUrl,
+      cutoutUrl: cutoutUrl ?? this.cutoutUrl,
       name: name ?? this.name,
       type: type ?? this.type,
       category: category ?? this.category,
