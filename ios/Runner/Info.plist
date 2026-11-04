@@ -32,6 +32,10 @@
 	<string>Calendar events are used to pick an occasion for each day.</string>
 	<key>NSCalendarsFullAccessUsageDescription</key>
 	<string>Calendar events are used to pick an occasion for each day.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Speak a prompt to your AI stylist.</string>
+	<key>NSSpeechRecognitionUsageDescription</key>
+	<string>Turn your spoken prompt into editable text.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

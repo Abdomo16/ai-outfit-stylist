@@ -1,0 +1,2 @@
+"NSMicrophoneUsageDescription" = "Speak a prompt to your AI stylist.";
+"NSSpeechRecognitionUsageDescription" = "Turn your spoken prompt into editable text.";
