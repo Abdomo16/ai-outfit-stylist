@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../../features/plans/egypt.dart';
 
 class WeatherConditions {
   final String weather;
@@ -53,11 +56,30 @@ String isoDate(DateTime date) {
 String _isoDate(DateTime date) => isoDate(date);
 
 class WeatherService {
+  /// Prefs key of the home governorate the user picked in the week plan.
+  static const String homeCityKey = 'home_city';
+
+  /// Today's weather at the home governorate when one is set, otherwise
+  /// at the phone's location.
   Future<WeatherConditions> current() async {
-    final position = await requirePosition();
+    Governorate? home;
+    try {
+      final prefs = await SharedPreferences.getInstance();
+      home = Governorate.byId(prefs.getString(homeCityKey));
+    } catch (_) {}
+    final double latitude;
+    final double longitude;
+    if (home != null) {
+      latitude = home.latitude;
+      longitude = home.longitude;
+    } else {
+      final position = await requirePosition();
+      latitude = position.latitude;
+      longitude = position.longitude;
+    }
     final days = await forecastAt(
-      latitude: position.latitude,
-      longitude: position.longitude,
+      latitude: latitude,
+      longitude: longitude,
       days: 1,
     );
     return WeatherConditions(
@@ -94,7 +116,8 @@ class WeatherService {
     final params = <String, String>{
       'latitude': latitude.toString(),
       'longitude': longitude.toString(),
-      'daily': 'weather_code,temperature_2m_max,wind_speed_10m_max',
+      'daily':
+          'weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max',
       'timezone': 'auto',
     };
     if (start != null && end != null) {
@@ -113,6 +136,7 @@ class WeatherService {
     final daily = json['daily'] as Map<String, dynamic>;
     final dates = (daily['time'] as List<dynamic>).cast<String>();
     final temps = (daily['temperature_2m_max'] as List<dynamic>);
+    final lows = daily['temperature_2m_min'] as List<dynamic>?;
     final codes = (daily['weather_code'] as List<dynamic>);
     final winds = (daily['wind_speed_10m_max'] as List<dynamic>);
     return [
@@ -125,6 +149,8 @@ class WeatherService {
             windSpeed: (winds[i] as num).toDouble(),
           ),
           season: seasonForMonth(DateTime.parse(dates[i]).month),
+          high: (temps[i] as num).toDouble(),
+          low: (lows?[i] as num?)?.toDouble(),
         ),
     ];
   }
@@ -160,10 +186,16 @@ class DayForecast {
   final String weather;
   final String season;
 
+  /// Day's highest and lowest temperature, in °C.
+  final double? high;
+  final double? low;
+
   const DayForecast({
     required this.date,
     required this.weather,
     required this.season,
+    this.high,
+    this.low,
   });
 }
 

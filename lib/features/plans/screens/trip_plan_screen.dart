@@ -60,7 +60,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                     ),
                     Align(
                       alignment: Alignment.centerLeft,
-                      child: TextButton(onPressed: _search, child: Text(l10n.search)),
+                      child: TextButton(
+                        onPressed: _search,
+                        child: Text(l10n.search),
+                      ),
                     ),
                     for (final match in _matches)
                       ListTile(
@@ -96,7 +99,10 @@ class _TripPlanScreenState extends State<TripPlanScreen> {
                       },
                     ),
                     if (state.error != null)
-                      Text(state.error!, style: const TextStyle(color: AppColors.error)),
+                      Text(
+                        state.error!,
+                        style: const TextStyle(color: AppColors.error),
+                      ),
                     if (state.loading)
                       const Padding(
                         padding: EdgeInsets.all(24),

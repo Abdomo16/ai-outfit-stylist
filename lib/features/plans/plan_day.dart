@@ -9,6 +9,15 @@ class PlanDay {
   final String? city;
   final OutfitModel outfit;
 
+  /// Other things planned that day after [occasion], e.g. gym after
+  /// university. The outfit is chosen for [occasion] only.
+  final List<String> later;
+
+  /// Forecast high and low in °C, rounded. Null on plans saved before
+  /// they were recorded.
+  final int? high;
+  final int? low;
+
   const PlanDay({
     required this.date,
     required this.occasion,
@@ -16,16 +25,26 @@ class PlanDay {
     required this.season,
     this.city,
     required this.outfit,
+    this.later = const [],
+    this.high,
+    this.low,
   });
 
-  PlanDay copyWith({OutfitModel? outfit}) {
+  PlanDay copyWith({
+    OutfitModel? outfit,
+    String? occasion,
+    List<String>? later,
+  }) {
     return PlanDay(
       date: date,
-      occasion: occasion,
+      occasion: occasion ?? this.occasion,
       weather: weather,
       season: season,
       city: city,
       outfit: outfit ?? this.outfit,
+      later: later ?? this.later,
+      high: high,
+      low: low,
     );
   }
 
@@ -36,6 +55,9 @@ class PlanDay {
     'season': season,
     'city': city,
     'outfit': outfit.toJson(),
+    if (later.isNotEmpty) 'later': later,
+    'high': ?high,
+    'low': ?low,
   };
 
   factory PlanDay.fromJson(Map<String, dynamic> json) {
@@ -46,6 +68,12 @@ class PlanDay {
       weather: json['weather'] as String? ?? 'mild',
       season: json['season'] as String? ?? 'autumn',
       city: json['city'] as String?,
+      high: (json['high'] as num?)?.round(),
+      low: (json['low'] as num?)?.round(),
+      later: [
+        for (final occasion in json['later'] as List? ?? const [])
+          if (occasion is String) occasion,
+      ],
       outfit: OutfitModel.fromJson(
         outfitJson is Map<String, dynamic>
             ? outfitJson
