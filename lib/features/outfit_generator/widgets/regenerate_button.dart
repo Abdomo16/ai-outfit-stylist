@@ -14,30 +14,34 @@ class RegenerateButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final onPrimary = Theme.of(context).colorScheme.onPrimary;
     return SizedBox(
       width: double.infinity,
-      child: OutlinedButton.icon(
+      height: 56,
+      child: ElevatedButton.icon(
         onPressed: isLoading ? null : onPressed,
-        style: OutlinedButton.styleFrom(
-          foregroundColor: AppColors.primary,
-          side: const BorderSide(color: AppColors.primary, width: 2),
-          padding: const EdgeInsets.symmetric(vertical: 16),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColors.primary,
+          foregroundColor: onPrimary,
+          elevation: 0,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16),
           ),
         ),
         icon: isLoading
-            ? const SizedBox(
-                width: 24,
-                height: 24,
+            ? SizedBox(
+                width: 20,
+                height: 20,
                 child: CircularProgressIndicator(
                   strokeWidth: 2,
-                  valueColor: AlwaysStoppedAnimation<Color>(AppColors.primary),
+                  valueColor: AlwaysStoppedAnimation<Color>(onPrimary),
                 ),
               )
             : const Icon(Icons.refresh),
         label: Text(
-          isLoading ? AppLocalizations.of(context).generating : AppLocalizations.of(context).regenerateOutfit,
+          isLoading
+              ? AppLocalizations.of(context).generating
+              : AppLocalizations.of(context).regenerateOutfit,
           style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
         ),
       ),

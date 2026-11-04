@@ -36,10 +36,10 @@ class AppLocalizationsEn extends AppLocalizations {
       'Discover your perfect look with AI\ntailored to your unique style.';
 
   @override
-  String get todayOutfit => 'Today\'s outfit';
+  String get styleMeNow => 'Style Me Now';
 
   @override
-  String get chooseOccasionStyle => 'Choose occasion and style';
+  String get todayOutfit => 'Today\'s outfit';
 
   @override
   String get thisWeek => 'This week';
@@ -93,24 +93,10 @@ class AppLocalizationsEn extends AppLocalizations {
   String get getStarted => 'Get Started';
 
   @override
-  String get outfitDetails => 'Outfit Details';
-
-  @override
-  String stepOf(int step, int total) {
-    return 'Step $step of $total';
-  }
-
-  @override
   String get whatsTheOccasion => 'What\'s the occasion?';
 
   @override
   String get selectWhere => 'Select where you\'re headed today';
-
-  @override
-  String get pickStyle => 'Pick your style preference';
-
-  @override
-  String get chooseAesthetic => 'Choose an aesthetic for your outfit AI';
 
   @override
   String get occasionUniversity => 'University';
@@ -134,16 +120,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get occasionEveryday => 'Everyday';
 
   @override
-  String get styleStreetwear => 'Streetwear';
-
-  @override
-  String get styleElegant => 'Elegant';
-
-  @override
-  String get styleMinimal => 'Minimal';
-
-  @override
-  String get styleVintage => 'Vintage';
+  String get occasionFormal => 'Formal';
 
   @override
   String get generate => 'Generate';
@@ -170,6 +147,9 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pieces => 'Pieces';
+
+  @override
+  String get onMannequin => 'On mannequin';
 
   @override
   String itemCount(int count) {
@@ -729,4 +709,273 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get userNotLoggedIn => 'User not logged in';
+
+  @override
+  String get askAiTitle => 'Ask your AI stylist';
+
+  @override
+  String get askAiSubtitle =>
+      'Say where you\'re going. It picks from your wardrobe.';
+
+  @override
+  String get askAiHint => 'Where are you going today?';
+
+  @override
+  String get askExampleGym => 'Gym after work';
+
+  @override
+  String get askExampleDate => 'Dinner date tonight';
+
+  @override
+  String get askExampleInterview => 'Job interview tomorrow';
+
+  @override
+  String get quickPicks => 'Quick picks';
+
+  @override
+  String get todayOutfitHint => 'From live weather';
+
+  @override
+  String get thisWeekHint => '7-day plan';
+
+  @override
+  String get planTripHint => 'Pack by city';
+
+  @override
+  String get chatTitle => 'AI Stylist';
+
+  @override
+  String get chatIntro =>
+      'Tell me the plan and I\'ll put together a look from your wardrobe.';
+
+  @override
+  String get chatHint => 'Message your stylist';
+
+  @override
+  String get chatHereIsLook => 'Here\'s a look for you.';
+
+  @override
+  String get chatNoMatch =>
+      'I couldn\'t build that from your wardrobe. Try another idea or add more clothes.';
+
+  @override
+  String get chatError =>
+      'I couldn\'t reach the stylist. Check your connection and try again.';
+
+  @override
+  String get chatViewLook => 'View look';
+
+  @override
+  String get chatThinking => 'Styling...';
+
+  @override
+  String get tweakTitle => 'Ask AI to tweak';
+
+  @override
+  String get tweakWarmer => 'Warmer';
+
+  @override
+  String get tweakCasual => 'More casual';
+
+  @override
+  String get tweakShoes => 'Swap shoes';
+
+  @override
+  String get tweakColor => 'Different color';
+
+  @override
+  String get tweakAsk => 'Ask...';
+
+  @override
+  String get whyItWorks => 'Why it works';
+
+  @override
+  String get save => 'Save';
+
+  @override
+  String get stepWeather => 'Checking the weather';
+
+  @override
+  String get stepPieces => 'Picking your pieces';
+
+  @override
+  String get stepColors => 'Matching colors';
+
+  @override
+  String get weatherHot => 'Hot';
+
+  @override
+  String get weatherMild => 'Mild';
+
+  @override
+  String get weatherCold => 'Cold';
+
+  @override
+  String get weatherRain => 'Rainy';
+
+  @override
+  String get seasonSummer => 'Summer';
+
+  @override
+  String get seasonWinter => 'Winter';
+
+  @override
+  String get seasonSpring => 'Spring';
+
+  @override
+  String get seasonAutumn => 'Autumn';
+
+  @override
+  String get loadingWeekPlan => 'Loading your week plan…';
+
+  @override
+  String get voiceStart => 'Dictate prompt';
+
+  @override
+  String get voiceStop => 'Stop dictation';
+
+  @override
+  String get voiceUnavailable =>
+      'Speech recognition isn\'t available on this device.';
+
+  @override
+  String get voicePermissionDenied =>
+      'Allow microphone and speech recognition access to dictate.';
+
+  @override
+  String get voiceListening => 'Listening…';
+
+  @override
+  String get send => 'Send';
+
+  @override
+  String get myWeek => 'My week';
+
+  @override
+  String get routineTitle => 'Your usual week';
+
+  @override
+  String get routineHint =>
+      'Pick what you usually do each day, up to two. The first one sets the outfit; the second shows as later that day.';
+
+  @override
+  String get routineFreeDay => 'Free day';
+
+  @override
+  String get saveRoutine => 'Save and plan my week';
+
+  @override
+  String get setUpWeek => 'Set up your week';
+
+  @override
+  String get routinePrompt =>
+      'Tell us your usual days (university, work, gym) and every outfit will fit what you\'re doing.';
+
+  @override
+  String laterToday(String occasion) {
+    return 'Later: $occasion';
+  }
+
+  @override
+  String get dayOccasionTitle => 'What\'s this day for?';
+
+  @override
+  String get myLocation => 'My location';
+
+  @override
+  String get homeCityTitle => 'Where do you live?';
+
+  @override
+  String get searchGovernorate => 'Search governorates';
+
+  @override
+  String get useMyLocation => 'Use my phone\'s location';
+
+  @override
+  String get pickCityTitle => 'Pick your governorate';
+
+  @override
+  String get pickCityPrompt =>
+      'We couldn\'t read your location. Pick your governorate and we\'ll plan with its weather.';
+
+  @override
+  String get pickGovernorate => 'Pick governorate';
+
+  @override
+  String get tipRain =>
+      'Rain expected. Take a light waterproof jacket and skip suede shoes.';
+
+  @override
+  String get tipVeryHot =>
+      'Very hot day. Go for light, breathable fabrics and light colors.';
+
+  @override
+  String get tipCold => 'Cold day. Layer up and add a jacket.';
+
+  @override
+  String get tipCoolEvening =>
+      'Cooler in the evening. Bring a light layer if you\'ll be out late.';
+
+  @override
+  String get tipRamadan =>
+      'Ramadan: going out after iftar? A light layer helps for the late night.';
+
+  @override
+  String get tipEid => 'Eid! A good day for your newest, smartest pieces.';
+
+  @override
+  String get ramadan => 'Ramadan';
+
+  @override
+  String get eidFitr => 'Eid al-Fitr';
+
+  @override
+  String get eidAdha => 'Eid al-Adha';
+
+  @override
+  String get occasionFamily => 'Family';
+
+  @override
+  String get describeWeekTitle => 'Tell us your week';
+
+  @override
+  String get describeWeekSubtitle =>
+      'Type or say it, and we\'ll fill the days for you.';
+
+  @override
+  String get describeWeekHint =>
+      'e.g. university Sunday to Wednesday, gym on Tuesday';
+
+  @override
+  String get describeWeekExample1 => 'Work Sunday to Thursday, gym Monday';
+
+  @override
+  String get describeWeekExample2 =>
+      'University Saturday and Monday, family on Friday';
+
+  @override
+  String get routineNotUnderstood =>
+      'We couldn\'t find days in that. Try naming the days and what you do.';
+
+  @override
+  String get routineFilled => 'Done! Check the days below, then save.';
+
+  @override
+  String get routineReadFailed =>
+      'Couldn\'t read your week right now. Try again or pick the days below.';
+
+  @override
+  String get reminderTitle => 'Evening outfit reminder';
+
+  @override
+  String get reminderSubtitle => 'At 9 pm, see what you\'ll wear tomorrow.';
+
+  @override
+  String get reminderDenied =>
+      'Allow notifications to get the evening reminder.';
+
+  @override
+  String reminderNotificationTitle(String occasion) {
+    return 'Tomorrow: $occasion';
+  }
 }

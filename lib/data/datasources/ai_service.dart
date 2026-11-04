@@ -109,7 +109,9 @@ class AIService {
       return await _client
           .post(
             Uri.parse(url),
-            headers: {'Content-Type': 'multipart/form-data; boundary=$boundary'},
+            headers: {
+              'Content-Type': 'multipart/form-data; boundary=$boundary',
+            },
             body: bodyBytes,
           )
           .timeout(const Duration(seconds: 60));
@@ -237,21 +239,7 @@ class AIService {
     final uri = Uri.parse('${Env.aiBackendUrl}/recommend/');
 
     final payload = <String, dynamic>{
-      "wardrobe": wardrobe.map((item) {
-        return {
-          "id": _encodeId(item.id),
-          "type": item.type,
-          "category": item.category,
-          "confidence": item.confidence ?? 1.0,
-          "color": item.color,
-          "hex": item.hex ?? '',
-          "pattern": item.pattern ?? 'solid',
-          "style": item.style,
-          "season": item.season ?? 'all',
-          "embedding": item.embedding ?? [],
-          "image_path": item.imageUrl ?? '',
-        };
-      }).toList(),
+      "wardrobe": _wardrobePayload(wardrobe),
       "occasion": occasion,
       "weather": weather,
       "season": season,
@@ -279,30 +267,7 @@ class AIService {
 
     if (response.statusCode == 200) {
       final jsonResponse = jsonDecode(response.body) as Map<String, dynamic>;
-
-      if (jsonResponse['outfit'] is List) {
-        final outfitList = jsonResponse['outfit'] as List<dynamic>;
-        for (final rawItem in outfitList) {
-          if (rawItem is Map<String, dynamic>) {
-            final itemId = rawItem['id']?.toString();
-            if (itemId == null) continue;
-            ClothingItemModel? wardrobeItem;
-            for (final item in wardrobe) {
-              if (item.id == itemId) {
-                wardrobeItem = item;
-                break;
-              }
-            }
-            if (wardrobeItem != null &&
-                wardrobeItem.imageUrl != null &&
-                wardrobeItem.imageUrl!.startsWith('http')) {
-              rawItem['imageUrl'] = wardrobeItem.imageUrl;
-              rawItem['image_path'] = wardrobeItem.imageUrl;
-            }
-          }
-        }
-      }
-
+      _fillFromWardrobe(jsonResponse, wardrobe);
       return OutfitModel.fromJson(jsonResponse, stylePreference: style);
     } else {
       throw Exception(
@@ -310,6 +275,160 @@ class AIService {
       );
     }
   }
+
+  /// Sends one chat message to the AI stylist. [currentOutfit] is the look
+  /// being tweaked, if any.
+  Future<ChatResult> chat({
+    required String message,
+    required List<ChatTurn> history,
+    required List<ClothingItemModel> wardrobe,
+    OutfitModel? currentOutfit,
+    String? weather,
+    String? season,
+    List<String> excludeIds = const [],
+    String? locale,
+  }) async {
+    final payload = <String, dynamic>{
+      "message": message,
+      "history": history.map((turn) => turn.toJson()).toList(),
+      "wardrobe": _wardrobePayload(wardrobe),
+      "occasion": currentOutfit?.occasion,
+      "weather": weather,
+      "season": season,
+      "current_outfit_ids": [
+        for (final item in currentOutfit?.items ?? const <ClothingItemModel>[])
+          if (item.id != null) _encodeId(item.id),
+      ],
+      "exclude_ids": excludeIds.map(_encodeId).toList(),
+      "locale": locale,
+    };
+
+    final response = await _client
+        .post(
+          Uri.parse('${Env.aiBackendUrl}/chat/'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode(payload),
+        )
+        .timeout(const Duration(seconds: 45));
+
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Chat failed. Status: ${response.statusCode}, Body: ${response.body}',
+      );
+    }
+    final body =
+        jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+    final rawOutfit = body['outfit'];
+    OutfitModel? outfit;
+    if (rawOutfit is Map<String, dynamic>) {
+      _fillFromWardrobe(rawOutfit, wardrobe);
+      outfit = OutfitModel.fromJson(rawOutfit);
+    }
+    return ChatResult(
+      reply: (body['reply'] as String?)?.trim() ?? '',
+      outfit: outfit,
+      usedFallback: body['used_fallback'] == true,
+      noMatch: body['no_match'] == true,
+    );
+  }
+
+  /// Reads the user's usual week from a sentence, e.g. "university Sunday
+  /// to Wednesday and gym on Tuesday". Returns the days it understood,
+  /// keyed as the app stores a routine, and a short confirmation.
+  Future<({Map<String, dynamic> days, String reply})> parseRoutine({
+    required String message,
+    String? locale,
+  }) async {
+    final response = await _client
+        .post(
+          Uri.parse('${Env.aiBackendUrl}/chat/routine'),
+          headers: {'Content-Type': 'application/json'},
+          body: jsonEncode({"message": message, "locale": locale}),
+        )
+        .timeout(const Duration(seconds: 45));
+    if (response.statusCode != 200) {
+      throw Exception(
+        'Routine failed. Status: ${response.statusCode}, Body: ${response.body}',
+      );
+    }
+    final body =
+        jsonDecode(utf8.decode(response.bodyBytes)) as Map<String, dynamic>;
+    final days = body['days'];
+    return (
+      days: days is Map<String, dynamic> ? days : <String, dynamic>{},
+      reply: (body['reply'] as String?)?.trim() ?? '',
+    );
+  }
+
+  List<Map<String, dynamic>> _wardrobePayload(
+    List<ClothingItemModel> wardrobe,
+  ) {
+    return wardrobe.map((item) {
+      return {
+        "id": _encodeId(item.id),
+        "type": item.type,
+        "category": item.category,
+        "confidence": item.confidence ?? 1.0,
+        "color": item.color,
+        "hex": item.hex ?? '',
+        "pattern": item.pattern ?? 'solid',
+        "style": item.style,
+        "season": item.season ?? 'all',
+        "embedding": item.embedding ?? [],
+        "image_path": item.imageUrl ?? '',
+      };
+    }).toList();
+  }
+
+  /// Recommend responses carry only labels, so copy each piece's photo and
+  /// measured colors from the wardrobe.
+  void _fillFromWardrobe(
+    Map<String, dynamic> json,
+    List<ClothingItemModel> wardrobe,
+  ) {
+    final outfitList = json['outfit'];
+    if (outfitList is! List) return;
+    final byId = {for (final item in wardrobe) item.id: item};
+    for (final rawItem in outfitList) {
+      if (rawItem is! Map<String, dynamic>) continue;
+      final wardrobeItem = byId[rawItem['id']?.toString()];
+      if (wardrobeItem == null) continue;
+      final imageUrl = wardrobeItem.imageUrl;
+      if (imageUrl != null && imageUrl.startsWith('http')) {
+        rawItem['imageUrl'] = imageUrl;
+        rawItem['image_path'] = imageUrl;
+      }
+      rawItem['cutout_path'] ??= wardrobeItem.cutoutUrl;
+      rawItem['hex'] ??= wardrobeItem.hex;
+      rawItem['secondary_color'] ??= wardrobeItem.secondaryColor;
+      rawItem['secondary_hex'] ??= wardrobeItem.secondaryHex;
+    }
+  }
+}
+
+class ChatTurn {
+  final String role;
+  final String content;
+
+  const ChatTurn({required this.role, required this.content});
+
+  Map<String, dynamic> toJson() => {'role': role, 'content': content};
+}
+
+class ChatResult {
+  final String reply;
+  final OutfitModel? outfit;
+  final bool usedFallback;
+
+  /// An outfit was wanted but nothing in the wardrobe fits.
+  final bool noMatch;
+
+  const ChatResult({
+    required this.reply,
+    this.outfit,
+    this.usedFallback = false,
+    this.noMatch = false,
+  });
 }
 
 Object? _encodeId(String? id) {

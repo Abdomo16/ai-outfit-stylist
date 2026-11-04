@@ -1,99 +1,133 @@
 import 'package:flutter/material.dart';
-import '../../../../core/constants/app_colors.dart';
+import '../../../../core/theme/app_theme.dart';
 import '../../../../l10n/app_localizations.dart';
 
 class OccasionSelector extends StatelessWidget {
   final String? selectedOccasion;
-  final Function(String) onSelect;
+  final ValueChanged<String> onSelect;
+
+  /// Compact chips for embedding inside the stylist card (no page headline).
+  final bool embedded;
 
   const OccasionSelector({
     super.key,
     required this.selectedOccasion,
     required this.onSelect,
+    this.embedded = false,
   });
 
-  final List<Map<String, dynamic>> occasions = const [
-    {'name': 'University', 'icon': Icons.school},
-    {'name': 'Work', 'icon': Icons.work},
-    {'name': 'Date Night', 'icon': Icons.favorite},
-    {'name': 'Gym', 'icon': Icons.fitness_center},
-    {'name': 'Party', 'icon': Icons.celebration},
-    {'name': 'Travel', 'icon': Icons.flight},
+  static const _occasions = [
+    ('University', Icons.school_outlined),
+    ('Work', Icons.work_outline_rounded),
+    ('Date Night', Icons.favorite_border_rounded),
+    ('Gym', Icons.fitness_center_rounded),
+    ('Party', Icons.celebration_outlined),
+    ('Travel', Icons.flight_outlined),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
+    final theme = Theme.of(context);
+    final colors = theme.colorScheme;
     final l10n = AppLocalizations.of(context);
+
+    final chips = Wrap(
+      spacing: embedded ? 8 : 10,
+      runSpacing: embedded ? 8 : 10,
+      children: [
+        for (final (name, icon) in _occasions)
+          _OccasionChip(
+            label: _occasionLabel(l10n, name),
+            icon: icon,
+            selected: selectedOccasion == name,
+            onTap: () => onSelect(name),
+            compact: embedded,
+          ),
+      ],
+    );
+
+    if (embedded) {
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.selectWhere,
+            style: theme.textTheme.labelLarge?.copyWith(
+              color: colors.onSurfaceVariant,
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          const SizedBox(height: 10),
+          chips,
+        ],
+      );
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          l10n.whatsTheOccasion,
-          style: Theme.of(
-            context,
-          ).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.bold),
-        ),
+        Text(l10n.whatsTheOccasion, style: theme.textTheme.titleLarge),
         const SizedBox(height: 4),
         Text(
           l10n.selectWhere,
-          style: Theme.of(
-            context,
-          ).textTheme.bodyMedium?.copyWith(color: colors.onSurfaceVariant),
+          style: theme.textTheme.bodyMedium?.copyWith(
+            color: colors.onSurfaceVariant,
+          ),
         ),
-        const SizedBox(height: 16),
-        Wrap(
-          spacing: 12,
-          runSpacing: 12,
-          children: occasions.map((occasion) {
-            final isSelected = selectedOccasion == occasion['name'];
-            return GestureDetector(
-              onTap: () => onSelect(occasion['name'] as String),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 17,
-                  vertical: 12,
-                ),
-                decoration: BoxDecoration(
-                  color: isSelected ? AppColors.primary : colors.surface,
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: isSelected ? AppColors.primary : Colors.transparent,
-                    width: 1,
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Icon(
-                      occasion['icon'] as IconData,
-                      size: 18,
-                      color: isSelected
-                          ? colors.onPrimary
-                          : colors.onSurfaceVariant,
-                    ),
-                    const SizedBox(width: 8),
-                    Text(
-                      _occasionLabel(l10n, occasion['name'] as String),
-                      style: TextStyle(
-                        color: isSelected
-                            ? colors.onPrimary
-                            : colors.onSurfaceVariant,
-                        fontWeight: isSelected
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            );
-          }).toList(),
-        ),
+        const SizedBox(height: 14),
+        chips,
       ],
+    );
+  }
+}
+
+class _OccasionChip extends StatelessWidget {
+  const _OccasionChip({
+    required this.label,
+    required this.icon,
+    required this.selected,
+    required this.onTap,
+    this.compact = false,
+  });
+
+  final String label;
+  final IconData icon;
+  final bool selected;
+  final VoidCallback onTap;
+  final bool compact;
+
+  @override
+  Widget build(BuildContext context) {
+    final colors = Theme.of(context).colorScheme;
+
+    return ChoiceChip(
+      selected: selected,
+      showCheckmark: false,
+      onSelected: (_) => onTap(),
+      avatar: Icon(
+        icon,
+        size: compact ? 16 : 18,
+        color: selected ? colors.onPrimary : colors.onSurfaceVariant,
+      ),
+      label: Text(label),
+      labelStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+        color: selected ? colors.onPrimary : colors.onSurface,
+        fontWeight: selected ? FontWeight.w700 : FontWeight.w500,
+        fontSize: compact ? 13 : null,
+      ),
+      padding: EdgeInsets.symmetric(
+        horizontal: compact ? 8 : 10,
+        vertical: compact ? 6 : 9,
+      ),
+      side: BorderSide(
+        color: selected ? colors.primary : colors.outline,
+        width: selected ? 1.5 : 1,
+      ),
+      selectedColor: colors.primary,
+      backgroundColor: colors.surface,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(AppRadius.large),
+      ),
     );
   }
 }

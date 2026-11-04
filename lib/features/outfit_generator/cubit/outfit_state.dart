@@ -10,12 +10,11 @@ abstract class OutfitState extends Equatable {
 
 class OutfitInitial extends OutfitState {
   final String? selectedOccasion;
-  final String? selectedStyle;
 
-  const OutfitInitial({this.selectedOccasion, this.selectedStyle});
+  const OutfitInitial({this.selectedOccasion});
 
   @override
-  List<Object?> get props => [selectedOccasion, selectedStyle];
+  List<Object?> get props => [selectedOccasion];
 }
 
 class OutfitLoading extends OutfitState {

@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/theme/app_theme.dart';
 import '../../outfit_generator/screens/outfit_generator_screen.dart';
-import '../../plans/screens/trip_plan_screen.dart';
-import '../../plans/screens/week_plan_screen.dart';
 import '../../../l10n/app_localizations.dart';
 
 class GenerateOutfitCard extends StatelessWidget {
@@ -137,8 +135,7 @@ class GenerateOutfitCard extends StatelessWidget {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) =>
-                          const OutfitGeneratorScreen(startWithToday: true),
+                      builder: (context) => const OutfitGeneratorScreen(),
                     ),
                   );
                 },
@@ -158,7 +155,7 @@ class GenerateOutfitCard extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      l10n.todayOutfit,
+                      l10n.styleMeNow,
                       style: theme.textTheme.labelLarge?.copyWith(
                         color: colors.onPrimary,
                         letterSpacing: 0.5,
@@ -167,46 +164,6 @@ class GenerateOutfitCard extends StatelessWidget {
                     const SizedBox(width: AppSpacing.md),
                     const Icon(Icons.auto_awesome, size: 20),
                   ],
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const OutfitGeneratorScreen(),
-                    ),
-                  );
-                },
-                child: Text(
-                  l10n.chooseOccasionStyle,
-                  style: theme.textTheme.labelLarge?.copyWith(
-                    color: AppColors.white,
-                  ),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const WeekPlanScreen()),
-                  );
-                },
-                child: Text(
-                  l10n.thisWeek,
-                  style: theme.textTheme.labelLarge?.copyWith(color: AppColors.white),
-                ),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const TripPlanScreen()),
-                  );
-                },
-                child: Text(
-                  l10n.planTrip,
-                  style: theme.textTheme.labelLarge?.copyWith(color: AppColors.white),
                 ),
               ),
             ],
