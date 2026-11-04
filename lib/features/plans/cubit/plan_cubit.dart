@@ -169,6 +169,7 @@ class PlanCubit extends Cubit<PlanView> {
           occasion: main,
           weather: day.weather,
           season: day.season,
+          low: day.low?.round(),
           exclude: used,
         );
         days.add(
@@ -355,6 +356,7 @@ class PlanCubit extends Cubit<PlanView> {
         occasion: day.occasion,
         weather: day.weather,
         season: day.season,
+        low: day.low,
         exclude: used,
         lockIds: lockIds,
         swapId: swapId,
@@ -415,6 +417,7 @@ class PlanCubit extends Cubit<PlanView> {
     required String weather,
     required String season,
     required Set<String> exclude,
+    int? low,
     List<String> lockIds = const [],
     String? swapId,
   }) {
@@ -427,6 +430,7 @@ class PlanCubit extends Cubit<PlanView> {
       lockIds: lockIds,
       swapId: swapId,
       excludeIds: blocked.toList(),
+      layer: needsLayer(low),
     );
   }
 

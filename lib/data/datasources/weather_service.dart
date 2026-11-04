@@ -63,6 +63,11 @@ DateTime _yearsBefore(DateTime date, int years) {
   return DateTime(date.year - years, date.month, day);
 }
 
+/// A night at or below this (°C) calls for a jacket over the outfit.
+const int coolNight = 16;
+
+bool needsLayer(int? low) => low != null && low <= coolNight;
+
 /// One day of Open-Meteo's daily weather.
 class DailyRow {
   final DateTime date;

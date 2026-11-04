@@ -68,6 +68,7 @@ class FakeAI implements AIService {
     List<String> lockIds = const [],
     String? swapId,
     List<String> excludeIds = const [],
+    bool layer = false,
   }) async {
     recommendCalls.add({'occasion': occasion, 'style': style});
     return _outfit('o1', wardrobe);

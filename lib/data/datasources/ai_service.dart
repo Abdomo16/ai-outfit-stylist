@@ -235,6 +235,7 @@ class AIService {
     List<String> lockIds = const [],
     String? swapId,
     List<String> excludeIds = const [],
+    bool layer = false,
   }) async {
     final uri = Uri.parse('${Env.aiBackendUrl}/recommend/');
 
@@ -255,6 +256,10 @@ class AIService {
     }
     if (excludeIds.isNotEmpty) {
       payload["exclude_ids"] = excludeIds.map(_encodeId).toList();
+    }
+    if (layer) {
+      // A cool night: the backend picks a look with a jacket if it can.
+      payload["layer"] = true;
     }
 
     final response = await _client
