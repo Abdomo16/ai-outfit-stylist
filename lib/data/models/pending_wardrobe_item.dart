@@ -28,7 +28,10 @@ class PendingWardrobeItem {
     this.previewBytes,
   });
 
-  factory PendingWardrobeItem.fromJson(String jobId, Map<String, dynamic> json) {
+  factory PendingWardrobeItem.fromJson(
+    String jobId,
+    Map<String, dynamic> json,
+  ) {
     final preview = json['preview_base64'] as String?;
     return PendingWardrobeItem(
       jobId: jobId,
@@ -37,7 +40,9 @@ class PendingWardrobeItem {
       type: (json['type'] ?? 'Unknown') as String,
       category: json['category'] as String?,
       color: (json['color'] ?? 'Unknown') as String,
-      previewBytes: preview == null || preview.isEmpty ? null : base64Decode(preview),
+      previewBytes: preview == null || preview.isEmpty
+          ? null
+          : base64Decode(preview),
     );
   }
 }

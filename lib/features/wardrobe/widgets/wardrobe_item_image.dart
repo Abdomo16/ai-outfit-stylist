@@ -13,19 +13,25 @@ class WardrobeItemImage extends StatefulWidget {
   final double? iconSize;
   final int? memCacheWidth;
 
+  /// Fill behind the photo. Pass [Colors.transparent] for a cutout so the
+  /// parent's surface shows through.
+  final Color backdrop;
+
   const WardrobeItemImage({
     super.key,
     required this.imageUrl,
     this.iconSize = 40,
     this.memCacheWidth,
+    this.backdrop = defaultBackdrop,
   });
+
+  static const Color defaultBackdrop = Color(0xFFF5F5F5);
 
   @override
   State<WardrobeItemImage> createState() => _WardrobeItemImageState();
 }
 
 class _WardrobeItemImageState extends State<WardrobeItemImage> {
-  static const Color _backdrop = Color(0xFFF5F5F5);
   static const _timeout = Duration(seconds: 30);
 
   /// Session memory cache so scroll / soft refresh does not re-download.
@@ -128,7 +134,7 @@ class _WardrobeItemImageState extends State<WardrobeItemImage> {
 
   Widget _fallback(ColorScheme colors) {
     return ColoredBox(
-      color: _backdrop,
+      color: widget.backdrop,
       child: Center(
         child: Icon(
           Icons.checkroom,
@@ -140,8 +146,8 @@ class _WardrobeItemImageState extends State<WardrobeItemImage> {
   }
 
   Widget _loadingWidget() {
-    return const ColoredBox(
-      color: _backdrop,
+    return ColoredBox(
+      color: widget.backdrop,
       child: Center(
         child: SizedBox(
           width: 28,
@@ -171,7 +177,7 @@ class _WardrobeItemImageState extends State<WardrobeItemImage> {
 
     if (_bytes != null) {
       return ColoredBox(
-        color: _backdrop,
+        color: widget.backdrop,
         child: SizedBox.expand(
           child: Image.memory(
             _bytes!,
@@ -187,7 +193,7 @@ class _WardrobeItemImageState extends State<WardrobeItemImage> {
     if (url != null && url.isNotEmpty && !url.startsWith('http')) {
       if (File(url).existsSync()) {
         return ColoredBox(
-          color: _backdrop,
+          color: widget.backdrop,
           child: SizedBox.expand(
             child: Image.file(
               File(url),

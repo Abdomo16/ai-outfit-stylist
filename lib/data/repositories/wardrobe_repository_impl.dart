@@ -43,7 +43,9 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
   }
 
   @override
-  Future<List<PendingWardrobeItem>> addClothingItem(ClothingItemModel item) async {
+  Future<List<PendingWardrobeItem>> addClothingItem(
+    ClothingItemModel item,
+  ) async {
     final userId = _supabaseClient.auth.currentUser?.id;
     if (userId == null) {
       throw Exception('User not logged in');
@@ -76,14 +78,10 @@ class WardrobeRepositoryImpl implements WardrobeRepository {
     final jobs = {for (final item in all) item.jobId};
     await Future.wait(
       jobs.map(
-        (jobId) => aiService.keepPendingItems(
-          jobId,
-          [
-            for (final item in keep)
-              if (item.jobId == jobId) item.id,
-          ],
-          token,
-        ),
+        (jobId) => aiService.keepPendingItems(jobId, [
+          for (final item in keep)
+            if (item.jobId == jobId) item.id,
+        ], token),
       ),
     );
   }
