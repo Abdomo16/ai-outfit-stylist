@@ -23,13 +23,7 @@ class Governorate {
 
   /// Whether a search for [query] should show this governorate, in either
   /// language and whatever Arabic spelling was typed.
-  bool matches(String query) {
-    final folded = foldArabic(query.trim().toLowerCase());
-    if (folded.isEmpty) return true;
-    return nameEn.toLowerCase().contains(folded) ||
-        foldArabic(nameAr).contains(folded) ||
-        foldArabic(nameAr).replaceFirst('ال', '').contains(folded);
-  }
+  bool matches(String query) => nameMatches(query, nameEn, nameAr);
 
   static Governorate? byId(String? id) {
     for (final governorate in egyptGovernorates) {
@@ -75,6 +69,24 @@ const List<Governorate> egyptGovernorates = [
   Governorate('new_valley', 'New Valley', 'الوادي الجديد', 25.4390, 30.5586),
   Governorate('matrouh', 'Matrouh', 'مطروح', 31.3543, 27.2373),
 ];
+
+/// Whether a search for [query] should show a place named [nameEn] /
+/// [nameAr] (or one of its [aliases]), in either language and whatever
+/// Arabic spelling was typed.
+bool nameMatches(
+  String query,
+  String nameEn,
+  String nameAr, [
+  List<String> aliases = const [],
+]) {
+  final folded = foldArabic(query.trim().toLowerCase());
+  if (folded.isEmpty) return true;
+  final arabic = foldArabic(nameAr);
+  return nameEn.toLowerCase().contains(folded) ||
+      arabic.contains(folded) ||
+      arabic.replaceFirst('ال', '').contains(folded) ||
+      aliases.any((alias) => foldArabic(alias).contains(folded));
+}
 
 /// Folds the Arabic spellings people type for the same word: أ إ آ to ا,
 /// ة to ه and ى to ي.
