@@ -201,10 +201,8 @@ class PlanCubit extends Cubit<PlanView> {
     }
   }
 
-  Future<void> generateTrip(
-    List<TripStop> stops, {
-    String occasion = 'everyday',
-  }) async {
+  /// Plans every day of [stops], each dressed for its stop's occasion.
+  Future<void> generateTrip(List<TripStop> stops) async {
     if (stops.isEmpty) {
       emit(state.copyWith(error: 'Add at least one city.'));
       return;
@@ -215,30 +213,34 @@ class PlanCubit extends Cubit<PlanView> {
       final used = await _wornIds();
       final days = <PlanDay>[];
       for (final stop in stops) {
-        final forecast = await _weather.forecastAt(
-          latitude: stop.latitude,
-          longitude: stop.longitude,
-          start: stop.start,
-          end: stop.end,
-        );
+        final forecast = stop.forecast?.isNotEmpty == true
+            ? stop.forecast!
+            : await _weather.tripDays(
+                latitude: stop.latitude,
+                longitude: stop.longitude,
+                start: stop.start,
+                end: stop.end,
+              );
         for (final day in forecast) {
           final outfit = await _recommend(
             wardrobe: wardrobe,
-            occasion: occasion,
+            occasion: stop.occasion,
             weather: day.weather,
             season: day.season,
+            low: day.low?.round(),
             exclude: used,
           );
           days.add(
             PlanDay(
               date: day.date,
-              occasion: occasion,
+              occasion: stop.occasion,
               weather: day.weather,
               season: day.season,
               city: stop.label,
               outfit: outfit,
               high: day.high?.round(),
               low: day.low?.round(),
+              typical: day.typical,
             ),
           );
           used.addAll(_ids(outfit));
