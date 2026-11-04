@@ -18,6 +18,9 @@ IconData occasionIcon(String occasion) {
     'formal' => Icons.business_center_outlined,
     'family' => Icons.groups_outlined,
     'travel' => Icons.flight_outlined,
+    'beach' => Icons.beach_access_outlined,
+    'sightseeing' => Icons.account_balance_outlined,
+    'wedding' => Icons.diamond_outlined,
     _ => Icons.weekend_outlined,
   };
 }

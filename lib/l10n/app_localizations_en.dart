@@ -978,4 +978,134 @@ class AppLocalizationsEn extends AppLocalizations {
   String reminderNotificationTitle(String occasion) {
     return 'Tomorrow: $occasion';
   }
+
+  @override
+  String get occasionBeach => 'Beach';
+
+  @override
+  String get occasionSightseeing => 'Sightseeing';
+
+  @override
+  String get occasionWedding => 'Wedding';
+
+  @override
+  String get searchDestination => 'Search a city or place in Egypt';
+
+  @override
+  String get popularDestinations => 'Popular destinations';
+
+  @override
+  String get searchOutsideEgypt => 'Search outside Egypt';
+
+  @override
+  String get noDestinationMatch => 'No place in Egypt by that name.';
+
+  @override
+  String get searchFailed => 'Couldn\'t search right now. Try again.';
+
+  @override
+  String get yourTrip => 'Your trip';
+
+  @override
+  String get tripEmptyTitle => 'Where are you going?';
+
+  @override
+  String get tripEmptyMessage =>
+      'Pick a place and your dates. We\'ll check the weather there and plan an outfit for every day.';
+
+  @override
+  String get checkingWeather => 'Checking the weather…';
+
+  @override
+  String typicalWeather(String month) {
+    return 'Typical for $month';
+  }
+
+  @override
+  String get typicalWeatherHint =>
+      'Too far ahead for a forecast, so this is the usual weather for these dates.';
+
+  @override
+  String get tripDatesOverlap =>
+      'These dates overlap another stop on your trip.';
+
+  @override
+  String tripTooLong(int days) {
+    return 'A trip can be up to $days days.';
+  }
+
+  @override
+  String get changeDates => 'Change dates';
+
+  @override
+  String get removeStop => 'Remove';
+
+  @override
+  String tripDayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count days',
+      one: '1 day',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get loadingTripPlan => 'Planning your trip…';
+
+  @override
+  String get noPlaceFound => 'No place found by that name.';
+
+  @override
+  String tripDatesTitle(String city) {
+    return 'When are you in $city?';
+  }
+
+  @override
+  String get tripDatesHint =>
+      'Pick the day you arrive, then how many days you\'ll stay.';
+
+  @override
+  String get arriving => 'Arriving';
+
+  @override
+  String get today => 'Today';
+
+  @override
+  String get tomorrow => 'Tomorrow';
+
+  @override
+  String get otherDay => 'Other day';
+
+  @override
+  String get howManyDays => 'How many days?';
+
+  @override
+  String get fewerDays => 'Fewer days';
+
+  @override
+  String get moreDays => 'More days';
+
+  @override
+  String get presetWeekend => 'Weekend';
+
+  @override
+  String get presetWeek => 'A week';
+
+  @override
+  String get calendarPickStart => 'Tap the day you arrive';
+
+  @override
+  String get calendarPickEnd => 'Now tap your last day there';
+
+  @override
+  String addTripDays(String days, String city) {
+    return 'Add $days in $city';
+  }
+
+  @override
+  String saveTripDates(String days) {
+    return 'Save · $days';
+  }
 }

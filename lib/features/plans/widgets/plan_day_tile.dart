@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import '../../../core/theme/app_theme.dart';
 import '../../../data/models/clothing_item_model.dart';
 import '../../../features/outfit_generator/utils/context_labels.dart';
 import '../../../l10n/app_localizations.dart';
 import '../../wardrobe/utils/wardrobe_labels.dart';
 import '../cubit/plan_cubit.dart';
+import '../destinations.dart';
 import '../plan_day.dart';
 import '../day_tips.dart';
 import '../reason_text.dart';
@@ -111,6 +113,16 @@ class PlanDayTile extends StatelessWidget {
                   icon: occasionIcon(occasion),
                   label: l10n.laterToday(
                     ContextLabels.occasion(l10n, occasion),
+                  ),
+                  subtle: true,
+                ),
+              if (day.typical)
+                _ContextBadge(
+                  icon: Icons.history_rounded,
+                  label: l10n.typicalWeather(
+                    DateFormat.MMMM(
+                      Localizations.localeOf(context).toLanguageTag(),
+                    ).format(day.date),
                   ),
                   subtle: true,
                 ),
@@ -298,7 +310,10 @@ extension on PlanDayTile {
                 style: Theme.of(sheetContext).textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
-              for (final occasion in ['everyday', ...WeekRoutine.occasions])
+              for (final occasion
+                  in day.city != null
+                      ? tripOccasions
+                      : ['everyday', ...WeekRoutine.occasions])
                 ListTile(
                   contentPadding: EdgeInsets.zero,
                   leading: Icon(occasionIcon(occasion)),

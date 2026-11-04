@@ -14,6 +14,9 @@ class ContextLabels {
       'travel' => l10n.occasionTravel,
       'formal' => l10n.occasionFormal,
       'family' => l10n.occasionFamily,
+      'beach' => l10n.occasionBeach,
+      'sightseeing' => l10n.occasionSightseeing,
+      'wedding' => l10n.occasionWedding,
       _ => value,
     };
   }

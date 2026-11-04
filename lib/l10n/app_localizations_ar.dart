@@ -968,4 +968,134 @@ class AppLocalizationsAr extends AppLocalizations {
   String reminderNotificationTitle(String occasion) {
     return 'بكرة: $occasion';
   }
+
+  @override
+  String get occasionBeach => 'بحر';
+
+  @override
+  String get occasionSightseeing => 'فسح ومزارات';
+
+  @override
+  String get occasionWedding => 'فرح';
+
+  @override
+  String get searchDestination => 'دوّر على مدينة أو مكان في مصر';
+
+  @override
+  String get popularDestinations => 'أماكن مشهورة';
+
+  @override
+  String get searchOutsideEgypt => 'دوّر برّه مصر';
+
+  @override
+  String get noDestinationMatch => 'مفيش مكان في مصر بالاسم ده.';
+
+  @override
+  String get searchFailed => 'مش قادرين ندوّر دلوقتي. جرّب تاني.';
+
+  @override
+  String get yourTrip => 'رحلتك';
+
+  @override
+  String get tripEmptyTitle => 'رايح فين؟';
+
+  @override
+  String get tripEmptyMessage =>
+      'اختار المكان والتواريخ، وإحنا هنشوف الجو هناك ونجهّزلك لبس لكل يوم.';
+
+  @override
+  String get checkingWeather => 'بنشوف الجو…';
+
+  @override
+  String typicalWeather(String month) {
+    return 'الجو المعتاد في $month';
+  }
+
+  @override
+  String get typicalWeatherHint =>
+      'لسه بدري على توقعات الطقس، فده الجو المعتاد في التواريخ دي.';
+
+  @override
+  String get tripDatesOverlap => 'التواريخ دي متداخلة مع مكان تاني في رحلتك.';
+
+  @override
+  String tripTooLong(int days) {
+    return 'الرحلة ممكن تبقى لحد $days يوم.';
+  }
+
+  @override
+  String get changeDates => 'غيّر التواريخ';
+
+  @override
+  String get removeStop => 'شيل';
+
+  @override
+  String tripDayCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count يوم',
+      few: '$count أيام',
+      two: 'يومين',
+      one: 'يوم واحد',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get loadingTripPlan => 'بنجهّز رحلتك…';
+
+  @override
+  String get noPlaceFound => 'مفيش مكان بالاسم ده.';
+
+  @override
+  String tripDatesTitle(String city) {
+    return 'هتبقى في $city إمتى؟';
+  }
+
+  @override
+  String get tripDatesHint => 'اختار يوم الوصول، وبعدين هتقعد كام يوم.';
+
+  @override
+  String get arriving => 'الوصول';
+
+  @override
+  String get today => 'النهارده';
+
+  @override
+  String get tomorrow => 'بكرة';
+
+  @override
+  String get otherDay => 'يوم تاني';
+
+  @override
+  String get howManyDays => 'هتقعد كام يوم؟';
+
+  @override
+  String get fewerDays => 'أيام أقل';
+
+  @override
+  String get moreDays => 'أيام أكتر';
+
+  @override
+  String get presetWeekend => 'ويك إند';
+
+  @override
+  String get presetWeek => 'أسبوع';
+
+  @override
+  String get calendarPickStart => 'دوس على يوم الوصول';
+
+  @override
+  String get calendarPickEnd => 'دلوقتي دوس على آخر يوم هناك';
+
+  @override
+  String addTripDays(String days, String city) {
+    return 'أضف $days في $city';
+  }
+
+  @override
+  String saveTripDates(String days) {
+    return 'احفظ · $days';
+  }
 }

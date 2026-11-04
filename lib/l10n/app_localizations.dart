@@ -1867,6 +1867,222 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Tomorrow: {occasion}'**
   String reminderNotificationTitle(String occasion);
+
+  /// No description provided for @occasionBeach.
+  ///
+  /// In en, this message translates to:
+  /// **'Beach'**
+  String get occasionBeach;
+
+  /// No description provided for @occasionSightseeing.
+  ///
+  /// In en, this message translates to:
+  /// **'Sightseeing'**
+  String get occasionSightseeing;
+
+  /// No description provided for @occasionWedding.
+  ///
+  /// In en, this message translates to:
+  /// **'Wedding'**
+  String get occasionWedding;
+
+  /// No description provided for @searchDestination.
+  ///
+  /// In en, this message translates to:
+  /// **'Search a city or place in Egypt'**
+  String get searchDestination;
+
+  /// No description provided for @popularDestinations.
+  ///
+  /// In en, this message translates to:
+  /// **'Popular destinations'**
+  String get popularDestinations;
+
+  /// No description provided for @searchOutsideEgypt.
+  ///
+  /// In en, this message translates to:
+  /// **'Search outside Egypt'**
+  String get searchOutsideEgypt;
+
+  /// No description provided for @noDestinationMatch.
+  ///
+  /// In en, this message translates to:
+  /// **'No place in Egypt by that name.'**
+  String get noDestinationMatch;
+
+  /// No description provided for @searchFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn\'t search right now. Try again.'**
+  String get searchFailed;
+
+  /// No description provided for @yourTrip.
+  ///
+  /// In en, this message translates to:
+  /// **'Your trip'**
+  String get yourTrip;
+
+  /// No description provided for @tripEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Where are you going?'**
+  String get tripEmptyTitle;
+
+  /// No description provided for @tripEmptyMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick a place and your dates. We\'ll check the weather there and plan an outfit for every day.'**
+  String get tripEmptyMessage;
+
+  /// No description provided for @checkingWeather.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking the weather…'**
+  String get checkingWeather;
+
+  /// No description provided for @typicalWeather.
+  ///
+  /// In en, this message translates to:
+  /// **'Typical for {month}'**
+  String typicalWeather(String month);
+
+  /// No description provided for @typicalWeatherHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Too far ahead for a forecast, so this is the usual weather for these dates.'**
+  String get typicalWeatherHint;
+
+  /// No description provided for @tripDatesOverlap.
+  ///
+  /// In en, this message translates to:
+  /// **'These dates overlap another stop on your trip.'**
+  String get tripDatesOverlap;
+
+  /// No description provided for @tripTooLong.
+  ///
+  /// In en, this message translates to:
+  /// **'A trip can be up to {days} days.'**
+  String tripTooLong(int days);
+
+  /// No description provided for @changeDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Change dates'**
+  String get changeDates;
+
+  /// No description provided for @removeStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get removeStop;
+
+  /// No description provided for @tripDayCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day} other{{count} days}}'**
+  String tripDayCount(int count);
+
+  /// No description provided for @loadingTripPlan.
+  ///
+  /// In en, this message translates to:
+  /// **'Planning your trip…'**
+  String get loadingTripPlan;
+
+  /// No description provided for @noPlaceFound.
+  ///
+  /// In en, this message translates to:
+  /// **'No place found by that name.'**
+  String get noPlaceFound;
+
+  /// No description provided for @tripDatesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'When are you in {city}?'**
+  String tripDatesTitle(String city);
+
+  /// No description provided for @tripDatesHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Pick the day you arrive, then how many days you\'ll stay.'**
+  String get tripDatesHint;
+
+  /// No description provided for @arriving.
+  ///
+  /// In en, this message translates to:
+  /// **'Arriving'**
+  String get arriving;
+
+  /// No description provided for @today.
+  ///
+  /// In en, this message translates to:
+  /// **'Today'**
+  String get today;
+
+  /// No description provided for @tomorrow.
+  ///
+  /// In en, this message translates to:
+  /// **'Tomorrow'**
+  String get tomorrow;
+
+  /// No description provided for @otherDay.
+  ///
+  /// In en, this message translates to:
+  /// **'Other day'**
+  String get otherDay;
+
+  /// No description provided for @howManyDays.
+  ///
+  /// In en, this message translates to:
+  /// **'How many days?'**
+  String get howManyDays;
+
+  /// No description provided for @fewerDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Fewer days'**
+  String get fewerDays;
+
+  /// No description provided for @moreDays.
+  ///
+  /// In en, this message translates to:
+  /// **'More days'**
+  String get moreDays;
+
+  /// No description provided for @presetWeekend.
+  ///
+  /// In en, this message translates to:
+  /// **'Weekend'**
+  String get presetWeekend;
+
+  /// No description provided for @presetWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'A week'**
+  String get presetWeek;
+
+  /// No description provided for @calendarPickStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Tap the day you arrive'**
+  String get calendarPickStart;
+
+  /// No description provided for @calendarPickEnd.
+  ///
+  /// In en, this message translates to:
+  /// **'Now tap your last day there'**
+  String get calendarPickEnd;
+
+  /// No description provided for @addTripDays.
+  ///
+  /// In en, this message translates to:
+  /// **'Add {days} in {city}'**
+  String addTripDays(String days, String city);
+
+  /// No description provided for @saveTripDates.
+  ///
+  /// In en, this message translates to:
+  /// **'Save · {days}'**
+  String saveTripDates(String days);
 }
 
 class _AppLocalizationsDelegate

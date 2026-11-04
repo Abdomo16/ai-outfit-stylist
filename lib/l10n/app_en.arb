@@ -435,5 +435,86 @@
         "type": "String"
       }
     }
+  },
+  "occasionBeach": "Beach",
+  "occasionSightseeing": "Sightseeing",
+  "occasionWedding": "Wedding",
+  "searchDestination": "Search a city or place in Egypt",
+  "popularDestinations": "Popular destinations",
+  "searchOutsideEgypt": "Search outside Egypt",
+  "noDestinationMatch": "No place in Egypt by that name.",
+  "searchFailed": "Couldn't search right now. Try again.",
+  "yourTrip": "Your trip",
+  "tripEmptyTitle": "Where are you going?",
+  "tripEmptyMessage": "Pick a place and your dates. We'll check the weather there and plan an outfit for every day.",
+  "checkingWeather": "Checking the weather…",
+  "typicalWeather": "Typical for {month}",
+  "@typicalWeather": {
+    "placeholders": {
+      "month": {
+        "type": "String"
+      }
+    }
+  },
+  "typicalWeatherHint": "Too far ahead for a forecast, so this is the usual weather for these dates.",
+  "tripDatesOverlap": "These dates overlap another stop on your trip.",
+  "tripTooLong": "A trip can be up to {days} days.",
+  "@tripTooLong": {
+    "placeholders": {
+      "days": {
+        "type": "int"
+      }
+    }
+  },
+  "changeDates": "Change dates",
+  "removeStop": "Remove",
+  "tripDayCount": "{count, plural, =1{1 day} other{{count} days}}",
+  "@tripDayCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "loadingTripPlan": "Planning your trip…",
+  "noPlaceFound": "No place found by that name.",
+  "tripDatesTitle": "When are you in {city}?",
+  "@tripDatesTitle": {
+    "placeholders": {
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "tripDatesHint": "Pick the day you arrive, then how many days you'll stay.",
+  "arriving": "Arriving",
+  "today": "Today",
+  "tomorrow": "Tomorrow",
+  "otherDay": "Other day",
+  "howManyDays": "How many days?",
+  "fewerDays": "Fewer days",
+  "moreDays": "More days",
+  "presetWeekend": "Weekend",
+  "presetWeek": "A week",
+  "calendarPickStart": "Tap the day you arrive",
+  "calendarPickEnd": "Now tap your last day there",
+  "addTripDays": "Add {days} in {city}",
+  "@addTripDays": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      },
+      "city": {
+        "type": "String"
+      }
+    }
+  },
+  "saveTripDates": "Save · {days}",
+  "@saveTripDates": {
+    "placeholders": {
+      "days": {
+        "type": "String"
+      }
+    }
   }
 }
