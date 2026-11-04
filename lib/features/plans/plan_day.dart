@@ -90,6 +90,16 @@ class PlanDay {
   }
 }
 
+/// Calendar days from [from] to [to]; counted in UTC so a daylight saving
+/// change does not lose an hour and with it a day.
+int daysBetween(DateTime from, DateTime to) {
+  return DateTime.utc(
+    to.year,
+    to.month,
+    to.day,
+  ).difference(DateTime.utc(from.year, from.month, from.day)).inDays;
+}
+
 class TripStop {
   final String label;
   final double latitude;
@@ -97,11 +107,43 @@ class TripStop {
   final DateTime start;
   final DateTime end;
 
+  /// What the days here are dressed for.
+  final String occasion;
+
+  /// The weather for [start] to [end], once read; null until then.
+  final List<DayForecast>? forecast;
+
   const TripStop({
     required this.label,
     required this.latitude,
     required this.longitude,
     required this.start,
     required this.end,
+    this.occasion = 'everyday',
+    this.forecast,
   });
+
+  /// Number of days, both ends included.
+  int get days => daysBetween(start, end) + 1;
+
+  bool overlaps(DateTime otherStart, DateTime otherEnd) =>
+      !start.isAfter(otherEnd) && !otherStart.isAfter(end);
+
+  TripStop copyWith({
+    DateTime? start,
+    DateTime? end,
+    String? occasion,
+    List<DayForecast>? forecast,
+    bool clearForecast = false,
+  }) {
+    return TripStop(
+      label: label,
+      latitude: latitude,
+      longitude: longitude,
+      start: start ?? this.start,
+      end: end ?? this.end,
+      occasion: occasion ?? this.occasion,
+      forecast: clearForecast ? null : forecast ?? this.forecast,
+    );
+  }
 }
