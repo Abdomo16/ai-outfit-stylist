@@ -18,6 +18,9 @@ class PlanDay {
   final int? high;
   final int? low;
 
+  /// The weather is the usual one for the date, not a forecast.
+  final bool typical;
+
   const PlanDay({
     required this.date,
     required this.occasion,
@@ -28,6 +31,7 @@ class PlanDay {
     this.later = const [],
     this.high,
     this.low,
+    this.typical = false,
   });
 
   PlanDay copyWith({
@@ -45,6 +49,7 @@ class PlanDay {
       later: later ?? this.later,
       high: high,
       low: low,
+      typical: typical,
     );
   }
 
@@ -58,6 +63,7 @@ class PlanDay {
     if (later.isNotEmpty) 'later': later,
     'high': ?high,
     'low': ?low,
+    if (typical) 'typical': true,
   };
 
   factory PlanDay.fromJson(Map<String, dynamic> json) {
@@ -70,6 +76,7 @@ class PlanDay {
       city: json['city'] as String?,
       high: (json['high'] as num?)?.round(),
       low: (json['low'] as num?)?.round(),
+      typical: json['typical'] == true,
       later: [
         for (final occasion in json['later'] as List? ?? const [])
           if (occasion is String) occasion,
